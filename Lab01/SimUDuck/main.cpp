@@ -19,12 +19,14 @@ void PlayWithDuck(Duck& duck)
 	duck.Quack();
 	duck.Fly();
 	duck.Dance();
+	duck.PrintFlightsCount();
 	cout << endl;
 }
 
 int main()
 {
 	MallardDuck mallardDuck;
+	PlayWithDuck(mallardDuck);
 	PlayWithDuck(mallardDuck);
 
 	RedheadDuck redheadDuck;

@@ -83,5 +83,8 @@
     <ClInclude Include="DanceNoWay.h">
       <Filter>Header Files\Dance Behavior</Filter>
     </ClInclude>
+    <ClInclude Include="CountableFlyBehavior.h">
+      <Filter>Header Files\Fly Behavior</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

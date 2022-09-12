@@ -142,6 +142,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CountableFlyBehavior.h" />
     <ClInclude Include="DanceNoWay.h" />
     <ClInclude Include="DecoyDuck.h" />
     <ClInclude Include="Duck.h" />
