@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{0d77f487-a84d-4caf-b456-816edd1c40a3}</ProjectGuid>
-    <RootNamespace>SimUDuck</RootNamespace>
+    <ProjectGuid>{9ef0d386-cd71-465b-84a5-e1e962769988}</ProjectGuid>
+    <RootNamespace>SimUDuckFn</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -142,23 +142,15 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DanceNoWay.h" />
+    <ClInclude Include="DanceStrategy.h" />
     <ClInclude Include="DecoyDuck.h" />
     <ClInclude Include="Duck.h" />
-    <ClInclude Include="FlyNoWay.h" />
-    <ClInclude Include="FlyWithWings.h" />
-    <ClInclude Include="IDanceBehavior.h" />
-    <ClInclude Include="IFlyBehavior.h" />
-    <ClInclude Include="IQuackBehavior.h" />
+    <ClInclude Include="FlyStrategy.h" />
     <ClInclude Include="MallardDuck.h" />
-    <ClInclude Include="MinuetBehavior.h" />
     <ClInclude Include="ModelDuck.h" />
-    <ClInclude Include="MuteQuackBehavior.h" />
-    <ClInclude Include="QuackBehavior.h" />
+    <ClInclude Include="QuackStrategy.h" />
     <ClInclude Include="RedheadDuck.h" />
     <ClInclude Include="RubberDuck.h" />
-    <ClInclude Include="SqueakBehavior.h" />
-    <ClInclude Include="WaltzBehavior.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

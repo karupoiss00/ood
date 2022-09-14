@@ -40,10 +40,7 @@ public:
 		assert(flyBehavior);
 		m_flyBehavior = std::move(flyBehavior);
 	}
-	void PrintFlightsCount()
-	{
-		std::cout << "Flights count = " << m_flyBehavior->GetFlightsCount() << std::endl;
-	}
+
 	virtual void Display() const = 0;
 	virtual ~Duck() = default;
 private:
