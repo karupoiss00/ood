@@ -29,6 +29,7 @@ public:
 	virtual void RegisterObserver(IObserver<T> & observer) = 0;
 	virtual void NotifyObservers() = 0;
 	virtual void RemoveObserver(IObserver<T> & observer) = 0;
+	virtual bool IsObserverRegistered(IObserver<T>& observer) const = 0;
 };
 
 // Реализация интерфейса IObservable
@@ -46,15 +47,37 @@ public:
 	void NotifyObservers() override
 	{
 		T data = GetChangedData();
-		for (auto & observer : m_observers)
+
+		m_isNotifying = true;
+
+		for (auto& observer : m_observers)
 		{
 			observer->Update(data);
 		}
+
+		m_isNotifying = false;
+
+		if (!m_observersToRemove.empty())
+		{
+			ClearObserversToRemove();
+		}
 	}
 
-	void RemoveObserver(ObserverType & observer) override
+	void RemoveObserver(ObserverType& observer) override
 	{
-		m_observers.erase(&observer);
+		if (!m_isNotifying)
+		{
+			m_observers.erase(&observer);
+		}
+		else
+		{
+			m_observersToRemove.insert(&observer);
+		}
+	}
+
+	bool IsObserverRegistered(ObserverType& observer) const
+	{
+		return m_observers.find(&observer) != m_observers.cend();
 	}
 
 protected:
@@ -63,5 +86,18 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
+	void ClearObserversToRemove()
+	{
+		for (auto& observer : m_observersToRemove)
+		{
+			m_observers.erase(observer);
+		}
+
+		m_observersToRemove.clear();
+	}
+
 	std::set<ObserverType *> m_observers;
+	std::set<ObserverType *> m_observersToRemove;
+
+	bool m_isNotifying;
 };
