@@ -26,7 +26,7 @@ class IObservable
 {
 public:
 	virtual ~IObservable() = default;
-	virtual void RegisterObserver(IObserver<T> & observer) = 0;
+	virtual void RegisterObserver(IObserver<T> & observer, unsigned priority) = 0;
 	virtual void NotifyObservers() = 0;
 	virtual void RemoveObserver(IObserver<T> & observer) = 0;
 	virtual bool IsObserverRegistered(IObserver<T>& observer) const = 0;
@@ -37,11 +37,22 @@ template <class T>
 class CObservable : public IObservable<T>
 {
 public:
-	using ObserverType = IObserver<T>;
+	using Priority = unsigned;
+	using Observer = IObserver<T>;
+	using ObserverInfo = std::pair<Observer*, Priority>;
 
-	void RegisterObserver(ObserverType & observer) override
+	void RegisterObserver(Observer& observer, Priority priority = 0) override
 	{
-		m_observers.insert(&observer);
+		auto alreadySubscribed = [&observer](const ObserverInfo& p)
+		{
+			return std::addressof(observer) == std::addressof(*p.first);
+		};
+		auto it = std::find_if(m_observers.cbegin(), m_observers.cend(), alreadySubscribed);
+
+		if (it == m_observers.cend())
+		{
+			m_observers.insert(ObserverInfo(&observer, priority));
+		}
 	}
 
 	void NotifyObservers() override
@@ -52,7 +63,7 @@ public:
 
 		for (auto& observer : m_observers)
 		{
-			observer->Update(data);
+			observer.first->Update(data);
 		}
 
 		m_isNotifying = false;
@@ -63,11 +74,11 @@ public:
 		}
 	}
 
-	void RemoveObserver(ObserverType& observer) override
+	void RemoveObserver(Observer& observer) override
 	{
 		if (!m_isNotifying)
 		{
-			m_observers.erase(&observer);
+			RemoveObserverImpl(observer);
 		}
 		else
 		{
@@ -75,9 +86,14 @@ public:
 		}
 	}
 
-	bool IsObserverRegistered(ObserverType& observer) const
+	bool IsObserverRegistered(Observer& observer) const
 	{
-		return m_observers.find(&observer) != m_observers.cend();
+		auto comparator = [&observer](const ObserverInfo& p)
+		{
+			return p.first == &observer;
+		};
+		auto it = std::find_if(m_observers.cbegin(), m_observers.cend(), comparator);
+		return it != m_observers.cend();
 	}
 
 protected:
@@ -86,18 +102,39 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
+	void RemoveObserverImpl(Observer& observer)
+	{
+		auto comparator = [&observer](const ObserverInfo& p)
+		{
+			return p.first == &observer;
+		};
+		auto it = std::find_if(m_observers.begin(), m_observers.end(), comparator);
+		if (it != m_observers.end())
+		{
+			m_observers.erase(it);
+		}
+	}
+
 	void ClearObserversToRemove()
 	{
 		for (auto& observer : m_observersToRemove)
 		{
-			m_observers.erase(observer);
+			RemoveObserverImpl(*observer);
 		}
 
 		m_observersToRemove.clear();
 	}
 
-	std::set<ObserverType *> m_observers;
-	std::set<ObserverType *> m_observersToRemove;
+	struct PriorityComparator
+	{
+		bool operator()(const ObserverInfo& lhs, const ObserverInfo& rhs) const
+		{
+			return lhs.second >= rhs.second;
+		}
+	};
+
+	std::set<ObserverInfo, PriorityComparator> m_observers;
+	std::set<Observer*> m_observersToRemove;
 
 	bool m_isNotifying;
 };

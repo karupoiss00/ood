@@ -1,8 +1,6 @@
 #include <string>
 #include <catch2/catch.hpp>
-#include "../WeatherStation/WeatherData.h"
-#include "../WeatherStation/Display.h"
-#include "../WeatherStation/StatsDisplay.h"
+#include "../WeatherStation/Observer.h"
 
 using namespace std;
 
