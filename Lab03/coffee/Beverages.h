@@ -9,7 +9,7 @@ public:
 		:m_description(description)
 	{}
 
-	std::string GetDescription()const override final
+	std::string GetDescription() const override final
 	{
 		return m_description;
 	}

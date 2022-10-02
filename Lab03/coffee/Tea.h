@@ -1,6 +1,7 @@
 #pragma once
 #include "Beverages.h"
 
+// должна быть возможность создать ровно 4 сорта чая
 // Чай
 class CTea : public CBeverage
 {
@@ -8,11 +9,6 @@ public:
 	CTea(const std::string& description = "Tea")
 		:CBeverage(description)
 	{}
-
-	double GetCost() const override
-	{
-		return 30;
-	}
 };
 
 // Цейлонский

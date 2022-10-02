@@ -5,9 +5,14 @@ class CChocolateBars : public CCondimentDecorator
 {
 public:
 	CChocolateBars(IBeveragePtr&& beverage, unsigned quantity = 1)
-		: CCondimentDecorator(move(beverage))
-		, m_quantity(quantity)
-	{}
+		: CCondimentDecorator(move(beverage)), m_quantity(quantity)
+	{
+		if (m_quantity > 5)
+		{
+			cout << "unsupported count of chocolate bars (" << quantity << ")" << endl;
+			m_quantity = 5;
+		}
+	}
 protected:
 	double GetCondimentCost()const override
 	{

@@ -8,11 +8,6 @@ public:
 	CCoffee(const std::string& description = "Coffee")
 		:CBeverage(description)
 	{}
-
-	double GetCost() const override
-	{
-		return 60;
-	}
 };
 
 // Капуччино
@@ -42,7 +37,6 @@ public:
 		return 120;
 	}
 };
-
 
 // Латте
 class CLatte : public CCoffee
