@@ -45,6 +45,11 @@ public:
 	{
 		m_observable->AddToCallTrace(to_string(m_priority));
 	}
+	
+	void SetPriority(Priority priority)
+	{
+		m_priority = priority;
+	}
 
 	Priority GetPriority()
 	{
@@ -67,4 +72,18 @@ TEST_CASE("double subscribing test")
 	observable.DataChanged();
 
 	REQUIRE(observable.ObserverCallTrace() == "0");
+}
+
+TEST_CASE("resubscribing with other priority")
+{
+	Observable observable;
+	Observer observer(observable, 1);
+
+	observable.RegisterObserver(observer, observer.GetPriority());
+	observer.SetPriority(2);
+	observable.RegisterObserver(observer, observer.GetPriority());
+
+	observable.DataChanged();
+
+	REQUIRE(observable.ObserverCallTrace() == "2");
 }

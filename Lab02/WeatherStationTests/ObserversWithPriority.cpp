@@ -85,16 +85,3 @@ TEST_CASE("check priority sequence of notifying: all have equal priority")
 
 	REQUIRE(observable.ObserverCallTrace() == "111");
 }
-
-TEST_CASE("check priority sequence of notifying: resubscribe with diff priority")
-{
-	Observable observable;
-	Observer observer(observable, 1);
-
-	observable.RegisterObserver(observer, observer.GetPriority());
-	observable.RegisterObserver(observer, 0);
-
-	observable.DataChanged();
-
-	REQUIRE(observable.ObserverCallTrace() == "1");
-}

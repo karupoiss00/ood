@@ -4,29 +4,6 @@
 
 using namespace std;
 
-// узнать, что происходит с итератором в коллекции
-
-class ObserverSelfkiller : public IObserver<string>
-{
-public:
-	ObserverSelfkiller(IObservable<string>& observable)
-		: m_observable(&observable)
-	{
-		
-	}
-
-	void Update(const string& data) override
-	{
-		REQUIRE(m_observable);
-		REQUIRE(data == "delta");
-
-		m_observable->RemoveObserver(*this);
-		REQUIRE(m_observable->IsObserverRegistered(*this));
-	}
-private:
-	IObservable<string>* m_observable;
-};
-
 class CleverObservable : public CObservable<string>
 {
 public:
@@ -42,6 +19,58 @@ protected:
 	}
 };
 
+class ObserverObservableOwner: public IObserver<string>
+{
+public:
+	ObserverObservableOwner(IObservable<string>& observable)
+		: m_observable(&observable)
+	{
+
+	}
+protected:
+	IObservable<string>* m_observable;
+};
+
+
+class ObserverSelfkiller : public ObserverObservableOwner
+{
+public:
+	ObserverSelfkiller(IObservable<string>& observable)
+		: ObserverObservableOwner(observable)
+	{
+
+	}
+	void Update(const string& data) override
+	{
+		REQUIRE(m_observable);
+		REQUIRE(data == "delta");
+
+		m_observable->RemoveObserver(*this);
+		REQUIRE(m_observable->IsObserverRegistered(*this));
+	}
+};
+
+
+class ObserverSelfResubscriber : public ObserverObservableOwner
+{
+public:
+	ObserverSelfResubscriber(IObservable<string>& observable)
+		: ObserverObservableOwner(observable)
+	{
+
+	}
+	void Update(const string& data) override
+	{
+		REQUIRE(m_observable);
+		REQUIRE(data == "delta");
+
+		m_observable->RemoveObserver(*this);
+		REQUIRE(m_observable->IsObserverRegistered(*this));
+		m_observable->RegisterObserver(*this, 1);
+		REQUIRE(m_observable->IsObserverRegistered(*this));
+	}
+};
+
 TEST_CASE("removing observer in notifying time")
 {
 	CleverObservable observable;
@@ -51,4 +80,16 @@ TEST_CASE("removing observer in notifying time")
 	observable.DataChanged();
 
 	REQUIRE(!observable.IsObserverRegistered(observer));
+}
+
+
+TEST_CASE("removing and subscribing in notifying time")
+{
+	CleverObservable observable;
+	ObserverSelfResubscriber observer(observable);
+
+	observable.RegisterObserver(observer);
+	observable.DataChanged();
+
+	REQUIRE(observable.IsObserverRegistered(observer));
 }
