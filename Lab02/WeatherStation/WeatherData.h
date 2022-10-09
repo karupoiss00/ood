@@ -10,11 +10,19 @@ struct SWeatherInfo
 	double temperature = 0;
 	double humidity = 0;
 	double pressure = 0;
+
+	std::string senderId;
 };
 
 class CWeatherData : public CObservable<SWeatherInfo>
 {
 public:
+	CWeatherData(std::string id)
+		: m_id(id)
+	{
+
+	}
+
 	// Температура в градусах Цельсия
 	double GetTemperature()const
 	{
@@ -48,13 +56,18 @@ protected:
 	SWeatherInfo GetChangedData()const override
 	{
 		SWeatherInfo info;
+
+		info.senderId = m_id;
 		info.temperature = GetTemperature();
 		info.humidity = GetHumidity();
 		info.pressure = GetPressure();
+
 		return info;
 	}
 private:
 	double m_temperature = 0.0;
 	double m_humidity = 0.0;	
 	double m_pressure = 760.0;	
+
+	std::string m_id;
 };
