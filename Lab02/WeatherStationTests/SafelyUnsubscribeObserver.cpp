@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// узнать, что происходит с итератором в коллекции
+
 class ObserverSelfkiller : public IObserver<string>
 {
 public:

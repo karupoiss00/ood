@@ -2,7 +2,7 @@
 
 #include <set>
 #include <functional>
-
+#include <map>
 /*
 Шаблонный интерфейс IObserver. Его должен реализовывать класс, 
 желающий получать уведомления от соответствующего IObservable
@@ -39,19 +39,19 @@ class CObservable : public IObservable<T>
 public:
 	using Priority = unsigned;
 	using Observer = IObserver<T>;
-	using ObserverInfo = std::pair<Observer*, Priority>;
+	using ObserverInfo = std::pair<Priority, Observer*>;
 
 	void RegisterObserver(Observer& observer, Priority priority = 0) override
 	{
 		auto alreadySubscribed = [&observer](const ObserverInfo& p)
 		{
-			return std::addressof(observer) == std::addressof(*p.first);
+			return std::addressof(observer) == std::addressof(*p.second);
 		};
 		auto it = std::find_if(m_observers.cbegin(), m_observers.cend(), alreadySubscribed);
 
 		if (it == m_observers.cend())
 		{
-			m_observers.insert(ObserverInfo(&observer, priority));
+			m_observers.insert(ObserverInfo(priority, &observer));
 		}
 	}
 
@@ -61,10 +61,10 @@ public:
 
 		m_isNotifying = true;
 
-		for (auto& observer : m_observers)
+		std::for_each(m_observers.rbegin(), m_observers.rend(), [&data](auto& observer)
 		{
-			observer.first->Update(data);
-		}
+			observer.second->Update(data);
+		});
 
 		m_isNotifying = false;
 
@@ -90,7 +90,7 @@ public:
 	{
 		auto comparator = [&observer](const ObserverInfo& p)
 		{
-			return p.first == &observer;
+			return p.second == &observer;
 		};
 		auto it = std::find_if(m_observers.cbegin(), m_observers.cend(), comparator);
 		return it != m_observers.cend();
@@ -106,7 +106,7 @@ private:
 	{
 		auto comparator = [&observer](const ObserverInfo& p)
 		{
-			return p.first == &observer;
+			return p.second == &observer;
 		};
 		auto it = std::find_if(m_observers.begin(), m_observers.end(), comparator);
 		if (it != m_observers.end())
@@ -133,7 +133,7 @@ private:
 		}
 	};
 
-	std::set<ObserverInfo, PriorityComparator> m_observers;
+	std::multimap<Priority, Observer*> m_observers;
 	std::set<Observer*> m_observersToRemove;
 
 	bool m_isNotifying;
