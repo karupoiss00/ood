@@ -13,10 +13,99 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\InputStream">
+      <UniqueIdentifier>{388753ed-beb8-457c-8e0e-a36712ea99bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\InputStream\decorators">
+      <UniqueIdentifier>{1923b8c1-b833-4981-a916-e5f5712a31b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\InputStream">
+      <UniqueIdentifier>{1b17b80d-7cba-4373-9c93-63d5e286cd95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\InputStream\decorators">
+      <UniqueIdentifier>{bcd206ba-ddf4-4e59-8feb-ff6fb1704a2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OutputStream">
+      <UniqueIdentifier>{2a70c8d5-ee1e-4ab4-85d6-4309802dab42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OutputStream\decorators">
+      <UniqueIdentifier>{16822a92-4183-4b59-a24b-420d0baaf530}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OutputStream">
+      <UniqueIdentifier>{a4ad1194-7d52-4a9e-96c0-a5c13dda7776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OutputStream\decorators">
+      <UniqueIdentifier>{472dd566-13e5-43e6-a2b8-e50d0f6928f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FileInputStream.cpp">
+      <Filter>Source Files\InputStream</Filter>
+    </ClCompile>
+    <ClCompile Include="DecompressInputData.cpp">
+      <Filter>Source Files\InputStream\decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryInputStream.cpp">
+      <Filter>Source Files\InputStream</Filter>
+    </ClCompile>
+    <ClCompile Include="DecryptInputData.cpp">
+      <Filter>Source Files\InputStream\decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="CryptOutputData.cpp">
+      <Filter>Source Files\OutputStream\decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="CompressOutputData.cpp">
+      <Filter>Source Files\OutputStream\decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="FileOutputStream.cpp">
+      <Filter>Source Files\OutputStream</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryOutputStream.cpp">
+      <Filter>Source Files\OutputStream</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Crypter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileInputStream.h">
+      <Filter>Header Files\InputStream</Filter>
+    </ClInclude>
+    <ClInclude Include="InputDataStream.h">
+      <Filter>Header Files\InputStream</Filter>
+    </ClInclude>
+    <ClInclude Include="InputStreamDecorator.h">
+      <Filter>Header Files\InputStream\decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="DecompressInputData.h">
+      <Filter>Header Files\InputStream\decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryInputStream.h">
+      <Filter>Header Files\InputStream</Filter>
+    </ClInclude>
+    <ClInclude Include="OutputDataStream.h">
+      <Filter>Header Files\OutputStream</Filter>
+    </ClInclude>
+    <ClInclude Include="FileOutputStream.h">
+      <Filter>Header Files\OutputStream</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryOutputStream.h">
+      <Filter>Header Files\OutputStream</Filter>
+    </ClInclude>
+    <ClInclude Include="OutputStreamDecorator.h">
+      <Filter>Header Files\OutputStream\decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="CompressOutputData.h">
+      <Filter>Header Files\OutputStream\decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="CryptOutputData.h">
+      <Filter>Header Files\OutputStream\decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="DecryptInputData.h">
+      <Filter>Header Files\InputStream\decorators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

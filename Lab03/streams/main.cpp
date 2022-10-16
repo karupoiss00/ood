@@ -1,46 +1,117 @@
 ﻿#include <iostream>
-#include <string>
-#include <cstdint>
+#include <vector>
+#include "FileInputStream.h"
+#include "FileOutputStream.h"
+#include "OutputStreamDecorator.h"
+#include "InputStreamDecorator.h"
+#include "DecompressInputData.h"
+#include "DecryptInputData.h"
+#include "CompressOutputData.h"
+#include "CryptOutputData.h"
 
 using namespace std;
 
-class IOutputDataStream
+const streamsize BUFFER_SIZE = 32;
+
+IInputDataStreamPtr DecorateInput(IInputDataStreamPtr&& stream, const string& command, int32_t arg = 0);
+IOutputDataStreamPtr DecorateOutput(IOutputDataStreamPtr&& stream, const string& command, int32_t arg = 0);
+void HandleUserCommand(IInputDataStreamPtr& input, IOutputDataStreamPtr& output, char* commands[], uint32_t commandCount);
+
+int main(int argc, char* argv[])
 {
-public:
-	// Записывает в поток данных байт
-	// Выбрасывает исключение std::ios_base::failure в случае ошибки
-	virtual void WriteByte(uint8_t data) = 0;
+	if (argc < 3)
+	{
+		cout << endl << "Invalid arguments count" << endl
+			<< "Usage: transform.exe [options] <input file> <output file>" << endl;
+		return 1;
+	}
 
-	// Записывает в поток блок данных размером size байт, 
-	// располагающийся по адресу srcData,
-	// В случае ошибки выбрасывает исключение std::ios_base::failure
-	virtual void WriteBlock(const void * srcData, std::streamsize size) = 0;
+	string inputFileName = argv[argc - 2];
+	string outputFileName = argv[argc - 1];
 
-	virtual ~IOutputDataStream() = default;
-};
+	IInputDataStreamPtr inputFileStream(new CFileInputStream(inputFileName));
+	IOutputDataStreamPtr outputFileStream(new CFileOutputStream(outputFileName));
 
-class IInputDataStream
-{
-public:
-	// Возвращает признак достижения конца данных потока
-	// Выбрасывает исключение std::ios_base::failuer в случае ошибки
-	virtual bool IsEOF()const = 0;
+	HandleUserCommand(inputFileStream, outputFileStream, argv + 1, argc - 3);
 
-	// Считывает байт из потока. 
-	// Выбрасывает исключение std::ios_base::failure в случае ошибки
-	virtual uint8_t ReadByte() = 0;
+	char buf[BUFFER_SIZE];
+	streamsize size;
 
-	// Считывает из потока блок данных размером size байт, записывая его в память
-	// по адресу dstBuffer
-	// Возвращает количество реально прочитанных байт. Выбрасывает исключение в случае ошибки
-	virtual std::streamsize ReadBlock(void * dstBuffer, std::streamsize size) = 0;
+	while (!inputFileStream->IsEOF())
+	{
+		size = inputFileStream->ReadBlock(&buf, BUFFER_SIZE);
 
-	virtual ~IInputDataStream() = default;
-};
+		if (size)
+		{
+			outputFileStream->WriteBlock(&buf, size);
+		}
+	}
 
-
-int main()
-{
-	
 	return 0;
+}
+
+void HandleUserCommand(IInputDataStreamPtr& input, IOutputDataStreamPtr& output, char* commands[], uint32_t commandCount)
+{
+	uint32_t handledCount = 0;
+
+	while (handledCount < commandCount)
+	{
+		if (string(commands[handledCount]) == "--compress")
+		{
+			output = DecorateOutput(move(output), commands[handledCount]);
+			++handledCount;
+		}
+		else if (string(commands[handledCount]) == "--decompress")
+		{
+			input = DecorateInput(move(input), commands[handledCount]);
+			++handledCount;
+		}
+		else if (string(commands[handledCount]) == "--encrypt")
+		{
+			int32_t arg = atoi(commands[handledCount + 1]);
+			output = DecorateOutput(move(output), commands[handledCount], arg);
+			handledCount += 2;
+		}
+		else if (string(commands[handledCount]) == "--decrypt")
+		{
+			int32_t arg = atoi(commands[handledCount + 1]);
+			input = DecorateInput(move(input), commands[handledCount], arg);
+			handledCount += 2;
+		}
+	}
+}
+
+IInputDataStreamPtr DecorateInput(IInputDataStreamPtr&& stream, const string& command, int32_t arg)
+{
+	if (command == "--decompress")
+	{
+		CDecompressInputData* decompressor = new CDecompressInputData(move(stream));
+		return move(unique_ptr<CDecompressInputData>(decompressor));
+	}
+
+	if (command == "--decrypt")
+	{
+		CDecryptInputData* decryptor = new CDecryptInputData(move(stream), arg);
+		return (unique_ptr<CDecryptInputData>(decryptor));
+	}
+
+	return move(stream);
+}
+
+
+IOutputDataStreamPtr DecorateOutput(IOutputDataStreamPtr&& stream, const string& command, int32_t arg)
+{
+	if (command == "--compress")
+	{
+		CCompressOutputData* compressor = new CCompressOutputData(move(stream));
+		return move(unique_ptr<CCompressOutputData>(compressor));
+	}
+
+	if (command == "--encrypt")
+	{
+		CCryptOutputData* encryptor = new CCryptOutputData(move(stream), arg);
+		return move(unique_ptr<CCryptOutputData>(encryptor));
+	}
+
+	return move(stream);
 }
