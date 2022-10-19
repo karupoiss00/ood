@@ -28,15 +28,14 @@ inline CCryptographer::CCryptographer(int32_t key)
 
 	uint8_t value = 0;
 
-	auto randFn = std::bind(std::uniform_int_distribution<int>(0, 255), std::mt19937(key));
+	std::random_device rd;
+	std::mt19937 generator(rd());
 
 	std::transform(m_encryptTable.begin(), m_encryptTable.end(), m_encryptTable.begin(), [&value](uint8_t) {
 		return value++;
 	});
 
-	std::random_shuffle(m_encryptTable.begin(), m_encryptTable.end(), [&](ptrdiff_t length) {
-		return randFn() % length;
-	});
+	std::shuffle(m_encryptTable.begin(), m_encryptTable.end(), generator);
 
 	for (unsigned i = 0; i < m_encryptTable.size(); ++i)
 	{

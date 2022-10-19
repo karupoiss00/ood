@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <vector>
+#include <optional>
 #include "FileInputStream.h"
 #include "FileOutputStream.h"
 #include "OutputStreamDecorator.h"
@@ -11,28 +12,37 @@
 
 using namespace std;
 
-const streamsize BUFFER_SIZE = 32;
+constexpr streamsize BUFFER_SIZE = 32;
 
-IInputDataStreamPtr DecorateInput(IInputDataStreamPtr&& stream, const string& command, int32_t arg = 0);
-IOutputDataStreamPtr DecorateOutput(IOutputDataStreamPtr&& stream, const string& command, int32_t arg = 0);
-void HandleUserCommand(IInputDataStreamPtr& input, IOutputDataStreamPtr& output, char* commands[], uint32_t commandCount);
+struct Command
+{
+	string name;
+	char* argument;
+};
+
+struct Args
+{
+	vector<Command> commands;
+	string inputFileName;
+	string outputFileName;
+};
+
+void HandleUserCommands(IInputDataStreamPtr& input, IOutputDataStreamPtr& output, vector<Command> const& commands);
+optional<Args> ParseArgs(int argc, char* argv[]);
 
 int main(int argc, char* argv[])
 {
-	if (argc < 3)
+	auto args = ParseArgs(argc, argv);
+	
+	if (!args)
 	{
-		cout << endl << "Invalid arguments count" << endl
-			<< "Usage: transform.exe [options] <input file> <output file>" << endl;
 		return 1;
 	}
+	
+	IInputDataStreamPtr inputFileStream(new CFileInputStream(args->inputFileName));
+	IOutputDataStreamPtr outputFileStream(new CFileOutputStream(args->outputFileName));
 
-	string inputFileName = argv[argc - 2];
-	string outputFileName = argv[argc - 1];
-
-	IInputDataStreamPtr inputFileStream(new CFileInputStream(inputFileName));
-	IOutputDataStreamPtr outputFileStream(new CFileOutputStream(outputFileName));
-
-	HandleUserCommand(inputFileStream, outputFileStream, argv + 1, argc - 3);
+	HandleUserCommands(inputFileStream, outputFileStream, args->commands);
 
 	char buf[BUFFER_SIZE];
 	streamsize size;
@@ -50,48 +60,77 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-void HandleUserCommand(IInputDataStreamPtr& input, IOutputDataStreamPtr& output, char* commands[], uint32_t commandCount)
+bool HasCommandArgument(string const& command)
 {
-	uint32_t handledCount = 0;
-
-	while (handledCount < commandCount)
-	{
-		if (string(commands[handledCount]) == "--compress")
-		{
-			output = DecorateOutput(move(output), commands[handledCount]);
-			++handledCount;
-		}
-		else if (string(commands[handledCount]) == "--decompress")
-		{
-			input = DecorateInput(move(input), commands[handledCount]);
-			++handledCount;
-		}
-		else if (string(commands[handledCount]) == "--encrypt")
-		{
-			int32_t arg = atoi(commands[handledCount + 1]);
-			output = DecorateOutput(move(output), commands[handledCount], arg);
-			handledCount += 2;
-		}
-		else if (string(commands[handledCount]) == "--decrypt")
-		{
-			int32_t arg = atoi(commands[handledCount + 1]);
-			input = DecorateInput(move(input), commands[handledCount], arg);
-			handledCount += 2;
-		}
-	}
+	return (command == "--encrypt") || (command == "--decrypt");
 }
 
-IInputDataStreamPtr DecorateInput(IInputDataStreamPtr&& stream, const string& command, int32_t arg)
+optional<vector<Command>> ParseCommands(int argc, char* argv[])
 {
-	if (command == "--decompress")
+	vector<Command> parsedCommands;
+	for (int i = 1; i < argc - 3; i++)
+	{
+		Command command;
+		command.name = argv[i];
+
+		if (HasCommandArgument(argv[i]))
+		{
+			bool argumentAvailable = (i + 1) < (argc - 3);
+			if (argumentAvailable)
+			{
+				command.argument = argv[i + 1];
+			}
+			else
+			{
+				cout << "Used command without argument!" << endl;
+				return nullopt;
+			}
+		}
+		parsedCommands.push_back(command);
+	}
+
+	return parsedCommands;
+}
+
+optional<Args> ParseArgs(int argc, char* argv[])
+{
+	if (argc < 3)
+	{
+		string filePath = string(argv[0]);
+		string fileName = filePath.substr(filePath.find_last_of('/'));
+
+		cout << "Invalid arguments count" << endl;
+		cout << "Usage: " << fileName << " [commands] <input file> <output file>" << endl;
+
+		return nullopt;
+	}
+
+	auto parsedCommands = ParseCommands(argc, argv);
+
+	if (!parsedCommands)
+	{
+		return nullopt;
+	}
+
+	Args args;
+	args.inputFileName = argv[argc - 2];
+	args.outputFileName = argv[argc - 1];
+	args.commands = *parsedCommands;
+
+	return args;
+}
+
+IInputDataStreamPtr DecorateInput(IInputDataStreamPtr&& stream, Command const& command)
+{
+	if (command.name == "--decompress")
 	{
 		CDecompressInputData* decompressor = new CDecompressInputData(move(stream));
 		return move(unique_ptr<CDecompressInputData>(decompressor));
 	}
 
-	if (command == "--decrypt")
+	if (command.name == "--decrypt")
 	{
-		CDecryptInputData* decryptor = new CDecryptInputData(move(stream), arg);
+		CDecryptInputData* decryptor = new CDecryptInputData(move(stream), atoi(command.argument));
 		return (unique_ptr<CDecryptInputData>(decryptor));
 	}
 
@@ -99,19 +138,38 @@ IInputDataStreamPtr DecorateInput(IInputDataStreamPtr&& stream, const string& co
 }
 
 
-IOutputDataStreamPtr DecorateOutput(IOutputDataStreamPtr&& stream, const string& command, int32_t arg)
+IOutputDataStreamPtr DecorateOutput(IOutputDataStreamPtr&& stream, Command const& command)
 {
-	if (command == "--compress")
+	if (command.name == "--compress")
 	{
 		CCompressOutputData* compressor = new CCompressOutputData(move(stream));
 		return move(unique_ptr<CCompressOutputData>(compressor));
 	}
 
-	if (command == "--encrypt")
+	if (command.name == "--encrypt")
 	{
-		CCryptOutputData* encryptor = new CCryptOutputData(move(stream), arg);
+		CCryptOutputData* encryptor = new CCryptOutputData(move(stream), atoi(command.argument));
 		return move(unique_ptr<CCryptOutputData>(encryptor));
 	}
 
 	return move(stream);
+}
+
+void HandleUserCommands(IInputDataStreamPtr& input, IOutputDataStreamPtr& output, vector<Command> const& commands)
+{
+	for (auto command : commands)
+	{
+		bool isCommandForOutput = command.name == "--compress" || command.name == "--encrypt";
+		bool isCommandForInput = command.name == "--decompress" || command.name == "--decrypt";
+		
+		if (isCommandForOutput)
+		{
+			output = DecorateOutput(move(output), command);
+		}
+
+		if (isCommandForInput)
+		{
+			input = DecorateInput(move(input), command);
+		}
+	}
 }
