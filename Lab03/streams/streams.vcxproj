@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CompressOutputData.cpp" />
+    <ClCompile Include="Crypt.cpp" />
     <ClCompile Include="CryptOutputData.cpp" />
     <ClCompile Include="DecryptInputData.cpp" />
     <ClCompile Include="DecompressInputData.cpp" />

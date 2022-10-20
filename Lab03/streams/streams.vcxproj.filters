@@ -66,6 +66,9 @@
     <ClCompile Include="MemoryOutputStream.cpp">
       <Filter>Source Files\OutputStream</Filter>
     </ClCompile>
+    <ClCompile Include="Crypt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Crypter.h">

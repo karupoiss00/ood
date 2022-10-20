@@ -11,9 +11,6 @@ public:
 	uint8_t ReadByte() override;
 	std::streamsize ReadBlock(void* dstBuffer, std::streamsize size) override;
 
-protected:
-	uint8_t Decrypt(uint8_t data);
-
 private:
 	CCryptographer m_cryptographer;
 };

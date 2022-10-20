@@ -16,6 +16,8 @@ constexpr streamsize BUFFER_SIZE = 32;
 
 struct Command
 {
+	Command()
+		: name(""), argument("") {};
 	string name;
 	char* argument;
 };
@@ -68,17 +70,18 @@ bool HasCommandArgument(string const& command)
 optional<vector<Command>> ParseCommands(int argc, char* argv[])
 {
 	vector<Command> parsedCommands;
-	for (int i = 1; i < argc - 3; i++)
+	for (int i = 1; i < argc - 2; i++)
 	{
 		Command command;
 		command.name = argv[i];
 
 		if (HasCommandArgument(argv[i]))
 		{
-			bool argumentAvailable = (i + 1) < (argc - 3);
+			bool argumentAvailable = (i + 1) < (argc - 2);
 			if (argumentAvailable)
 			{
 				command.argument = argv[i + 1];
+				i++;
 			}
 			else
 			{
@@ -131,7 +134,7 @@ IInputDataStreamPtr DecorateInput(IInputDataStreamPtr&& stream, Command const& c
 	if (command.name == "--decrypt")
 	{
 		CDecryptInputData* decryptor = new CDecryptInputData(move(stream), atoi(command.argument));
-		return (unique_ptr<CDecryptInputData>(decryptor));
+		return move(unique_ptr<CDecryptInputData>(decryptor));
 	}
 
 	return move(stream);
@@ -161,7 +164,7 @@ void HandleUserCommands(IInputDataStreamPtr& input, IOutputDataStreamPtr& output
 	{
 		bool isCommandForOutput = command.name == "--compress" || command.name == "--encrypt";
 		bool isCommandForInput = command.name == "--decompress" || command.name == "--decrypt";
-		
+		cout << command.name << " " << command.argument << endl;
 		if (isCommandForOutput)
 		{
 			output = DecorateOutput(move(output), command);
