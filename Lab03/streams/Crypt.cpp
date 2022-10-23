@@ -1,11 +1,13 @@
 #include "Crypter.h"
 
+constexpr size_t SIZE_OF_TABLE = 256;
+
 using namespace std;
 
 CCryptographer::CCryptographer(int32_t key)
 {
-	m_encryptTable.resize(256);
-	m_decryptTable.resize(256);
+	m_encryptTable.resize(SIZE_OF_TABLE);
+	m_decryptTable.resize(SIZE_OF_TABLE);
 
 	uint8_t value = 0;
 
