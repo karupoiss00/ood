@@ -5,6 +5,11 @@ CShape::CShape()
 
 }
 
+CShape::CShape(Color color)
+	: m_color(color)
+{
+
+}
 void CShape::Fill(Color color)
 {
 	m_color = color;

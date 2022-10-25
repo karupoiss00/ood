@@ -4,7 +4,7 @@
 using namespace std;
 
 SVGCanvas::SVGCanvas(std::string const& fileName)
-	: m_outputFileName(fileName), m_currentColor(Color::BLACK)
+	: m_outputFileName(fileName), m_currentColor(Color::BLACK), m_strokeWidth(4)
 {
 	ofstream outputFile(fileName);
 
@@ -43,6 +43,11 @@ void SVGCanvas::Save()
 	m_outputSvg.seekg(0);
 }
 
+void SVGCanvas::SetStrokeWidth(size_t width)
+{
+	m_strokeWidth = width;
+}
+
 void SVGCanvas::SetColor(Color color)
 {
 	m_currentColor = color;
@@ -55,7 +60,8 @@ void SVGCanvas::DrawLine(Vec2 from, Vec2 to)
 		+ R"(y1=")" + to_string(from.y) + R"(" )"
 		+ R"(x2=")" + to_string(to.x) + R"(" )"
 		+ R"(y2=")" + to_string(to.y) + R"(" )"
-		+ R"(style="stroke:rgb(255,0,0);stroke-width:2" />)";
+		+ R"(style="stroke:)" + ColorToString(m_currentColor) 
+		+ R"(;stroke-width:)" + to_string(m_strokeWidth) + R"(" />)";
 	m_outputSvg << svgLine << endl;
 
 	Save();

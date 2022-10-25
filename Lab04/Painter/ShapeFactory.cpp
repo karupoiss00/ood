@@ -7,38 +7,48 @@ constexpr size_t SHAPE_NAME_ARGUMENT = 1;
 
 ShapePointer CShapeFactory::CreateShape(std::string const& description) const
 {
-	vector<string> tokens;
+	ShapeParams params;
 	stringstream stream(description);
 	string token;
 
-	while (!stream.eof())
-	{
-		stream >> token;
-		tokens.push_back(token);
-	}
+	stream >> params;
 
-	unsigned argumentsCount = tokens.size() - SHAPE_NAME_ARGUMENT;
-
-	if (argumentsCount == 4)
+	try 
 	{
-		if (*tokens.cbegin() == "rectangle")
+		if (params.shapeName == "rectangle")
 		{
-			return CreateRectangle(tokens);
+			return CreateRectangle(params);
+		}
+
+		if (params.shapeName == "triangle")
+		{
+			return CreateTriangle(params);
 		}
 	}
+	catch (exception const& e)
+	{
+		cout << e.what() << endl;
+	}
 	
-	return make_unique<CRectangle>();
+	throw invalid_argument("invalid shape data");
 }
 
-RectanglePointer CShapeFactory::CreateRectangle(vector<string> const& args) const
+RectanglePointer CShapeFactory::CreateRectangle(ShapeParams const& params) const
 {
-	int left = atoi(args[1].c_str());
-	int top = atoi(args[2].c_str());
-	int rigth = atoi(args[3].c_str());
-	int bottom = atoi(args[4].c_str());
+	if (params.vecs.size() < 2)
+	{
+		throw invalid_argument("not enough data for creating rectangle");
+	}
 
-	Vec2 leftTop(left, top);
-	Vec2 rightBottom(rigth, bottom);
+	return make_unique<CRectangle>(params.vecs[0], params.vecs[1], params.color);
+}
 
-	return make_unique<CRectangle>(leftTop, rightBottom);
+TrianglePointer CShapeFactory::CreateTriangle(ShapeParams const& params) const
+{
+	if (params.vecs.size() < 3)
+	{
+		throw invalid_argument("not enough data for creating triangle");
+	}
+
+	return make_unique<CTriangle>(params.vecs[0], params.vecs[1], params.vecs[2], params.color);
 }

@@ -8,8 +8,8 @@ CRectangle::CRectangle()
 }
 
 
-CRectangle::CRectangle(Vec2 leftTop, Vec2 rightBottom)
-	: m_leftTop(leftTop), m_rightBottom(rightBottom)
+CRectangle::CRectangle(Vec2 leftTop, Vec2 rightBottom, Color color)
+	: CShape(color), m_leftTop(leftTop), m_rightBottom(rightBottom)
 {
 
 }
@@ -18,6 +18,8 @@ void CRectangle::Draw(ICanvas& canvas) const
 {
 	Vec2 rightTop(m_rightBottom.x, m_leftTop.y);
 	Vec2 leftBottom(m_leftTop.x, m_rightBottom.y);
+
+	canvas.SetColor(m_color);
 
 	canvas.DrawLine(m_leftTop, rightTop);
 	canvas.DrawLine(rightTop, m_rightBottom);

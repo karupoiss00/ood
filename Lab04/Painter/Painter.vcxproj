@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Painter.cpp" />
     <ClCompile Include="SVGCanvas.cpp" />
     <ClCompile Include="Designer.cpp" />
@@ -131,8 +132,11 @@
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeFactory.cpp" />
+    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ShapeParams.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Painter.h" />
     <ClInclude Include="SVGCanvas.h" />
     <ClInclude Include="Color.h" />

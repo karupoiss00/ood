@@ -14,6 +14,7 @@ int main()
 	CPictureDraft draft = designer.CreateDraft(cin);
 	SVGCanvas canvas("image.svg");
 	CPainter painter;
+
 	painter.DrawPicture(draft, canvas);
 
 	return 0;

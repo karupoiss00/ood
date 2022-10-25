@@ -6,7 +6,7 @@ class CRectangle : public CShape
 {
 public:
 	CRectangle();
-	CRectangle(Vec2 leftTop, Vec2 rightBottom);
+	CRectangle(Vec2 leftTop, Vec2 rightBottom, Color color = DEFAULT_COLOR);
 
 	void Draw(ICanvas& canvas) const override;
 	Vec2 GetLeftTop() const;

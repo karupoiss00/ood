@@ -59,6 +59,12 @@
     <ClCompile Include="Painter.cpp">
       <Filter>Painter</Filter>
     </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>ConcreteShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -93,6 +99,12 @@
     </ClInclude>
     <ClInclude Include="Painter.h">
       <Filter>Painter</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>ConcreteShapes</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeParams.h">
+      <Filter>ShapeFactory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -21,7 +21,14 @@ CPictureDraft CDesigner::CreateDraft(std::istream& inputData)
 
 	while (getline(inputData, line))
 	{
-		draft.AddShape(m_factory.CreateShape(line));
+		try
+		{
+			draft.AddShape(m_factory.CreateShape(line));
+		}
+		catch (exception const& e) 
+		{
+			cout << e.what() << endl;
+		}
 	}
 
 	return draft;
