@@ -5,7 +5,7 @@
 class CTriangle : public CShape
 {
 public:
-	CTriangle(Vec2 vertex1, Vec2 vertex2, Vec2 vertex3, Color color = DEFAULT_COLOR);
+	CTriangle(Vec2 const& vertex1, Vec2 const& vertex2, Vec2 const& vertex3, Color color = DEFAULT_COLOR);
 
 	void Draw(ICanvas& canvas) const override;
 	

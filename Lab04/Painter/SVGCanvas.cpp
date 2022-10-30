@@ -67,20 +67,15 @@ void SVGCanvas::DrawLine(Vec2 from, Vec2 to)
 	Save();
 }
 
-void SVGCanvas::DrawEllipse(Vec2 topLeft, unsigned width, unsigned height)
+void SVGCanvas::DrawEllipse(Vec2 center, unsigned rx, unsigned ry)
 {
-	int rx = width / 2;
-	int ry = height / 2;
-	int cx = topLeft.x + rx;
-	int cy = topLeft.y + ry;
-
 	string svgLine =
-		R"(<ellipse cx=")" + to_string(cx) + R"(" )"
-		+ R"(cy=")" + to_string(cy) + R"(" )"
+		R"(<ellipse cx=")" + to_string(center.x) + R"(" )"
+		+ R"(cy=")" + to_string(center.y) + R"(" )"
 		+ R"(rx=")" + to_string(rx) + R"(" )"
 		+ R"(ry=")" + to_string(ry) + R"(" )"
-		+ R"(fill="#FFAABB" />)";
-
+		+ R"(style="stroke:)" + ColorToString(m_currentColor)
+		+ R"(;stroke-width:)" + to_string(m_strokeWidth) + R"(; fill:none;" />)";
 	m_outputSvg << svgLine << endl;
 
 	Save();

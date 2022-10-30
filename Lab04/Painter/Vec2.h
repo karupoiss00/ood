@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <sstream>
 
 struct Vec2
 {
@@ -16,4 +17,14 @@ inline std::istream& operator>>(std::istream& input, Vec2& rhs)
 	input >> ch >> rhs.x >> ch >> rhs.y >> ch;
 
 	return input;
+}
+
+inline Vec2 StringToVec2(std::string str)
+{
+	std::stringstream stream(str);
+	Vec2 vec(0, 0);
+
+	stream >> vec;
+
+	return vec;
 }

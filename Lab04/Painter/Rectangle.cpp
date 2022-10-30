@@ -8,7 +8,7 @@ CRectangle::CRectangle()
 }
 
 
-CRectangle::CRectangle(Vec2 leftTop, Vec2 rightBottom, Color color)
+CRectangle::CRectangle(Vec2 const& leftTop, Vec2 const& rightBottom, Color color)
 	: CShape(color), m_leftTop(leftTop), m_rightBottom(rightBottom)
 {
 

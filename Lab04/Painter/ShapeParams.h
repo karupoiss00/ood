@@ -8,20 +8,20 @@ struct ShapeParams
 {
 	std::string shapeName;
 	Color color;
-	std::vector<Vec2> vecs;
+	std::vector<std::string> params;
 };
 
 inline std::istream& operator>>(std::istream& input, ShapeParams& rhs)
 {
-	Vec2 vec(0, 0);
+	std::string param;
 
 	input >> rhs.shapeName;
 	input >> rhs.color;
 
 	while (!input.eof())
 	{
-		input >> vec;
-		rhs.vecs.push_back(vec);
+		input >> param;
+		rhs.params.push_back(param);
 	}
 
 	return input;
