@@ -6,12 +6,11 @@
 class TriangleStrategy : public ShapeStrategy
 {
 public:
-	TriangleStrategy(std::array<Point, 3> vertexes, Color color)
-		: ShapeStrategy(color),
-		m_vertexes(vertexes)
+	TriangleStrategy(std::array<Point, 3> vertexes)
+		: m_vertexes(vertexes)
 	{}
 
-	virtual std::string GetShapeInfo() const final
+	std::string GetShapeInfo() const final
 	{
 		auto result = ShapeStrategy::GetShapeInfo();
 
@@ -24,7 +23,7 @@ public:
 		return result;
 	}
 
-	virtual void Move(double dx, double dy) final
+	void Move(double dx, double dy) final
 	{
 		for (auto& vertex : m_vertexes)
 		{
@@ -33,7 +32,7 @@ public:
 		}
 	}
 
-	virtual void Draw(ICanvas& canvas) final
+	void Draw(ICanvas& canvas) const final
 	{
 		ShapeStrategy::Draw(canvas);
 
@@ -43,6 +42,11 @@ public:
 		canvas.LineTo(m_vertexes[2].m_x, m_vertexes[2].m_y);
 		canvas.MoveTo(m_vertexes[2].m_x, m_vertexes[2].m_y);
 		canvas.LineTo(m_vertexes[0].m_x, m_vertexes[0].m_y);
+	}
+
+	std::string GetShapeName() const final
+	{
+		return "triangle";
 	}
 private:
 	std::array<Point, 3> m_vertexes;

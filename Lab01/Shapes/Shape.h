@@ -2,38 +2,51 @@
 #include <string>
 #include "IShapeStrategy.h"
 
-class Shape
+namespace shapes
 {
-public:
-	Shape(IShapeStrategy& strategy)
-		: m_shapeStrategy(strategy)
-	{};
-	
-	std::string GetShapeInfo() const
+	class Shape
 	{
-		return m_shapeStrategy.GetShapeInfo();
-	}
+	public:
+		Shape(std::unique_ptr<IShapeStrategy> strategy)
+			: m_shapeStrategy(move(strategy))
+		{};
 
-	void Move(double dx, double dy)
-	{
-		m_shapeStrategy.Move(dx, dy);
-	}
+		std::string GetShapeName() const
+		{
+			return m_shapeStrategy->GetShapeName();
+		}
 
-	void Draw(ICanvas& canvas)
-	{
-		m_shapeStrategy.Draw(canvas);
-	}
+		std::string GetShapeInfo() const
+		{
+			return m_shapeStrategy->GetShapeInfo();
+		}
 
-	void SetColor(Color const& color)
-	{
-		m_shapeStrategy.SetColor(color);
-	}
+		void Move(double dx, double dy)
+		{
+			m_shapeStrategy->Move(dx, dy);
+		}
 
-	void SetShapeStrategy(IShapeStrategy& strategy)
-	{
-		m_shapeStrategy = strategy;
-	}
+		void Draw(ICanvas& canvas) const
+		{
+			m_shapeStrategy->Draw(canvas);
+		}
 
-private:
-	IShapeStrategy& m_shapeStrategy;
-};
+		void SetColor(Color const& color)
+		{
+			m_shapeStrategy->SetColor(color);
+		}
+
+		void SetShapeStrategy(std::unique_ptr<IShapeStrategy> strategy)
+		{
+			m_shapeStrategy = move(strategy);
+		}
+
+		Color GetColor() const
+		{
+			return m_shapeStrategy->GetColor();
+		}
+
+	private:
+		std::unique_ptr<IShapeStrategy> m_shapeStrategy;
+	};
+}

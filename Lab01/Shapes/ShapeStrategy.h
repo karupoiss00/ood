@@ -6,27 +6,26 @@
 class ShapeStrategy : public IShapeStrategy
 {
 public:
-	ShapeStrategy(Color color)
-		: m_color(color), m_id("TODO: unique id")
-	{}
-
-	virtual std::string GetShapeInfo() const
+	std::string GetShapeInfo() const override
 	{
-		return GetShapeName() + " " + m_id + " " + m_color.ToHex();
+		return m_color.ToHex();
 	}
 
-	virtual void SetColor(Color const& color) final
+	void SetColor(Color const& color) override
 	{
 		m_color = color;
 	}
 
-	virtual void Draw(ICanvas& canvas)
+	Color GetColor() const override
+	{
+		return m_color;
+	}
+
+	void Draw(ICanvas& canvas) const override
 	{
 		canvas.SetColor(m_color);
 	}
-
-	virtual std::string GetShapeName() const = 0;
+	
 private:
-	std::string m_id;
 	Color m_color;
 };

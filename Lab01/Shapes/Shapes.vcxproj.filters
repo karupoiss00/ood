@@ -22,10 +22,28 @@
     <Filter Include="Header Files\Shape Strategy\Common">
       <UniqueIdentifier>{9f1d8b0b-b24b-4c60-8c52-1511ae50b5f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Shape Strategy\Factory">
+      <UniqueIdentifier>{1c16ffd0-d37f-46d2-9a94-5186f99340e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shape Strategy">
+      <UniqueIdentifier>{dbbf78fe-5c8e-4040-9780-0fede65ab451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shape Strategy\Factory">
+      <UniqueIdentifier>{97ced38d-ce3a-4b48-bbfb-4aa429f1af16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Picture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PictureController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeStrategyFactory.cpp">
+      <Filter>Source Files\Shape Strategy\Factory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +82,15 @@
     </ClInclude>
     <ClInclude Include="TextStrategy.h">
       <Filter>Header Files\Shape Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="PictureController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MockCanvas.h">
+      <Filter>Header Files\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeStrategyFactory.h">
+      <Filter>Header Files\Shape Strategy\Factory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

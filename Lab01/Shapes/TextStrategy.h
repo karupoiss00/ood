@@ -6,9 +6,8 @@
 class TextStrategy : public ShapeStrategy
 {
 public:
-	TextStrategy(Point startPoint, double fontSize, std::string&& text, Color color)
-		: ShapeStrategy(color),
-		m_startPoint(startPoint),
+	TextStrategy(Point startPoint, double fontSize, std::string&& text)
+		: m_startPoint(startPoint),
 		m_fontSize(fontSize),
 		m_text(text)
 	{}
@@ -28,11 +27,16 @@ public:
 		m_startPoint.m_y += dy;
 	}
 
-	virtual void Draw(ICanvas& canvas) final
+	virtual void Draw(ICanvas& canvas) const final
 	{
 		ShapeStrategy::Draw(canvas);
 
 		canvas.DrawText(m_startPoint.m_x, m_startPoint.m_y, m_text);
+	}
+
+	virtual std::string GetShapeName() const final
+	{
+		return "text";
 	}
 private:
 	Point m_startPoint;

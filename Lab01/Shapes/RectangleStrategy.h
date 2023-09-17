@@ -5,14 +5,13 @@
 class RectangleStrategy : public ShapeStrategy
 {
 public:
-	RectangleStrategy(Point startPoint, double width, double height, Color color)
-		: ShapeStrategy(color), 
-		m_startPoint(startPoint), 
+	RectangleStrategy(Point startPoint, double width, double height)
+		: m_startPoint(startPoint), 
 		m_width(width), 
 		m_height(height)
 	{}
 
-	virtual std::string GetShapeInfo() const final
+	std::string GetShapeInfo() const final
 	{
 		return ShapeStrategy::GetShapeInfo()
 			+ " " + std::to_string(m_startPoint.m_x)
@@ -21,13 +20,13 @@ public:
 			+ " " + std::to_string(m_height);
 	}
 
-	virtual void Move(double dx, double dy) final
+	void Move(double dx, double dy) final
 	{
 		m_startPoint.m_x += dx;
 		m_startPoint.m_y += dy;
 	}
 
-	virtual void Draw(ICanvas& canvas) final
+	void Draw(ICanvas& canvas) const final
 	{
 		ShapeStrategy::Draw(canvas);
 
@@ -36,7 +35,12 @@ public:
 		canvas.LineTo(m_startPoint.m_x + m_width, m_startPoint.m_y);
 		canvas.MoveTo(m_startPoint.m_x + m_width, m_startPoint.m_y + m_height);
 		canvas.LineTo(m_startPoint.m_x - m_width, m_startPoint.m_y);
-		canvas.LineTo(m_startPoint.m_x, m_startPoint.m_y - m_height;
+		canvas.LineTo(m_startPoint.m_x, m_startPoint.m_y - m_height);
+	}
+
+	std::string GetShapeName() const final
+	{
+		return "rectangle";
 	}
 private:
 	Point m_startPoint;

@@ -9,6 +9,11 @@ struct Color
 	{
 		return "#DEADBEEF";
 	}
+
+	static Color FromString(std::string)
+	{
+		return Color();
+	}
 };
 
 class ICanvas

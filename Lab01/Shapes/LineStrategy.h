@@ -5,13 +5,12 @@
 class LineStrategy : public ShapeStrategy
 {
 public:
-	LineStrategy(Point startPoint, Point endPoint, Color color)
-		: ShapeStrategy(color),
-		m_startPoint(startPoint),
+	LineStrategy(Point startPoint, Point endPoint)
+		: m_startPoint(startPoint),
 		m_endPoint(endPoint)
 	{}
 
-	virtual std::string GetShapeInfo() const final
+	std::string GetShapeInfo() const final
 	{
 		return ShapeStrategy::GetShapeInfo()
 			+ " " + std::to_string(m_startPoint.m_x)
@@ -20,7 +19,7 @@ public:
 			+ " " + std::to_string(m_endPoint.m_y);
 	}
 
-	virtual void Move(double dx, double dy) final
+	void Move(double dx, double dy) final
 	{
 		m_startPoint.m_x += dx;
 		m_startPoint.m_y += dy;
@@ -28,12 +27,17 @@ public:
 		m_endPoint.m_y += dy;
 	}
 
-	virtual void Draw(ICanvas& canvas) final
+	void Draw(ICanvas& canvas) const final
 	{
 		ShapeStrategy::Draw(canvas);
 
 		canvas.MoveTo(m_startPoint.m_x, m_startPoint.m_y);
 		canvas.LineTo(m_endPoint.m_x, m_endPoint.m_y);
+	}
+
+	std::string GetShapeName() const final
+	{
+		return "line";
 	}
 private:
 	Point m_startPoint;
