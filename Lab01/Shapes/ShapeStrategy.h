@@ -3,7 +3,7 @@
 #include "ICanvas.h"
 #include "IShapeStrategy.h"
 
-class ShapeStrategy : public IShapeStartegy
+class ShapeStrategy : public IShapeStrategy
 {
 public:
 	ShapeStrategy(Color color)

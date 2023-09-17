@@ -2,7 +2,7 @@
 #include <string>
 #include "ICanvas.h"
 
-class IShapeStartegy
+class IShapeStrategy
 {
 public:
 	virtual std::string GetShapeInfo() const = 0;
