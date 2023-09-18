@@ -26,12 +26,12 @@ namespace shapes
 			m_shapeStrategy->Move(dx, dy);
 		}
 
-		void Draw(ICanvas& canvas) const
+		void Draw(sfx::ICanvas& canvas) const
 		{
 			m_shapeStrategy->Draw(canvas);
 		}
 
-		void SetColor(Color const& color)
+		void SetColor(sfx::Color const& color)
 		{
 			m_shapeStrategy->SetColor(color);
 		}
@@ -41,7 +41,7 @@ namespace shapes
 			m_shapeStrategy = move(strategy);
 		}
 
-		Color GetColor() const
+		sfx::Color GetColor() const
 		{
 			return m_shapeStrategy->GetColor();
 		}

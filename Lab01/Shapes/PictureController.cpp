@@ -7,6 +7,7 @@
 using namespace std;
 using namespace shapes;
 using namespace std::placeholders;
+using namespace sfx;
 
 PictureController::PictureController(Picture& picture, ICanvas& canvas, std::istream& input, std::ostream& output)
 	: m_input(input), m_output(output), m_canvas(canvas), m_picture(picture)

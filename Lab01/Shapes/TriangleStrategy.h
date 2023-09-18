@@ -32,7 +32,7 @@ public:
 		}
 	}
 
-	void Draw(ICanvas& canvas) const final
+	void Draw(sfx::ICanvas& canvas) const final
 	{
 		ShapeStrategy::Draw(canvas);
 

@@ -1,33 +1,39 @@
 #include <iostream>
+#include <thread>
 #include "Picture.h"
 #include "PictureController.h"
-#include "MockCanvas.h"
+#include "Canvas.h"
 
 using namespace std;
 using namespace shapes;
+using namespace std::placeholders;
 
 int main()
 {
 	Picture picture;
-	MockCanvas canvas;
+	Canvas canvas;
 	PictureController controller(picture, canvas, cin, cout);
 
-	while (!cin.eof() && !cin.fail())
-	{
-		cout << endl << "> ";
-
-		try
+	thread inputThread([&controller] {
+		while (!cin.eof() && !cin.fail())
 		{
-			if (!controller.HandleCommand())
+			cout << endl << "> ";
+
+			try
 			{
-				cout << "Unknown command!" << endl;
+				if (!controller.HandleCommand())
+				{
+					cout << "Unknown command!" << endl;
+				}
+			}
+			catch (std::exception const& e)
+			{
+				cout << e.what() << endl;
 			}
 		}
-		catch (std::exception const& e)
-		{
-			cout << e.what() << endl;
-		}
-	}
+	});
+
+	canvas.Run();
 
 	return 0;
 }	

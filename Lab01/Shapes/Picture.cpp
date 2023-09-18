@@ -2,6 +2,7 @@
 
 using namespace std;
 using namespace shapes;
+using namespace sfx;
 
 void Picture::MovePicture(double dx, double dy)
 {

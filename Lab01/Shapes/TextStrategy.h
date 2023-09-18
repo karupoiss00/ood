@@ -27,7 +27,7 @@ public:
 		m_startPoint.m_y += dy;
 	}
 
-	virtual void Draw(ICanvas& canvas) const final
+	virtual void Draw(sfx::ICanvas& canvas) const final
 	{
 		ShapeStrategy::Draw(canvas);
 

@@ -1,27 +1,31 @@
 #pragma once
 #include <string>
 
-struct Color
+namespace sfx
 {
-	int r, g, b, a;
-
-	std::string ToHex() const
+	struct Color
 	{
-		return "#DEADBEEF";
-	}
+		int r, g, b, a;
 
-	static Color FromString(std::string)
+		std::string ToHex() const
+		{
+			return "#DEADBEEF";
+		}
+
+		static Color FromString(std::string)
+		{
+			return Color();
+		}
+	};
+
+	class ICanvas
 	{
-		return Color();
-	}
-};
+	public:
+		virtual void MoveTo(double x, double y) = 0;
+		virtual void SetColor(Color color) = 0;
+		virtual void LineTo(double x, double y) = 0;
+		virtual void DrawEllipse(double cx, double cy, double rx, double ry) = 0;
+		virtual void DrawText(double x, double y, std::string const& text) = 0;
+	};
+}
 
-class ICanvas
-{
-public:
-	virtual void MoveTo(double x, double y) = 0;
-	virtual void SetColor(Color color) = 0;
-	virtual void LineTo(double x, double y) = 0;
-	virtual void DrawEllipse(double cx, double cy,  double rx, double ry) = 0;
-	virtual void DrawText(double x, double y, std::string const& text) = 0;
-};

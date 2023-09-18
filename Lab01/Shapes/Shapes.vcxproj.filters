@@ -92,5 +92,8 @@
     <ClInclude Include="ShapeStrategyFactory.h">
       <Filter>Header Files\Shape Strategy\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Header Files\Canvas</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

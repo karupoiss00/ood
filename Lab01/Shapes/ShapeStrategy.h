@@ -11,21 +11,21 @@ public:
 		return m_color.ToHex();
 	}
 
-	void SetColor(Color const& color) override
+	void SetColor(sfx::Color const& color) override
 	{
 		m_color = color;
 	}
 
-	Color GetColor() const override
+	sfx::Color GetColor() const override
 	{
 		return m_color;
 	}
 
-	void Draw(ICanvas& canvas) const override
+	void Draw(sfx::ICanvas& canvas) const override
 	{
 		canvas.SetColor(m_color);
 	}
 	
 private:
-	Color m_color;
+	sfx::Color m_color;
 };

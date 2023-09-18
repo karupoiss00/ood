@@ -2,14 +2,14 @@
 #include <iostream>
 #include "ICanvas.h"
 
-class MockCanvas : public ICanvas
+class MockCanvas : public sfx::ICanvas
 {
 	void MoveTo(double x, double y) 
 	{
 		std::cout << "Move to " << x << " " << y << std::endl;
 	}
 
-	void SetColor(Color color)
+	void SetColor(sfx::Color color)
 	{
 		std::cout << "Set color to " << color.ToHex() << std::endl;
 	}
