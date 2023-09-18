@@ -75,8 +75,8 @@ CircleStrategy ShapeStrategyFactory::CreateCircleStrategy(istream& input)
 	try 
 	{
 		double cx = stod(cxStr);
-		double cy = stod(cxStr);
-		double r = stod(cxStr);
+		double cy = stod(cyStr);
+		double r = stod(rStr);
 
 		return CircleStrategy(Point{ cx, cy }, r);
 	}
@@ -118,12 +118,7 @@ TextStrategy ShapeStrategyFactory::CreateTextStrategy(istream& input)
 
 	input >> xStr >> yStr >> fontSizeStr;
 
-	string str;
-	while (!input.eof())
-	{
-		input >> str;
-		text += str;
-	}
+	getline(input, text);
 
 	if (xStr.empty() || yStr.empty() || fontSizeStr.empty() || text.empty())
 	{

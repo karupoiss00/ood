@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Shape Strategy\Factory">
       <UniqueIdentifier>{97ced38d-ce3a-4b48-bbfb-4aa429f1af16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Canvas">
+      <UniqueIdentifier>{e6f37eef-bb43-46d8-9330-62fd35e4cd2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,9 +48,12 @@
     <ClCompile Include="ShapeStrategyFactory.cpp">
       <Filter>Source Files\Shape Strategy\Factory</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ClCompile Include="SVGCanvas.cpp">
+      <Filter>Source Files\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Source Files\Canvas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Picture.h">
@@ -86,13 +92,13 @@
     <ClInclude Include="PictureController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MockCanvas.h">
-      <Filter>Header Files\Canvas</Filter>
-    </ClInclude>
     <ClInclude Include="ShapeStrategyFactory.h">
       <Filter>Header Files\Shape Strategy\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="Canvas.h">
+    <ClInclude Include="SVGCanvas.h">
+      <Filter>Header Files\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
       <Filter>Header Files\Canvas</Filter>
     </ClInclude>
   </ItemGroup>

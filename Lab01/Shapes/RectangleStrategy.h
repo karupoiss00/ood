@@ -30,12 +30,14 @@ public:
 	{
 		ShapeStrategy::Draw(canvas);
 
+
 		canvas.MoveTo(m_startPoint.m_x, m_startPoint.m_y);
 		canvas.LineTo(m_startPoint.m_x, m_startPoint.m_y + m_height);
 		canvas.LineTo(m_startPoint.m_x + m_width, m_startPoint.m_y);
+
 		canvas.MoveTo(m_startPoint.m_x + m_width, m_startPoint.m_y + m_height);
-		canvas.LineTo(m_startPoint.m_x - m_width, m_startPoint.m_y);
-		canvas.LineTo(m_startPoint.m_x, m_startPoint.m_y - m_height);
+		canvas.LineTo(m_startPoint.m_x, m_startPoint.m_y + m_height);
+		canvas.LineTo(m_startPoint.m_x + m_width, m_startPoint.m_y);
 	}
 
 	std::string GetShapeName() const final

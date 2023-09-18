@@ -8,7 +8,7 @@ class ShapeStrategy : public IShapeStrategy
 public:
 	std::string GetShapeInfo() const override
 	{
-		return m_color.ToHex();
+		return m_color;
 	}
 
 	void SetColor(sfx::Color const& color) override

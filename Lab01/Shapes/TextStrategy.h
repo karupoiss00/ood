@@ -31,7 +31,7 @@ public:
 	{
 		ShapeStrategy::Draw(canvas);
 
-		canvas.DrawText(m_startPoint.m_x, m_startPoint.m_y, m_text);
+		canvas.DrawText(m_startPoint.m_x, m_startPoint.m_y, m_fontSize, m_text);
 	}
 
 	virtual std::string GetShapeName() const final

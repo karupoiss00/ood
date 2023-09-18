@@ -14,7 +14,7 @@ PictureController::PictureController(Picture& picture, ICanvas& canvas, std::ist
 {
 	m_commandMap.emplace("AddShape", bind(&PictureController::HandleAddShape, this, _1));
 	m_commandMap.emplace("MoveShape", bind(&PictureController::HandleMoveShape, this, _1));
-	m_commandMap.emplace("MovePicture", bind(&PictureController::HandleMoveShape, this, _1));
+	m_commandMap.emplace("MovePicture", bind(&PictureController::HandleMovePicture, this, _1));
 	m_commandMap.emplace("DeleteShape", bind(&PictureController::HandleDeleteShape, this, _1));
 	m_commandMap.emplace("ChangeColor", bind(&PictureController::HandleChangeColor, this, _1));
 	m_commandMap.emplace("ChangeShape", bind(&PictureController::HandleChangeShape, this, _1));
@@ -47,18 +47,17 @@ bool PictureController::HandleCommand()
 
 void PictureController::HandleAddShape(std::istream& input)
 {
-	string id, colorStr;
+	string id, color;
 
-	input >> id >> colorStr;
+	input >> id >> color;
 
-	if (id.empty() || colorStr.empty())
+	if (id.empty() || !IsValidHexColor(color))
 	{
 		throw exception("invalid command arguments, template: <id> <hex color> <shape type> <shape args>");
 	}
 
 	try
 	{
-		Color color = Color::FromString(colorStr);
 		auto strategy = ShapeStrategyFactory::CreateFromStream(input);
 		strategy->SetColor(color);
 		m_picture.AddShape(id, move(strategy));
@@ -97,12 +96,12 @@ void PictureController::HandleChangeColor(std::istream& input)
 
 	input >> id >> color;
 
-	if (id.empty() || color.empty())
+	if (id.empty() || !IsValidHexColor(color))
 	{
 		throw exception("invalid command arguments, template: <id> <hex color>");
 	}
 
-	m_picture.ChangeColor(id, Color::FromString(color));
+	m_picture.ChangeColor(id, color);
 }
 
 void PictureController::HandleMoveShape(std::istream& input)
