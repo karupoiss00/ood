@@ -1,8 +1,7 @@
 #pragma once
-#include "ShapeStrategy.h"
 #include "Point.h"
 
-class LineStrategy : public ShapeStrategy
+class LineStrategy : public IShapeStrategy
 {
 public:
 	LineStrategy(Point startPoint, Point endPoint)
@@ -12,8 +11,7 @@ public:
 
 	std::string GetShapeInfo() const final
 	{
-		return ShapeStrategy::GetShapeInfo()
-			+ " " + std::to_string(m_startPoint.m_x)
+		return std::to_string(m_startPoint.m_x)
 			+ " " + std::to_string(m_startPoint.m_y)
 			+ " " + std::to_string(m_endPoint.m_x)
 			+ " " + std::to_string(m_endPoint.m_y);
@@ -27,10 +25,8 @@ public:
 		m_endPoint.m_y += dy;
 	}
 
-	void Draw(sfx::ICanvas& canvas) const final
+	void Draw(gfx::ICanvas& canvas) const final
 	{
-		ShapeStrategy::Draw(canvas);
-
 		canvas.MoveTo(m_startPoint.m_x, m_startPoint.m_y);
 		canvas.LineTo(m_endPoint.m_x, m_endPoint.m_y);
 	}

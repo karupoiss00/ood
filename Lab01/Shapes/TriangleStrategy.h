@@ -1,9 +1,8 @@
 #pragma once
 #include <array>
-#include "ShapeStrategy.h"
 #include "Point.h"
 
-class TriangleStrategy : public ShapeStrategy
+class TriangleStrategy : public IShapeStrategy
 {
 public:
 	TriangleStrategy(std::array<Point, 3> vertexes)
@@ -12,7 +11,7 @@ public:
 
 	std::string GetShapeInfo() const final
 	{
-		auto result = ShapeStrategy::GetShapeInfo();
+		std::string result = "";
 
 		for (auto& vertex : m_vertexes)
 		{
@@ -32,10 +31,8 @@ public:
 		}
 	}
 
-	void Draw(sfx::ICanvas& canvas) const final
+	void Draw(gfx::ICanvas& canvas) const final
 	{
-		ShapeStrategy::Draw(canvas);
-
 		canvas.MoveTo(m_vertexes[0].m_x, m_vertexes[0].m_y);
 		canvas.LineTo(m_vertexes[1].m_x, m_vertexes[1].m_y);
 		canvas.MoveTo(m_vertexes[1].m_x, m_vertexes[1].m_y);

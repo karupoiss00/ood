@@ -77,9 +77,6 @@
     <ClInclude Include="IShapeStrategy.h">
       <Filter>Header Files\Shape Strategy\Common</Filter>
     </ClInclude>
-    <ClInclude Include="ShapeStrategy.h">
-      <Filter>Header Files\Shape Strategy\Common</Filter>
-    </ClInclude>
     <ClInclude Include="CircleStrategy.h">
       <Filter>Header Files\Shape Strategy</Filter>
     </ClInclude>

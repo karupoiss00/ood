@@ -17,8 +17,16 @@ optional<Args> ParseArgs(int argc, char* argv[]);
 
 int main(int argc, char* argv[])
 {
+	auto args = ParseArgs(argc, argv);
+
+	if (!args)
+	{
+		cout << "invalid params: program.exe <input file name> <output file name>" << endl;
+		return -1;
+	}
+
 	Picture picture;
-	SVGCanvas canvas(argv[1]);
+	SVGCanvas canvas;
 	PictureController controller(picture, canvas, cin, cout);
 
 	while (!cin.eof() && !cin.fail())
@@ -38,7 +46,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	canvas.Save();
+	canvas.Save(args->outputFilename);
 
 	return 0;
 }	

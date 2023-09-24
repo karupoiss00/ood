@@ -9,7 +9,7 @@
 class PictureController
 {
 public:
-	PictureController(shapes::Picture& picture, sfx::ICanvas& canvas, std::istream& input, std::ostream& output);
+	PictureController(shapes::Picture& picture, gfx::ICanvas& canvas, std::istream& input, std::ostream& output);
 	bool HandleCommand();
 private:
 	void HandleAddShape(std::istream& input);
@@ -28,5 +28,5 @@ private:
 	std::ostream& m_output;
 	shapes::Picture& m_picture;
 	CommandMap m_commandMap;
-	sfx::ICanvas& m_canvas;
+	gfx::ICanvas& m_canvas;
 };

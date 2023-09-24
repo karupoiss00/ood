@@ -7,7 +7,7 @@
 using namespace std;
 using namespace shapes;
 using namespace std::placeholders;
-using namespace sfx;
+using namespace gfx;
 
 PictureController::PictureController(Picture& picture, ICanvas& canvas, std::istream& input, std::ostream& output)
 	: m_input(input), m_output(output), m_canvas(canvas), m_picture(picture)
@@ -53,14 +53,13 @@ void PictureController::HandleAddShape(std::istream& input)
 
 	if (id.empty() || !IsValidHexColor(color))
 	{
-		throw exception("invalid command arguments, template: <id> <hex color> <shape type> <shape args>");
+		throw invalid_argument("invalid command arguments, template: <id> <hex color> <shape type> <shape args>");
 	}
 
 	try
 	{
 		auto strategy = ShapeStrategyFactory::CreateFromStream(input);
-		strategy->SetColor(color);
-		m_picture.AddShape(id, move(strategy));
+		m_picture.AddShape(id, color, move(strategy));
 	}
 	catch (exception const& e)
 	{
@@ -76,13 +75,13 @@ void PictureController::HandleChangeShape(std::istream& input)
 
 	if (id.empty())
 	{
-		throw exception("invalid command arguments, template: <id> <shape type> <shape args>");
+		throw invalid_argument("invalid command arguments, template: <id> <shape type> <shape args>");
 	}
 
 	try
 	{
 		auto strategy = ShapeStrategyFactory::CreateFromStream(input);
-		m_picture.ChangeShape(id, move(strategy));
+		m_picture.GetShapeById(id)->SetShapeStrategy(move(strategy));
 	}
 	catch (exception const& e)
 	{
@@ -98,10 +97,10 @@ void PictureController::HandleChangeColor(std::istream& input)
 
 	if (id.empty() || !IsValidHexColor(color))
 	{
-		throw exception("invalid command arguments, template: <id> <hex color>");
+		throw invalid_argument("invalid command arguments, template: <id> <hex color>");
 	}
 
-	m_picture.ChangeColor(id, color);
+	m_picture.GetShapeById(id)->SetColor(color);
 }
 
 void PictureController::HandleMoveShape(std::istream& input)
@@ -112,18 +111,18 @@ void PictureController::HandleMoveShape(std::istream& input)
 
 	if (id.empty() || dxStr.empty() || dyStr.empty())
 	{
-		throw exception("invalid command arguments, template: <id> <delta x> <delta y>");
+		throw invalid_argument("invalid command arguments, template: <id> <delta x> <delta y>");
 	}
 
 	try
 	{
 		double dx = stod(dxStr);
 		double dy = stod(dyStr);
-		m_picture.MoveShape(id, dx, dy);
+		m_picture.GetShapeById(id)->Move(dx, dy);
 	}
 	catch (...)
 	{
-		throw exception("can not parse numbers from arguments");
+		throw invalid_argument("can not parse numbers from arguments");
 	}
 }
 
@@ -135,7 +134,7 @@ void PictureController::HandleMovePicture(std::istream& input)
 
 	if (dxStr.empty() || dyStr.empty())
 	{
-		throw exception("invalid command arguments, template: <delta x> <delta y>");
+		throw invalid_argument("invalid command arguments, template: <delta x> <delta y>");
 	}
 
 	try
@@ -146,7 +145,7 @@ void PictureController::HandleMovePicture(std::istream& input)
 	}
 	catch (...)
 	{
-		throw exception("can not parse numbers from arguments");
+		throw invalid_argument("can not parse numbers from arguments");
 	}
 }
 
@@ -158,7 +157,7 @@ void PictureController::HandleDeleteShape(std::istream& input)
 
 	if (id.empty())
 	{
-		throw exception("invalid command arguments, template: <id>");
+		throw invalid_argument("invalid command arguments, template: <id>");
 	}
 
 	m_picture.DeleteShape(id);
@@ -185,8 +184,8 @@ void PictureController::HandleDrawShape(std::istream& input)
 
 	if (id.empty())
 	{
-		throw exception("invalid command arguments, template: <id>");
+		throw invalid_argument("invalid command arguments, template: <id>");
 	}
 
-	m_picture.DrawShape(id, m_canvas);
+	m_picture.GetShapeById(id)->Draw(m_canvas);
 }

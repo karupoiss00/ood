@@ -1,8 +1,7 @@
 #pragma once
-#include "ShapeStrategy.h"
 #include "Point.h"
 
-class CircleStrategy : public ShapeStrategy
+class CircleStrategy : public IShapeStrategy
 {
 public:
 	CircleStrategy(Point center, double radius)
@@ -12,8 +11,7 @@ public:
 
 	std::string GetShapeInfo() const final
 	{
-		return ShapeStrategy::GetShapeInfo()
-			+ " " + std::to_string(m_center.m_x)
+		return std::to_string(m_center.m_x)
 			+ " " + std::to_string(m_center.m_y)
 			+ " " + std::to_string(m_radius);
 	}
@@ -24,10 +22,8 @@ public:
 		m_center.m_y += dy;
 	}
 
-	void Draw(sfx::ICanvas& canvas) const final
+	void Draw(gfx::ICanvas& canvas) const final
 	{
-		ShapeStrategy::Draw(canvas);
-
 		canvas.DrawEllipse(m_center.m_x, m_center.m_y, m_radius, m_radius);
 	}
 

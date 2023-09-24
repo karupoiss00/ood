@@ -160,7 +160,6 @@
     <ClInclude Include="PictureController.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="RectangleStrategy.h" />
-    <ClInclude Include="ShapeStrategy.h" />
     <ClInclude Include="Picture.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="ShapeStrategyFactory.h" />

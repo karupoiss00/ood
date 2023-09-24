@@ -2,7 +2,7 @@
 #include <string>
 #include <regex>
 
-namespace sfx
+namespace gfx
 {
 	using Color = std::string;
 	bool IsValidHexColor(std::string const& str);

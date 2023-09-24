@@ -1,43 +1,38 @@
 #pragma once
-#include "ShapeStrategy.h"
 #include "Point.h"
 
-class RectangleStrategy : public ShapeStrategy
+class RectangleStrategy : public IShapeStrategy
 {
 public:
 	RectangleStrategy(Point startPoint, double width, double height)
-		: m_startPoint(startPoint), 
+		: m_topLeft(startPoint), 
 		m_width(width), 
 		m_height(height)
 	{}
 
 	std::string GetShapeInfo() const final
 	{
-		return ShapeStrategy::GetShapeInfo()
-			+ " " + std::to_string(m_startPoint.m_x)
-			+ " " + std::to_string(m_startPoint.m_y)
+		return std::to_string(m_topLeft.m_x)
+			+ " " + std::to_string(m_topLeft.m_y)
 			+ " " + std::to_string(m_width)
 			+ " " + std::to_string(m_height);
 	}
 
 	void Move(double dx, double dy) final
 	{
-		m_startPoint.m_x += dx;
-		m_startPoint.m_y += dy;
+		m_topLeft.m_x += dx;
+		m_topLeft.m_y += dy;
 	}
 
-	void Draw(sfx::ICanvas& canvas) const final
+	void Draw(gfx::ICanvas& canvas) const final
 	{
-		ShapeStrategy::Draw(canvas);
+		canvas.MoveTo(m_topLeft.m_x, m_topLeft.m_y);
+		canvas.LineTo(m_topLeft.m_x, m_topLeft.m_y + m_height);
+		canvas.LineTo(m_topLeft.m_x + m_width, m_topLeft.m_y);
 
-
-		canvas.MoveTo(m_startPoint.m_x, m_startPoint.m_y);
-		canvas.LineTo(m_startPoint.m_x, m_startPoint.m_y + m_height);
-		canvas.LineTo(m_startPoint.m_x + m_width, m_startPoint.m_y);
-
-		canvas.MoveTo(m_startPoint.m_x + m_width, m_startPoint.m_y + m_height);
-		canvas.LineTo(m_startPoint.m_x, m_startPoint.m_y + m_height);
-		canvas.LineTo(m_startPoint.m_x + m_width, m_startPoint.m_y);
+		canvas.MoveTo(m_topLeft.m_x + m_width, m_topLeft.m_y + m_height);
+		canvas.LineTo(m_topLeft.m_x, m_topLeft.m_y + m_height);
+		canvas.LineTo(m_topLeft.m_x + m_width, m_topLeft.m_y);
 	}
 
 	std::string GetShapeName() const final
@@ -45,7 +40,7 @@ public:
 		return "rectangle";
 	}
 private:
-	Point m_startPoint;
+	Point m_topLeft;
 	double m_width;
 	double m_height;
 };

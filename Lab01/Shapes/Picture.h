@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <string>
+#include <list>
 #include <memory>
 #include "Shape.h"
 
@@ -11,18 +12,17 @@ namespace shapes
 	{
 	public:
 		void MovePicture(double dx, double dy);
-		void AddShape(std::string const& id, std::unique_ptr<IShapeStrategy> strategy);
-		void ChangeShape(std::string const& id, std::unique_ptr<IShapeStrategy> strategy);
-		void ChangeColor(std::string const& id, sfx::Color color);
-		void MoveShape(std::string const& id, double dx, double dy);
+		void AddShape(std::string const& id, gfx::Color color, std::unique_ptr<IShapeStrategy> strategy);
 		void DeleteShape(std::string const& id);
-		void DrawShape(std::string const& id, sfx::ICanvas& canvas);
-		void Draw(sfx::ICanvas& canvas);
+		void Draw(gfx::ICanvas& canvas);
+
+		std::shared_ptr<Shape> GetShapeById(std::string const& id);
 
 		std::vector<std::string> List();
 	private:
-		Shape& GetShapeById(std::string const& id);
+		
 
-		std::map<std::string, Shape> m_shapes;
+		std::unordered_map<std::string, std::shared_ptr<Shape>> m_shapesMap;
+		std::list<std::shared_ptr<Shape>> m_shapesList;
 	};
 }

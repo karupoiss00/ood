@@ -3,19 +3,19 @@
 #include "SVGCanvas.h"
 
 using namespace std;
-using namespace sfx;
+using namespace gfx;
 
 constexpr int STROKE_WIDTH = 4;
 
-SVGCanvas::SVGCanvas(std::string const& fileName)
-	: m_outputFileName(fileName), m_currentColor("#000000")
+SVGCanvas::SVGCanvas()
+	: m_currentColor("#000000")
 {
 	m_outputSvg = stringstream("");
 }
 
-void SVGCanvas::Save()
+void SVGCanvas::Save(string const& outputFileName)
 {
-	ofstream outputFile(m_outputFileName);
+	ofstream outputFile(outputFileName);
 
 	if (!outputFile.good())
 	{

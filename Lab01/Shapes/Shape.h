@@ -7,8 +7,8 @@ namespace shapes
 	class Shape
 	{
 	public:
-		Shape(std::unique_ptr<IShapeStrategy> strategy)
-			: m_shapeStrategy(move(strategy))
+		Shape(std::string id, gfx::Color color, std::unique_ptr<IShapeStrategy> strategy)
+			: m_id(id), m_color(color), m_shapeStrategy(move(strategy))
 		{};
 
 		std::string GetShapeName() const
@@ -18,7 +18,7 @@ namespace shapes
 
 		std::string GetShapeInfo() const
 		{
-			return m_shapeStrategy->GetShapeInfo();
+			return m_color + " " + m_shapeStrategy->GetShapeInfo();
 		}
 
 		void Move(double dx, double dy)
@@ -26,27 +26,34 @@ namespace shapes
 			m_shapeStrategy->Move(dx, dy);
 		}
 
-		void Draw(sfx::ICanvas& canvas) const
-		{
-			m_shapeStrategy->Draw(canvas);
-		}
-
-		void SetColor(sfx::Color const& color)
-		{
-			m_shapeStrategy->SetColor(color);
-		}
-
 		void SetShapeStrategy(std::unique_ptr<IShapeStrategy> strategy)
 		{
 			m_shapeStrategy = move(strategy);
 		}
 
-		sfx::Color GetColor() const
+		void SetColor(gfx::Color const& color)
 		{
-			return m_shapeStrategy->GetColor();
+			m_color = color;
 		}
 
+		gfx::Color GetColor() const
+		{
+			return m_color;
+		}
+
+		std::string const& GetId() const
+		{
+			return m_id;
+		}
+
+		void Draw(gfx::ICanvas& canvas) const
+		{
+			canvas.SetColor(m_color);
+			m_shapeStrategy->Draw(canvas);
+		}
 	private:
 		std::unique_ptr<IShapeStrategy> m_shapeStrategy;
+		gfx::Color m_color;
+		std::string m_id;
 	};
 }
