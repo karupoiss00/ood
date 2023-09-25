@@ -18,7 +18,7 @@ namespace shapes
 
 		std::string GetShapeInfo() const
 		{
-			return m_color + " " + m_shapeStrategy->GetShapeInfo();
+			return m_color.GetHex() + " " + m_shapeStrategy->GetShapeInfo();
 		}
 
 		void Move(double dx, double dy)

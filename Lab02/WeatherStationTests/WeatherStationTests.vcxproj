@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MultipleSubscribes.cpp" />
     <ClCompile Include="ObserversWithPriority.cpp" />
     <ClCompile Include="SafelyUnsubscribeObserver.cpp" />
     <ClCompile Include="SubscribingTests.cpp" />

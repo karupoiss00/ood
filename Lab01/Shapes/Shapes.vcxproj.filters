@@ -51,9 +51,6 @@
     <ClCompile Include="SVGCanvas.cpp">
       <Filter>Source Files\Canvas</Filter>
     </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Source Files\Canvas</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Picture.h">

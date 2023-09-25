@@ -51,7 +51,7 @@ void PictureController::HandleAddShape(std::istream& input)
 
 	input >> id >> color;
 
-	if (id.empty() || !IsValidHexColor(color))
+	if (id.empty() || !Color::IsValidHexColor(color))
 	{
 		throw invalid_argument("invalid command arguments, template: <id> <hex color> <shape type> <shape args>");
 	}
@@ -95,7 +95,7 @@ void PictureController::HandleChangeColor(std::istream& input)
 
 	input >> id >> color;
 
-	if (id.empty() || !IsValidHexColor(color))
+	if (id.empty() || !Color::IsValidHexColor(color))
 	{
 		throw invalid_argument("invalid command arguments, template: <id> <hex color>");
 	}

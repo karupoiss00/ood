@@ -158,6 +158,7 @@
     <ClInclude Include="SensorStats.h" />
     <ClInclude Include="StatsDisplay.h" />
     <ClInclude Include="WeatherData.h" />
+    <ClInclude Include="WindStats.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

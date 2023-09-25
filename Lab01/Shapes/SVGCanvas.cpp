@@ -45,7 +45,7 @@ void SVGCanvas::LineTo(double x, double y)
 		+ R"(y1=")" + to_string(m_drawPoint.m_y) + R"(" )"
 		+ R"(x2=")" + to_string(x) + R"(" )"
 		+ R"(y2=")" + to_string(y) + R"(" )"
-		+ R"(style="stroke:)" + m_currentColor
+		+ R"(style="stroke:)" + m_currentColor.GetHex()
 		+ R"(;stroke-width:)" + to_string(STROKE_WIDTH) + R"(" />)";
 	m_outputSvg << svgLine << endl;
 }
@@ -57,7 +57,7 @@ void SVGCanvas::DrawEllipse(double cx, double cy, double rx, double ry)
 		+ R"(cy=")" + to_string(cy) + R"(" )"
 		+ R"(rx=")" + to_string(rx) + R"(" )"
 		+ R"(ry=")" + to_string(ry) + R"(" )"
-		+ R"(style="stroke:)" + m_currentColor
+		+ R"(style="stroke:)" + m_currentColor.GetHex()
 		+ R"(;stroke-width:)" + to_string(STROKE_WIDTH) + R"(; fill:none;" />)";
 	m_outputSvg << svgEllipse << endl;
 }
@@ -68,7 +68,7 @@ void SVGCanvas::DrawText(double x, double y, double fontSize, string const& text
 		R"(<text x=")" + to_string(x) + R"(" )"
 		+ R"(y=")" + to_string(y) + R"(" )"
 		+ R"(font-size=")" + to_string(fontSize) + R"(" )"
-		+ R"(fill=")" + m_currentColor + R"(">)"
+		+ R"(fill=")" + m_currentColor.GetHex() + R"(">)"
 		+ text + R"(</text>)";
 	m_outputSvg << svgText << endl;
 }

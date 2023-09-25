@@ -35,5 +35,8 @@
     <ClInclude Include="SensorStats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WindStats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
