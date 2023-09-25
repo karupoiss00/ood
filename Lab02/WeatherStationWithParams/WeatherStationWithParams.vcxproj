@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{7a774dc6-b189-4e8e-90b5-891a847fd3ad}</ProjectGuid>
-    <RootNamespace>WeatherStationDuo</RootNamespace>
+    <ProjectGuid>{0f3f1961-e459-4a07-b171-bb0615d61499}</ProjectGuid>
+    <RootNamespace>WeatherStationWithParams</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -140,14 +140,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Display.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="SensorStats.h" />
     <ClInclude Include="StatsDisplay.h" />
+    <ClInclude Include="SWeatherInfo.h" />
     <ClInclude Include="WeatherData.h" />
+    <ClInclude Include="WindStats.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
