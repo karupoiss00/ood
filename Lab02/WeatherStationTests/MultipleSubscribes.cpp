@@ -26,11 +26,11 @@ TEST_CASE("check that different observables notifying observer")
 	in.RegisterObserver(display);
 	out.RegisterObserver(display);
 
-	in.SetMeasurements(3, 0.7, 760, 360, 0);
+	in.SetMeasurements(3, 0.7, 760);
 
 	REQUIRE(display.lastNotifierId == "in");
 
-	out.SetMeasurements(4, 0.8, 761, 360, 10);
+	out.SetMeasurements(4, 0.8, 761);
 
 	REQUIRE(display.lastNotifierId == "out");
 }

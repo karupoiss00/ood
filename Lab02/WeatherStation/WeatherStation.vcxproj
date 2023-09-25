@@ -157,7 +157,9 @@
     <ClInclude Include="Observer.h" />
     <ClInclude Include="SensorStats.h" />
     <ClInclude Include="StatsDisplay.h" />
+    <ClInclude Include="SWeatherInfo.h" />
     <ClInclude Include="WeatherData.h" />
+    <ClInclude Include="WeatherDataPro.h" />
     <ClInclude Include="WindStats.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
