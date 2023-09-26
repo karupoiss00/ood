@@ -10,8 +10,7 @@ struct SensorKit
 	SensorStats m_temperatureStats;
 	SensorStats m_pressureStats;
 	SensorStats m_humidityStats;
-	SensorStats m_windSpeedStats;
-	WindDirectionStats m_windDirectionStats;
+	WindStats m_windStats;
 };
 
 class CStatsDisplay : public IObserver<SWeatherInfo, WeatherParameter>
@@ -48,9 +47,11 @@ private:
 		std::cout << "----------------" << std::endl;
 	}
 
-	void ShowWindStatistic(WindDirectionStats stats)
+	void ShowWindStatistic(WindStats stats)
 	{
-		std::cout << "Average wind direction: " << stats.Average() << std::endl;
+		auto [speed, direction] = stats.Average();
+		std::cout << "Average wind speed: " << speed << std::endl;
+		std::cout << "Average wind direction: " << direction << std::endl;
 		std::cout << "----------------" << std::endl;
 	}
 
@@ -70,8 +71,7 @@ private:
 		}
 		else if (parameter == WeatherParameter::WIND)
 		{
-			ShowSensorStatistic("wind speed", sensorKit->m_windSpeedStats);
-			ShowWindStatistic(sensorKit->m_windDirectionStats);
+			ShowWindStatistic(sensorKit->m_windStats);
 		}
 	}
 
@@ -91,8 +91,7 @@ private:
 		}
 		else if (changedParameter == WeatherParameter::WIND)
 		{
-			sensorKit->m_windSpeedStats.Update(data.windSpeed);
-			sensorKit->m_windDirectionStats.Update(data.windDirection);
+			sensorKit->m_windStats.Update(data.windDirection, data.windSpeed);
 		}
 	}
 

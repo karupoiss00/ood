@@ -16,7 +16,7 @@ int main()
 	out.RegisterObserver(statsDisplay, WeatherParameter::WIND);
 
 	in.SetMeasurements(3, 0.7, 765, 0, 0);
-	out.SetMeasurements(4, 0.8, 761, 180, 10);
-	out.SetMeasurements(1, 0.7, 763, 360, 2);
+	out.SetMeasurements(4, 0.8, 761, 0, 10);
+	out.SetMeasurements(1, 0.7, 763, 270, 10);
 	return 0;
 }

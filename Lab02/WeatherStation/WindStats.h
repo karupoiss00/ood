@@ -1,22 +1,37 @@
 #pragma once
 #include <iostream>
-#include <climits>
+#include <vector>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
-class WindDirectionStats
+class WindStats
 {
 public:
-	void Update(double newValue)
+	void Update(double degree, double speed)
 	{
-		m_accumulatedValues += newValue;
-		++m_countAccumulates;
+		m_speedDirPairs.push_back({ speed, degree });
 	}
 
-	double Average() const
+	std::tuple<double, double> Average() const
 	{
-		return std::fmod(m_accumulatedValues / m_countAccumulates, 360);
-	}
+		double sinSum = 0;
+		double cosSum = 0;
 
+		for (auto const& [speed, direction] : m_speedDirPairs)
+		{
+			sinSum += speed * sin(direction * (M_PI / 180));
+			cosSum += speed * cos(direction * (M_PI / 180));
+		}
+		sinSum = sinSum / m_speedDirPairs.size();
+		cosSum = cosSum / m_speedDirPairs.size();
+
+		return
+		{
+			sqrt(cosSum * cosSum + sinSum * sinSum),
+			std::fmod((atan2(sinSum, cosSum) * 180 / M_PI) + 360, 360)
+		};
+
+	}
 private:
-	double m_accumulatedValues = 0;
-	unsigned m_countAccumulates = 0;
+	std::vector<std::pair<double, double>> m_speedDirPairs;
 };
