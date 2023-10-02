@@ -9,6 +9,7 @@ int main()
 
 	CDisplay display;
 	in.RegisterObserver(display, WeatherParameter::TEMPERATURE);
+	in.RegisterObserver(display, WeatherParameter::PRESSURE);
 	out.RegisterObserver(display, WeatherParameter::HUMIDITY);
 
 	CStatsDisplay statsDisplay;

@@ -3,6 +3,8 @@
 #include <set>
 #include <functional>
 #include <map>
+#include <ranges>
+
 /*
 Шаблонный интерфейс IObserver. Его должен реализовывать класс,
 желающий получать уведомления от соответствующего IObservable
@@ -27,7 +29,7 @@ class IObservable
 public:
 	virtual ~IObservable() = default;
 	virtual void RegisterObserver(IObserver<T, Parameter>& observer, Parameter paramToObserve) = 0;
-	virtual void NotifyObservers() = 0;
+	virtual void NotifyObservers(Parameter changedParam) = 0;
 	virtual void RemoveObserver(IObserver<T, Parameter>& observer) = 0;
 };
 
@@ -41,41 +43,32 @@ public:
 	void RegisterObserver(Observer& observer, Parameter subscribeParameter) override
 	{
 		RemoveObserver(observer);
-		m_observers.insert(std::make_pair(subscribeParameter, &observer));
+		m_observers.emplace(&observer, subscribeParameter);
 	}
 
-	void NotifyObservers() override
+	void NotifyObservers(Parameter changedParam) override
 	{
 		T data = GetChangedData();
-		std::set<Parameter> changedParams = GetParametersData();
 
-		auto observers = m_observers;
-		for (auto it = observers.rbegin(); it != observers.rend(); ++it)
+		for (auto [observer, param] : m_observers)
 		{
-			if (changedParams.contains(it->first))
+			if (param == changedParam)
 			{
-				it->second->Update(data, it->first);
+				observer->Update(data, changedParam);
 			}
 		}
 	}
 
 	void RemoveObserver(Observer& observer) override
 	{
-		auto i = std::find_if(m_observers.begin(), m_observers.end(), [&](auto& it) {
-			return it.second == &observer;
-			});
-		if (i != m_observers.end())
-		{
-			m_observers.erase(i->first);
-		}
+		m_observers.erase(&observer);
 	}
 
 protected:
 	// Классы-наследники должны перегрузить данный метод,
 	// в котором возвращать информацию об изменениях в объекте
 	virtual T GetChangedData() const = 0;
-	virtual std::set<Parameter> GetParametersData() const = 0;
 
 private:
-	std::multimap<Parameter, Observer*> m_observers;
+	std::multimap<Observer*, Parameter> m_observers;
 };

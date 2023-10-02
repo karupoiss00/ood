@@ -43,7 +43,10 @@ public:
 
 	void MeasurementsChanged()
 	{
-		NotifyObservers();
+		for (auto param : m_changedParams)
+		{
+			NotifyObservers(param);
+		}
 	}
 
 	void SetMeasurements(double temp, double humidity, double pressure, double windDirection, double windSpeed)
@@ -59,7 +62,7 @@ public:
 		MeasurementsChanged();
 	}
 protected:
-	SWeatherInfo GetChangedData() const override
+	SWeatherInfo GetChangedData() const
 	{
 		SWeatherInfo info;
 
@@ -71,11 +74,6 @@ protected:
 		info.windSpeed = GetWindSpeed();
 
 		return info;
-	}
-
-	std::set<WeatherParameter> GetParametersData() const override
-	{
-		return m_changedParams;
 	}
 
 private:
