@@ -8,11 +8,11 @@ int main()
 	CWeatherData in("in");
 	CWeatherDataPro out("out");
 
-	CDisplay display;
+	CDisplay display(in, out);
 	in.RegisterObserver(display);
 	out.RegisterObserver(display);
 
-	CStatsDisplay statsDisplay;
+	CStatsDisplay statsDisplay(in, out);
 	in.RegisterObserver(statsDisplay);
 	out.RegisterObserver(statsDisplay);
 

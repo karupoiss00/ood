@@ -15,28 +15,41 @@ struct SensorKit
 
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
+public:
+	CStatsDisplay(CWeatherData const& weatherDataIn, CWeatherDataPro const& weatherDataOut)
+		: m_weatherDataIn(weatherDataIn), m_weatherDataOut(weatherDataOut)
+	{}
 private:
-	using SensorKits = std::map<std::string, std::shared_ptr<SensorKit>>;
+	using SensorKits = std::map<IObservable<SWeatherInfo>*, std::shared_ptr<SensorKit>>;
 	/*
 		Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
 		Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
 		остается публичным
 	*/
-	void Update(SWeatherInfo const& data) override
+	void Update(SWeatherInfo const& data, IObservable<SWeatherInfo>& observable) override
 	{
 		std::cout << "////////////////" << std::endl;
 		std::cout << "Sensor ID: " << data.senderId << std::endl;
 		std::cout << "////////////////" << std::endl;
 
-		if (m_sensors.find(data.senderId) == m_sensors.cend())
+		if (m_sensors.find(&observable) == m_sensors.cend())
 		{
-			CreateSensorKit(data.senderId);
+			CreateSensorKit(observable);
 		}
 
-		std::shared_ptr<SensorKit> sensorKit = m_sensors[data.senderId];
+		std::shared_ptr<SensorKit> sensorKit = m_sensors[&observable];
 
 		UpdateSensor(sensorKit, data);
-		ShowSensorKitStats(sensorKit);
+
+		if (&observable == &m_weatherDataIn)
+		{
+			ShowSensorKitStats(sensorKit, false);
+		}
+
+		if (&observable == &m_weatherDataOut)
+		{
+			ShowSensorKitStats(sensorKit, true);
+		}
 	}
 
 	void ShowSensorStatistic(std::string sensorName, SensorStats stats)
@@ -55,12 +68,16 @@ private:
 		std::cout << "----------------" << std::endl;
 	}
 
-	void ShowSensorKitStats(std::shared_ptr<SensorKit>& sensorKit)
+	void ShowSensorKitStats(std::shared_ptr<SensorKit>& sensorKit, bool showWindStats)
 	{
 		ShowSensorStatistic("temp", sensorKit->m_temperatureStats);
 		ShowSensorStatistic("pressure", sensorKit->m_pressureStats);
 		ShowSensorStatistic("humidity", sensorKit->m_humidityStats);
-		ShowWindStatistic(sensorKit->m_windStats);
+
+		if (showWindStats)
+		{
+			ShowWindStatistic(sensorKit->m_windStats);
+		}
 	}
 
 	void UpdateSensor(std::shared_ptr<SensorKit>& sensorKit, SWeatherInfo const& data)
@@ -71,10 +88,13 @@ private:
 		sensorKit->m_windStats.Update(data.windDirection, data.windSpeed);
 	}
 
-	void CreateSensorKit(std::string id)
+	void CreateSensorKit(IObservable<SWeatherInfo>& observable)
 	{
-		m_sensors.emplace(make_pair(id, std::make_shared<SensorKit>()));
+		m_sensors.emplace(&observable, std::make_shared<SensorKit>());
 	}
+
+	IObservable<SWeatherInfo> const& m_weatherDataIn;
+	IObservable<SWeatherInfo> const& m_weatherDataOut;
 
 	SensorKits m_sensors;
 };
