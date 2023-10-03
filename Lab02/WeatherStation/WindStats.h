@@ -9,21 +9,15 @@ class WindStats
 public:
 	void Update(double degree, double speed)
 	{
-		m_speedDirPairs.push_back({ speed, degree });
+		m_sinSum += speed * sin(degree * (M_PI / 180));
+		m_cosSum += speed * cos(degree * (M_PI / 180));
+		m_measurementsCount++;
 	}
 
 	std::tuple<double, double> Average() const
 	{
-		double sinSum = 0;
-		double cosSum = 0;
-
-		for (auto const& [speed, direction] : m_speedDirPairs)
-		{
-			sinSum += speed * sin(direction * (M_PI / 180));
-			cosSum += speed * cos(direction * (M_PI / 180));
-		}
-		sinSum = sinSum / m_speedDirPairs.size();
-		cosSum = cosSum / m_speedDirPairs.size();
+		double sinSum = m_sinSum / m_measurementsCount;
+		double cosSum = m_cosSum / m_measurementsCount;
 
 		return
 		{
@@ -33,5 +27,7 @@ public:
 
 	}
 private:
-	std::vector<std::pair<double, double>> m_speedDirPairs;
+	double m_sinSum = 0;
+	double m_cosSum = 0;
+	size_t m_measurementsCount = 0;
 };

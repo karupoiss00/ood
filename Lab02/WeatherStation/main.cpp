@@ -17,7 +17,7 @@ int main()
 	out.RegisterObserver(statsDisplay);
 
 	in.SetMeasurements(3, 0.7, 760);
-	out.SetMeasurements(4, 0.8, 761, 0, 10);
-	out.SetMeasurements(4, 0.8, 761, 180, 2);
+	out.SetMeasurements(4, 0.8, 761, 45, 10);
+	out.SetMeasurements(4, 0.8, 761, 135, 10);
 	return 0;
 }
