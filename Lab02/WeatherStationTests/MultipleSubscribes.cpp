@@ -2,6 +2,7 @@
 #include <string>
 #include <catch2/catch.hpp>
 #include "../WeatherStation/WeatherData.h"
+#include "../WeatherStation/WeatherDataPro.h"
 #include "../WeatherStation/Display.h"
 
 using namespace std;
@@ -9,9 +10,12 @@ using namespace std;
 class CDisplayWithLastNotifierId : public CDisplay
 {
 public:
+	CDisplayWithLastNotifierId(const CWeatherData& weatherDataIn, const CWeatherDataPro& weatherDataOut)
+		: CDisplay(weatherDataIn, weatherDataOut)
+	{}
 	string lastNotifierId;
 private:
-	void Update(SWeatherInfo const& data) override
+	void Update(SWeatherInfo const& data, IObservable<SWeatherInfo>& observable) override
 	{
 		lastNotifierId = data.senderId;
 	}
@@ -20,9 +24,9 @@ private:
 TEST_CASE("check that different observables notifying observer")
 {
 	CWeatherData in("in");
-	CWeatherData out("out");
+	CWeatherDataPro out("out");
 
-	CDisplayWithLastNotifierId display;
+	CDisplayWithLastNotifierId display(in, out);
 	in.RegisterObserver(display);
 	out.RegisterObserver(display);
 
@@ -30,7 +34,7 @@ TEST_CASE("check that different observables notifying observer")
 
 	REQUIRE(display.lastNotifierId == "in");
 
-	out.SetMeasurements(4, 0.8, 761);
+	out.SetMeasurements(4, 0.8, 761, 240, 20);
 
 	REQUIRE(display.lastNotifierId == "out");
 }

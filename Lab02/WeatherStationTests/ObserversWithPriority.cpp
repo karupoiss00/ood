@@ -2,6 +2,7 @@
 #include <string>
 #include <catch2/catch.hpp>
 #include "../WeatherStation/Observer.h"
+#include "../WeatherStation/SWeatherInfo.h"
 
 using namespace std;
 
@@ -42,7 +43,7 @@ public:
 
 	}
 
-	void Update(const string& data) override
+	void Update(const string& data, IObservable<string>& observable) override
 	{
 		m_observable->AddToCallTrace(to_string(m_priority));
 	}

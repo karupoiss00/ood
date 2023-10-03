@@ -41,7 +41,7 @@ public:
 
 	}
 
-	void Update(const string& data) override
+	void Update(const string& data, IObservable<string>& observable) override
 	{
 		m_observable->AddToCallTrace(to_string(m_priority));
 	}

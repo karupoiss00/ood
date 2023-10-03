@@ -2,6 +2,7 @@
 #include <catch2/catch.hpp>
 #include "../WeatherStation/Observer.h"
 
+struct SWeatherInfo;
 using namespace std;
 
 class CleverObservable : public CObservable<string>
@@ -40,7 +41,7 @@ public:
 	{
 
 	}
-	void Update(const string& data) override
+	void Update(const string& data, IObservable<string>& observable) override
 	{
 		REQUIRE(m_observable);
 		REQUIRE(data == "delta");
@@ -59,7 +60,7 @@ public:
 	{
 
 	}
-	void Update(const string& data) override
+	void Update(const string& data, IObservable<string>& observable) override
 	{
 		REQUIRE(m_observable);
 		REQUIRE(data == "delta");
