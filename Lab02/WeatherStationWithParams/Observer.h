@@ -70,5 +70,6 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
+	// вернуть приоритеты, сделать быстро
 	std::multimap<Observer*, Parameter> m_observers;
 };

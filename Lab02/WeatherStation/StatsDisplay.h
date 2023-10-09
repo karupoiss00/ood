@@ -51,7 +51,7 @@ private:
 			ShowSensorKitStats(sensorKit, true);
 		}
 	}
-
+	// слушать решарпер о варнингах
 	void ShowSensorStatistic(std::string sensorName, SensorStats stats)
 	{
 		std::cout << "Max " << sensorName << " " << stats.Max() << std::endl;
