@@ -11,7 +11,7 @@ public:
 
 	void Run();
 
-	void ShowInstructions()const;
+	void ShowInstructions() const;
 
 	void Exit();
 
