@@ -16,8 +16,8 @@ public:
 
 	std::tuple<double, double> Average() const
 	{
-		double sinSum = m_sinSum / m_measurementsCount;
-		double cosSum = m_cosSum / m_measurementsCount;
+		const double sinSum = m_sinSum / m_measurementsCount;
+		const double cosSum = m_cosSum / m_measurementsCount;
 
 		return
 		{
