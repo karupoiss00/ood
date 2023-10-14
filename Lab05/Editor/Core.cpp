@@ -109,5 +109,5 @@ bool Core::ParseNumber(std::string const& str, size_t& number)
 
 	iss >> number;
 
-	return iss.fail();
+	return !iss.fail();
 }

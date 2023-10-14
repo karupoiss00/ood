@@ -12,6 +12,8 @@ CEditor::CEditor()
 {
 	auto help = [this](istream&) { m_menu.ShowInstructions(); };
 	auto exit = [this](istream&) { m_menu.Exit(); };
+	auto save = [this](istream& in) { this->Save(in); };
+
 	auto undo = [this](istream& in) { this->Undo(in); };
 	auto redo = [this](istream& in) { this->Redo(in); };
 	auto list = [this](istream& in) { this->List(in); };
@@ -24,8 +26,11 @@ CEditor::CEditor()
 
 	AddMenuItem("undo", "Undo command", undo);
 	AddMenuItem("redo", "Redo undone command", redo);
+
 	AddMenuItem("help", "Help", help);
+	AddMenuItem("save", "Save into html", save);
 	AddMenuItem("exit", "Exit", exit);
+
 	AddMenuItem("list", "Show document", list);
 	AddMenuItem("settitle", "Changes title. Args: <new title>", setTitle);
 	AddMenuItem("insertparagraph", "Inserts paragraph. Args: <pos>|end <text>", insertParagraph);
@@ -185,8 +190,8 @@ void CEditor::InsertImage(istream& in) const
 
 	size_t pos, width, height;
 	const bool posParsed = Core::ParseNumber(posStr, pos);
-	if (posParsed 
-		|| posStr == "end"
+	cout << widthStr << heightStr << endl;
+	if ((!posParsed && posStr != "end")
 		|| !Core::ParseNumber(widthStr, width)
 		|| !Core::ParseNumber(heightStr, height))
 	{
