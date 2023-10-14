@@ -13,93 +13,141 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\commands">
+      <UniqueIdentifier>{87fc774c-f80d-491f-9842-2c2beb231cda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\commands\common">
+      <UniqueIdentifier>{4fe1518c-c098-45c7-81d6-219fbf9c104b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\document">
+      <UniqueIdentifier>{1e06014b-5bb8-47be-8428-35c0119e9f7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\document\history">
+      <UniqueIdentifier>{e32ac5e1-bfb6-4c86-8ace-07d60cd118a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\document\items">
+      <UniqueIdentifier>{60431a53-6dd5-4a75-8912-8ba6af905c7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\document\items\common">
+      <UniqueIdentifier>{1c72d1b7-0cad-4aae-b7fa-45335e0408da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\app">
+      <UniqueIdentifier>{e7245b3d-2d72-4e71-8abe-e7890082806f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\commands">
+      <UniqueIdentifier>{a5ed6da9-aaa3-428b-9969-57f104ce071b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\commands\common">
+      <UniqueIdentifier>{38236181-0402-4413-b59d-8c50aa0aee8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\document">
+      <UniqueIdentifier>{f6f79a96-42ac-4ce0-a1c9-f02a459076c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\document\items">
+      <UniqueIdentifier>{988e1e88-d50e-407c-b6ea-77aae182f63e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\document\items\common">
+      <UniqueIdentifier>{810dffe6-e0f1-43b5-9602-27bde771ec81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\document\history">
+      <UniqueIdentifier>{e2735efa-36d2-4995-9525-6c39f47063e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\app">
+      <UniqueIdentifier>{13900a19-0531-4b1f-ba9b-84d166173e47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AbstractCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ChangeStringCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstDocumentItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Document.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DocumentItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="History.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageImpl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="AbstractCommand.cpp">
+      <Filter>Source Files\commands\common</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeStringCommand.cpp">
+      <Filter>Source Files\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Document.cpp">
+      <Filter>Source Files\document</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstDocumentItem.cpp">
+      <Filter>Source Files\document\items\common</Filter>
+    </ClCompile>
+    <ClCompile Include="DocumentItem.cpp">
+      <Filter>Source Files\document\items\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Source Files\document\items</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageImpl.cpp">
+      <Filter>Source Files\document\items</Filter>
     </ClCompile>
     <ClCompile Include="Paragraph.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\document\items</Filter>
     </ClCompile>
-    <ClCompile Include="ParagraphImpl.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="History.cpp">
+      <Filter>Source Files\document\history</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertCommand.cpp">
+      <Filter>Source Files\commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractCommand.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\commands\common</Filter>
     </ClInclude>
     <ClInclude Include="ChangeStringCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstDocumentItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Document.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DocumentItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="History.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\commands</Filter>
     </ClInclude>
     <ClInclude Include="ICommand.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\commands\common</Filter>
     </ClInclude>
     <ClInclude Include="ICommand_fwd.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\commands\common</Filter>
     </ClInclude>
-    <ClInclude Include="IDocument.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Document.h">
+      <Filter>Header Files\document</Filter>
+    </ClInclude>
+    <ClInclude Include="History.h">
+      <Filter>Header Files\document\history</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstDocumentItem.h">
+      <Filter>Header Files\document\items\common</Filter>
+    </ClInclude>
+    <ClInclude Include="DocumentItem.h">
+      <Filter>Header Files\document\items\common</Filter>
     </ClInclude>
     <ClInclude Include="IImage.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\document\items</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\document\items</Filter>
     </ClInclude>
     <ClInclude Include="ImageImpl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IParagraph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\document\items</Filter>
     </ClInclude>
     <ClInclude Include="Paragraph.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\document\items</Filter>
     </ClInclude>
-    <ClInclude Include="ParagraphImpl.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="IParagraph.h">
+      <Filter>Header Files\document\items</Filter>
+    </ClInclude>
+    <ClInclude Include="IDocument.h">
+      <Filter>Header Files\document</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="InsertCommand.h">
+      <Filter>Header Files\commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

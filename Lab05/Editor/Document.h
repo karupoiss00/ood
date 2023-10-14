@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "IDocument.h"
 #include "History.h"
 
@@ -13,16 +14,18 @@ public:
 	[[nodiscard]] bool CanRedo() const override;
 	void Redo() override;
 
-	virtual std::shared_ptr<IParagraph> InsertParagraph(const std::string& text, std::optional<size_t> position = std::nullopt) { return nullptr; };
-	virtual std::shared_ptr<IImage> InsertImage(const std::string& path, int width, int height, std::optional<size_t> position = std::nullopt) { return nullptr; };
-	[[nodiscard]] virtual size_t GetItemsCount() const {return 1;};
-	[[nodiscard]] virtual CConstDocumentItem GetItem(size_t index) const { return CConstDocumentItem(); };
-	virtual CDocumentItem GetItem(size_t index) { return CDocumentItem(); };
+	std::shared_ptr<IParagraph> InsertParagraph(const std::string& text, std::optional<size_t> position = std::nullopt) override;
+	std::shared_ptr<IImage> InsertImage(const std::string& path, int width, int height, std::optional<size_t> position = std::nullopt) override;
+	[[nodiscard]] size_t GetItemsCount() const override;
+	[[nodiscard]] CConstDocumentItem GetItem(size_t index) const override;
+	[[nodiscard]] CDocumentItem GetItem(size_t index) override;
 
-	virtual void DeleteItem(size_t index) {};
-	virtual void Save(const std::string& path) const {};
+	void DeleteItem(size_t index) override;
+
+	void Save(const std::string& path) const override {};
 
 private:
 	std::string m_title;
+	std::vector<CDocumentItem> m_items;
 	CHistory m_history;
 };
