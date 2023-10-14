@@ -55,6 +55,12 @@
     <Filter Include="Source Files\app">
       <UniqueIdentifier>{13900a19-0531-4b1f-ba9b-84d166173e47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{39354e75-b0e2-4f12-9978-0c39780dd7a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{9126fb5c-5af8-4364-8f30-16fa5f4c1d56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,9 +84,6 @@
     <ClCompile Include="Image.cpp">
       <Filter>Source Files\document\items</Filter>
     </ClCompile>
-    <ClCompile Include="ImageImpl.cpp">
-      <Filter>Source Files\document\items</Filter>
-    </ClCompile>
     <ClCompile Include="Paragraph.cpp">
       <Filter>Source Files\document\items</Filter>
     </ClCompile>
@@ -93,8 +96,17 @@
     <ClCompile Include="Editor.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
-    <ClCompile Include="InsertCommand.cpp">
+    <ClCompile Include="InsertItemCommand.cpp">
       <Filter>Source Files\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteItemCommand.cpp">
+      <Filter>Source Files\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="TrivialCommand.cpp">
+      <Filter>Source Files\commands\common</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>Source Files\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +140,6 @@
     <ClInclude Include="Image.h">
       <Filter>Header Files\document\items</Filter>
     </ClInclude>
-    <ClInclude Include="ImageImpl.h">
-      <Filter>Header Files\document\items</Filter>
-    </ClInclude>
     <ClInclude Include="Paragraph.h">
       <Filter>Header Files\document\items</Filter>
     </ClInclude>
@@ -146,8 +155,23 @@
     <ClInclude Include="Editor.h">
       <Filter>Header Files\app</Filter>
     </ClInclude>
-    <ClInclude Include="InsertCommand.h">
+    <ClInclude Include="InsertItemCommand.h">
       <Filter>Header Files\commands</Filter>
     </ClInclude>
+    <ClInclude Include="DeleteItemCommand.h">
+      <Filter>Header Files\commands</Filter>
+    </ClInclude>
+    <ClInclude Include="TrivialCommand.h">
+      <Filter>Header Files\commands\common</Filter>
+    </ClInclude>
+    <ClInclude Include="IHistoryController.h">
+      <Filter>Header Files\document\history</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

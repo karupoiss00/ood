@@ -17,3 +17,8 @@ void CAbstractCommand::Unexecute()
 		m_executed = false;
 	}
 }
+
+bool CAbstractCommand::IsExecuted() const
+{
+	return m_executed;
+}

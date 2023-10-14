@@ -42,13 +42,22 @@ bool CMenu::ExecuteCommand(const string & command)
 	string name;
 	iss >> name;
 
+	std::transform(name.begin(), name.end(), name.begin(), [](unsigned char c) { return std::tolower(c); });
+
 	m_exit = false;
 	const auto it = std::find_if(m_items.cbegin(), m_items.cend(), [&](auto const& item) {
 		return item.shortcut == name;
 	});
 	if (it != m_items.end())
 	{
-		it->command(iss);
+		try
+		{
+			it->command(iss);
+		}
+		catch (exception const& e)
+		{
+			cout << e.what() << endl;
+		}
 	}
 	else
 	{

@@ -13,8 +13,8 @@ public:
 	virtual std::shared_ptr<IParagraph> InsertParagraph(const std::string& text, std::optional<size_t> position = std::nullopt) = 0;
 	virtual std::shared_ptr<IImage> InsertImage(const std::string& path, int width, int height,std::optional<size_t> position = std::nullopt) = 0;
 	[[nodiscard]] virtual size_t GetItemsCount() const = 0;
-	[[nodiscard]] virtual CConstDocumentItem GetItem(size_t index) const = 0;
-	virtual CDocumentItem GetItem(size_t index) = 0;
+	[[nodiscard]] virtual std::shared_ptr<CConstDocumentItem> GetItem(size_t index) const = 0;
+	[[nodiscard]] virtual std::shared_ptr<CDocumentItem> GetItem(size_t index) = 0;
 	virtual void DeleteItem(size_t index) = 0;
 	[[nodiscard]] virtual std::string GetTitle() const = 0;
 	virtual void SetTitle(const std::string& title) = 0;

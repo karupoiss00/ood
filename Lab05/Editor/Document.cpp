@@ -1,10 +1,20 @@
 #include <stdexcept>
+#include <boost/filesystem.hpp>
+#include "Core.h"
 #include "Paragraph.h"
 #include "Document.h"
 #include "ChangeStringCommand.h"
-#include "InsertCommand.h"
+#include "InsertItemCommand.h"
+#include "DeleteItemCommand.h"
+#include "Image.h"
 
 using namespace std;
+namespace fs = boost::filesystem;
+
+
+CDocument::CDocument(std::string const& tempFolder)
+	: m_tempFolder(tempFolder)
+{}
 
 void CDocument::SetTitle(const std::string & title)
 {
@@ -43,20 +53,37 @@ size_t CDocument::GetItemsCount() const
 
 std::shared_ptr<IParagraph> CDocument::InsertParagraph(const std::string& text, std::optional<size_t> position)
 {
-	CParagraph paragraph(text);
+	CParagraph paragraph(text, *this);
 	CDocumentItem item(make_shared<CParagraph>(paragraph));
 
-	m_history.AddAndExecuteCommand(make_unique<CInsertCommand>(m_items, item, position));
+	m_history.AddAndExecuteCommand(make_unique<CInsertItemCommand>(m_items, make_shared<CDocumentItem>(item), position));
 
 	return item.GetParagraph();
 }
 
 std::shared_ptr<IImage> CDocument::InsertImage(const std::string& path, int width, int height, std::optional<size_t> position)
 {
-	return nullptr;
+	Core::AssertImageSize(width, height);
+
+	if (!fs::exists(path))
+	{
+		throw logic_error("The file " + path + " does not exist");
+	}
+
+	const auto filename = Core::GenerateRandomFileName(Core::TEMP_FILE_NAME_LENGTH);
+	const auto extension = fs::path(path).extension().string();
+	string to = m_tempFolder.string() + "\\" + filename + extension;
+	fs::copy_file(path, to);
+
+	auto image = make_shared<CImage>(to, width, height, *this);
+	auto item = make_shared<CDocumentItem>(image);
+
+	AddAndExecuteCommand(make_unique<CInsertItemCommand>(m_items, item, position));
+
+	return image;
 }
 
-CConstDocumentItem CDocument::GetItem(size_t index) const
+std::shared_ptr<CConstDocumentItem> CDocument::GetItem(size_t index) const
 {
 	if (index > m_items.size())
 	{
@@ -66,7 +93,7 @@ CConstDocumentItem CDocument::GetItem(size_t index) const
 	return m_items[index];
 }
 
-CDocumentItem CDocument::GetItem(size_t index)
+std::shared_ptr<CDocumentItem> CDocument::GetItem(size_t index)
 {
 	if (index > m_items.size())
 	{
@@ -78,5 +105,10 @@ CDocumentItem CDocument::GetItem(size_t index)
 
 void CDocument::DeleteItem(size_t index)
 {
-	
+	m_history.AddAndExecuteCommand(make_unique<CDeleteItemCommand>(m_items, index));
+}
+
+void CDocument::AddAndExecuteCommand(ICommandPtr&& command)
+{
+	m_history.AddAndExecuteCommand(std::move(command));
 }

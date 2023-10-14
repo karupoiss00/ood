@@ -27,7 +27,7 @@ void CHistory::Undo()
 {
 	if (CanUndo())
 	{
-		m_commands[m_nextCommandIndex - 1]->Unexecute(); // может выбросить исключение
+		m_commands[m_nextCommandIndex - 1]->Unexecute();
 		--m_nextCommandIndex;
 	}
 }
@@ -36,57 +36,37 @@ void CHistory::Redo()
 {
 	if (CanRedo())
 	{
-		m_commands[m_nextCommandIndex]->Execute(); // может выбросить исключение
+		m_commands[m_nextCommandIndex]->Execute();
 		++m_nextCommandIndex;
 	}
 }
 
 void CHistory::AddAndExecuteCommand(ICommandPtr && command)
 {
-	if (m_nextCommandIndex < m_commands.size()) // Не происходит расширения истории команд
+	if (m_nextCommandIndex < m_commands.size())
 	{
-		command->Execute();	// может бросить исключение
-		++m_nextCommandIndex;					// 
-		m_commands.resize(m_nextCommandIndex);	// исключение выброшено не будет, т.к. размер <= текущему
+		command->Execute();
+		++m_nextCommandIndex;
+
+		m_commands.resize(m_nextCommandIndex);
 		m_commands.back() = move(command);
 	}
-	else // будет происходить расширение истории команд
+	else
 	{
 		assert(m_nextCommandIndex == m_commands.size());
-		// резервируем место по добавляемую команду 
-		m_commands.emplace_back(nullptr); // может выбросить исключение, но мы еще ничего не трогали
+		m_commands.emplace_back(nullptr);
 
 		try
 		{
-			command->Execute(); // может выбросить исключение
-			// заменяем команду-заглушку
-			m_commands.back() = move(command); // не бросает исключений
-			++m_nextCommandIndex; // теперь можно обновить индекс следующей команды
+			command->Execute();
+
+			m_commands.back() = move(command);
+			++m_nextCommandIndex;
 		}
 		catch (...)
 		{
-			// удаляем заглушку, т.к. команда не исполнилась
-			m_commands.pop_back(); // не бросает исключений
-			// перевыбрасываем пойманное исключение вверх (кем бы оно ни было), 
-			// т.к. команду выполнить не смогли
+			m_commands.pop_back();
 			throw;
 		}
-
-		// Альтернативная реализация через boost.scope_exit (не совсем здесь подходит)
-		//// флажок для утверждения изменений
-		//bool commit = false;
-		//// Блок кода, который выполнится при любом выходе из данного scope (исключение, return, обычный выход)
-		//BOOST_SCOPE_EXIT_ALL(this, commit)
-		//{
-		//	if (!commit)	// удаляем из очереди команд команду-заглушку, т.к. команда зафейлилась
-		//	{
-		//		m_commands.pop_back();
-		//	}
-		//};
-		//command->Execute();	// может выбросить исключение
-		//commit = true;		// все ок, можно утверждаем изменения
-		//m_commands.back() = move(command); // заменяем команду заглушку на исполненную (не бросает исключений)
-		//++m_nextCommandIndex;
-
 	}
 }

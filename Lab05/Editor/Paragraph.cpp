@@ -1,7 +1,10 @@
 #include "Paragraph.h"
+#include "TrivialCommand.h"
 
-CParagraph::CParagraph(const std::string& text)
-	: m_content(text) {}
+CParagraph::CParagraph(std::string text, IHistoryController& historyController)
+	: m_content(std::move(text))
+	, m_historyController(historyController)
+{}
 
 std::string CParagraph::GetText() const
 {
@@ -10,5 +13,14 @@ std::string CParagraph::GetText() const
 
 void CParagraph::SetText(const std::string& text)
 {
-	m_content = text;
+	auto oldContent = m_content;
+
+	m_historyController.AddAndExecuteCommand(std::make_unique<TrivialCommand>(
+		[this, text]() {
+			this->m_content = text;
+		},
+		[this, oldContent]() {
+			this->m_content = oldContent;
+		}
+	));
 }

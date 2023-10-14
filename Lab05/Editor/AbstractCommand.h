@@ -11,6 +11,8 @@ protected:
 	virtual void DoExecute() = 0;
 	virtual void DoUnexecute() = 0;
 
+	bool IsExecuted() const;
+
 private:
 	bool m_executed = false;
 };
