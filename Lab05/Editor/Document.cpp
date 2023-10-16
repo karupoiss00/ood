@@ -53,6 +53,8 @@ size_t CDocument::GetItemsCount() const
 
 std::shared_ptr<IParagraph> CDocument::InsertParagraph(const std::string& text, std::optional<size_t> position)
 {
+	AssertDocumentPosition(position);
+
 	CParagraph paragraph(text, *this);
 	CDocumentItem item(make_shared<CParagraph>(paragraph));
 
@@ -64,6 +66,7 @@ std::shared_ptr<IParagraph> CDocument::InsertParagraph(const std::string& text, 
 std::shared_ptr<IImage> CDocument::InsertImage(const std::string& path, int width, int height, std::optional<size_t> position)
 {
 	Core::AssertImageSize(width, height);
+	AssertDocumentPosition(position);
 
 	if (!fs::exists(path))
 	{
@@ -85,30 +88,31 @@ std::shared_ptr<IImage> CDocument::InsertImage(const std::string& path, int widt
 
 std::shared_ptr<CConstDocumentItem> CDocument::GetItem(size_t index) const
 {
-	if (index > m_items.size())
-	{
-		throw out_of_range("item index out of document range");
-	}
-
+	AssertDocumentPosition(index);
 	return m_items[index];
 }
 
 std::shared_ptr<CDocumentItem> CDocument::GetItem(size_t index)
 {
-	if (index > m_items.size())
-	{
-		throw out_of_range("item index out of document range");
-	}
-
+	AssertDocumentPosition(index);
 	return m_items[index];
 }
 
 void CDocument::DeleteItem(size_t index)
 {
+	AssertDocumentPosition(index);
 	m_history.AddAndExecuteCommand(make_unique<CDeleteItemCommand>(m_items, index));
 }
 
 void CDocument::AddAndExecuteCommand(ICommandPtr&& command)
 {
 	m_history.AddAndExecuteCommand(std::move(command));
+}
+
+void CDocument::AssertDocumentPosition(optional<size_t> position) const
+{
+	if (position.has_value() && position > m_items.size())
+	{
+		throw out_of_range("item position out of document range");
+	}
 }

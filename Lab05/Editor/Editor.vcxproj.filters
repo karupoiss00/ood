@@ -93,9 +93,6 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
-    <ClCompile Include="Editor.cpp">
-      <Filter>Source Files\app</Filter>
-    </ClCompile>
     <ClCompile Include="InsertItemCommand.cpp">
       <Filter>Source Files\commands</Filter>
     </ClCompile>
@@ -107,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp">
+      <Filter>Header Files\commands\common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

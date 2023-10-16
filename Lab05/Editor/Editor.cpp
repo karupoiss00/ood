@@ -16,6 +16,7 @@ CEditor::CEditor()
 
 	auto undo = [this](istream& in) { this->Undo(in); };
 	auto redo = [this](istream& in) { this->Redo(in); };
+
 	auto list = [this](istream& in) { this->List(in); };
 	auto setTitle = [this](istream& in) { this->SetTitle(in); };
 	auto insertParagraph = [this](istream& in) { this->InsertParagraph(in); };
@@ -81,11 +82,11 @@ void CEditor::List(istream&) const
 
 	for (size_t i = 0; i < m_document->GetItemsCount(); i++)
 	{
-		auto item = m_document->GetItem(i);
+		const auto item = m_document->GetItem(i);
 
 		cout << i + 1 << ". ";
 
-		auto paragraph = item->GetParagraph();
+		const auto paragraph = item->GetParagraph();
 		if (paragraph)
 		{
 			cout << "Paragraph:" << paragraph->GetText() << endl;
@@ -155,13 +156,14 @@ void CEditor::ReplaceText(istream& in) const
 		throw invalid_argument("Invalid ReplaceText syntax. Check help.");
 	}
 
-	auto paragraph = m_document->GetItem(pos)->GetParagraph();
+	const auto paragraph = m_document->GetItem(pos)->GetParagraph();
 	if (paragraph == nullptr)
 	{
 		throw logic_error("This item is not a paragraph");
 	}
 
 	getline(in, valueArgument);
+
 	paragraph->SetText(valueArgument);
 }
 
@@ -255,7 +257,7 @@ void CEditor::Save(istream& in) const
 	}
 
 	const string parentPath = outputFilePath.parent_path().string();
-	string imageFolderName = parentPath + "\\" + outputFilePath.stem().string() + "_images";
+	const string imageFolderName = parentPath + "\\" + outputFilePath.stem().string() + "_images";
 
 	if (!fs::exists(parentPath))
 	{
@@ -286,7 +288,7 @@ void CEditor::CreateTempFolder()
 	fs::create_directory(m_tempFolder);
 }
 
-void CEditor::DeleteTempFolder()
+void CEditor::DeleteTempFolder() const
 {
 	fs::remove_all(m_tempFolder);
 }

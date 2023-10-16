@@ -27,10 +27,9 @@ private:
 	void Save(std::istream& in) const;
 
 	void CreateTempFolder();
-	void DeleteTempFolder();
+	void DeleteTempFolder() const;
 
 	CMenu m_menu;
 	std::unique_ptr<IDocument> m_document;
 	std::string m_tempFolder;
-
 };

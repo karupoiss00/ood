@@ -31,6 +31,8 @@ public:
 	void AddAndExecuteCommand(ICommandPtr&& command) override;
 
 private:
+	void AssertDocumentPosition(std::optional<size_t> position) const;
+
 	std::string m_title;
 	std::vector<std::shared_ptr<CDocumentItem>> m_items;
 	CHistory m_history;
