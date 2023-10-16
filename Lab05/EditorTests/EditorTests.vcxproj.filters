@@ -36,7 +36,7 @@
     <ClCompile Include="..\Editor\Paragraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractCommandTest.cpp">
+    <ClCompile Include="AbstractCommandTests.cpp">
       <Filter>tests</Filter>
     </ClCompile>
     <ClCompile Include="..\Editor\ChangeStringCommand.cpp">
@@ -65,6 +65,21 @@
     </ClCompile>
     <ClCompile Include="..\Editor\TrivialCommand.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertItemCommandTests.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="DocumentItemTests.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="DocumentTests.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="ParagraphText.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageTests.cpp">
+      <Filter>tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="..\Editor\TrivialCommand.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MockHistoryController.h">
+      <Filter>tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

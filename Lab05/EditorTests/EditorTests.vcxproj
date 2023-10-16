@@ -177,8 +177,13 @@
     <ClCompile Include="..\Editor\Menu.cpp" />
     <ClCompile Include="..\Editor\Paragraph.cpp" />
     <ClCompile Include="..\Editor\TrivialCommand.cpp" />
-    <ClCompile Include="AbstractCommandTest.cpp" />
+    <ClCompile Include="AbstractCommandTests.cpp" />
+    <ClCompile Include="DocumentItemTests.cpp" />
+    <ClCompile Include="DocumentTests.cpp" />
+    <ClCompile Include="ImageTests.cpp" />
+    <ClCompile Include="InsertItemCommandTests.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ParagraphText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Editor\AbstractCommand.h" />
@@ -201,6 +206,7 @@
     <ClInclude Include="..\Editor\Menu.h" />
     <ClInclude Include="..\Editor\Paragraph.h" />
     <ClInclude Include="..\Editor\TrivialCommand.h" />
+    <ClInclude Include="MockHistoryController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

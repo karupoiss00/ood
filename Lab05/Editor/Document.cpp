@@ -89,13 +89,13 @@ std::shared_ptr<IImage> CDocument::InsertImage(const std::string& path, int widt
 std::shared_ptr<CConstDocumentItem> CDocument::GetItem(size_t index) const
 {
 	AssertDocumentPosition(index);
-	return m_items[index];
+	return m_items.at(index);
 }
 
 std::shared_ptr<CDocumentItem> CDocument::GetItem(size_t index)
 {
 	AssertDocumentPosition(index);
-	return m_items[index];
+	return m_items.at(index);
 }
 
 void CDocument::DeleteItem(size_t index)
@@ -111,7 +111,7 @@ void CDocument::AddAndExecuteCommand(ICommandPtr&& command)
 
 void CDocument::AssertDocumentPosition(optional<size_t> position) const
 {
-	if (position.has_value() && position > m_items.size())
+	if (position.has_value() && position.value() > m_items.size())
 	{
 		throw out_of_range("item position out of document range");
 	}
