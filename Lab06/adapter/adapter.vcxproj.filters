@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="graphics_lib">
+      <UniqueIdentifier>{49e8c638-854f-406e-8bea-035b9a298fa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shape_drawing_lib">
+      <UniqueIdentifier>{1a121f80-096a-44bd-a7f6-2d3c3303a4ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modern_graphics_lib">
+      <UniqueIdentifier>{e8fdae2b-c739-47a5-98b2-5cb2c8153e85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="adapter">
+      <UniqueIdentifier>{691f8f70-a178-49c7-bfe2-20e49e852060}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="graphics_lib.h">
+      <Filter>graphics_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="modern_graphics_lib.h">
+      <Filter>modern_graphics_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_drawing_lib.h">
+      <Filter>shape_drawing_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="ModernGraphicsAdapter.h">
+      <Filter>adapter</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
