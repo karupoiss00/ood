@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include "Core.h"
 #include "Paragraph.h"
 #include "Document.h"
@@ -9,7 +9,7 @@
 #include "Image.h"
 
 using namespace std;
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 
 CDocument::CDocument(std::string const& tempFolder)
@@ -55,7 +55,7 @@ std::shared_ptr<IParagraph> CDocument::InsertParagraph(const std::string& text, 
 {
 	AssertDocumentPosition(position);
 
-	CParagraph paragraph(text, *this);
+	CParagraph paragraph(text, m_history);
 	CDocumentItem item(make_shared<CParagraph>(paragraph));
 
 	m_history.AddAndExecuteCommand(make_unique<CInsertItemCommand>(m_items, make_shared<CDocumentItem>(item), position));
@@ -75,13 +75,13 @@ std::shared_ptr<IImage> CDocument::InsertImage(const std::string& path, int widt
 
 	const auto filename = Core::GenerateRandomFileName(Core::TEMP_FILE_NAME_LENGTH);
 	const auto extension = fs::path(path).extension().string();
-	string to = m_tempFolder.string() + "\\" + filename + extension;
+	string to = m_tempFolder.string() + "/" + filename + extension;
 	fs::copy_file(path, to);
 
-	auto image = make_shared<CImage>(to, width, height, *this);
+	auto image = make_shared<CImage>(to, width, height, m_history);
 	auto item = make_shared<CDocumentItem>(image);
 
-	AddAndExecuteCommand(make_unique<CInsertItemCommand>(m_items, item, position));
+	m_history.AddAndExecuteCommand(make_unique<CInsertItemCommand>(m_items, item, position));
 
 	return image;
 }
@@ -102,11 +102,6 @@ void CDocument::DeleteItem(size_t index)
 {
 	AssertDocumentPosition(index);
 	m_history.AddAndExecuteCommand(make_unique<CDeleteItemCommand>(m_items, index));
-}
-
-void CDocument::AddAndExecuteCommand(ICommandPtr&& command)
-{
-	m_history.AddAndExecuteCommand(std::move(command));
 }
 
 void CDocument::AssertDocumentPosition(optional<size_t> position) const

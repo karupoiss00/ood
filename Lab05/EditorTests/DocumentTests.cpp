@@ -7,8 +7,8 @@
 using namespace std;
 namespace fs = boost::filesystem;
 
-const string TEMP_FOLDER = fs::current_path().string() + "\\tmp";
-const string TEST_IMAGE = fs::current_path().string() + "\\mock_data\\test.bmp";
+const string TEMP_FOLDER = fs::current_path().string() + "/tmp";
+const string TEST_IMAGE = fs::current_path().string() + "/mock_data/test.bmp";
 
 struct DocumentFixtureBase
 {
@@ -40,10 +40,11 @@ struct DocumentFixture : DocumentFixtureBase
 
 void TestInsertItem(IDocument& document, optional<size_t> index, const function<void()>& insertFn, const function<void(const shared_ptr<CDocumentItem>& item)>& testFn)
 {
-	size_t itemsCountBeforeInsert = document.GetItemsCount();
+	size_t beforeItemsCount = document.GetItemsCount();
+
 	insertFn();
 
-	REQUIRE(document.GetItemsCount() == itemsCountBeforeInsert + 1);
+	REQUIRE(document.GetItemsCount() == beforeItemsCount + 1);
 
 	auto insertIndex = index ? index.value() : document.GetItemsCount() - 1;
 	auto item = document.GetItem(insertIndex);
@@ -51,7 +52,7 @@ void TestInsertItem(IDocument& document, optional<size_t> index, const function<
 	testFn(item);
 
 	document.Undo();
-	REQUIRE(document.GetItemsCount() == itemsCountBeforeInsert);
+	REQUIRE(document.GetItemsCount() == beforeItemsCount);
 
 	if (insertIndex == document.GetItemsCount())
 	{
@@ -63,7 +64,7 @@ void TestInsertItem(IDocument& document, optional<size_t> index, const function<
 	}
 
 	document.Redo();
-	REQUIRE(document.GetItemsCount() == itemsCountBeforeInsert + 1);
+	REQUIRE(document.GetItemsCount() == beforeItemsCount + 1);
 	REQUIRE(item == document.GetItem(insertIndex));
 }
 
@@ -159,7 +160,7 @@ TEST_CASE_METHOD(DocumentFixture, "Document")
 
 	THEN("adding image doesn't exist")
 	{
-		REQUIRE_THROWS_AS(TestInsertImage(document, ":\\notexist.jpg", 800, 600, 0), logic_error);
+		REQUIRE_THROWS_AS(TestInsertImage(document, ":/notexist.jpg", 800, 600, 0), logic_error);
 	}
 
 	THEN("can delete item")

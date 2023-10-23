@@ -1,4 +1,4 @@
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <optional>
 #include <catch2/catch.hpp>
 #include "InsertItemCommand.h"
@@ -7,11 +7,11 @@
 #include "MockHistoryController.h"
 
 using namespace std;
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
-const string TEST_IMAGE = fs::current_path().string() + "\\mock_data\\test.bmp";
-const string TEMP_FOLDER = fs::current_path().string() + "\\tmp";
-const string TEMP_IMAGE = TEMP_FOLDER + "\\test.bmp";
+const string TEST_IMAGE = fs::current_path().string() + "/mock_data/test.bmp";
+const string TEMP_FOLDER = fs::current_path().string() + "/tmp";
+const string TEMP_IMAGE = TEMP_FOLDER + "/test.bmp";
 
 struct AddItemCommandFixture
 {

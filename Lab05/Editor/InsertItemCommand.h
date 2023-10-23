@@ -16,4 +16,5 @@ private:
 	std::vector<std::shared_ptr<CDocumentItem>>& m_items;
 	std::shared_ptr<CDocumentItem> m_value;
 	std::optional<size_t> m_insertPos;
+	// сделать через индексы, чтобы рабтало за константное время
 };

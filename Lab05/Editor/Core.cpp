@@ -1,4 +1,4 @@
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <boost/lexical_cast.hpp>
 #include <random>
 #include <algorithm>
@@ -8,7 +8,7 @@
 #include "Core.h"
 
 using namespace std;
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 string Core::GenerateRandomFileName(size_t fileNameLength)
 {
@@ -29,9 +29,9 @@ string Core::GenerateRandomFileName(size_t fileNameLength)
 	return randomFileName;
 }
 
-std::string Core::SimpleTextToHtml(const string& str)
+std::string Core::EncodeHtml(const string& str)
 {
-	array<array<string, 2>, 5> symbols = {
+	array<pair<string, string>, 5> symbols = {
 		{ { "&", "&amp;" }, { "\"", "&quot;" }, { "'", "&apos;" }, { "<", "&lt;" }, { ">", "&gt;" } }
 	};
 	string html = str;
@@ -40,26 +40,31 @@ std::string Core::SimpleTextToHtml(const string& str)
 	{
 		size_t pos = 0;
 
-		while ((pos = html.find(symbol[0], pos)) != string::npos)
+		while ((pos = html.find(symbol.first, pos)) != string::npos)
 		{
-			html.replace(pos, symbol[0].length(), symbol[1]);
-			pos += symbol[1].length();
+			html.replace(pos, symbol.first.length(), symbol.second);
+			pos += symbol.second.length();
 		}
 	}
 
 	return html;
 }
 
-void Core::SaveDocumentToHtml(const unique_ptr<IDocument>& document, ofstream& file, const fs::path& imageFolder)
+void Core::SaveToHtml(const unique_ptr<IDocument>& document, ofstream& file, const fs::path& imageFolder)
 {
 	file << "<!DOCTYPE html>" << endl;
 	file << "<html>" << endl;
-
 	file << "<head>" << endl;
-	file << "    <title>" << Core::SimpleTextToHtml(document->GetTitle()) << "</title>" << endl;
 	file << "</head>" << endl;
 
 	file << "<body>" << endl;
+
+	const auto title = document->GetTitle();
+
+	if (!title.empty())
+	{
+		file << "<h1>" << document->GetTitle() << "</h1>" << endl;
+	}
 
 	for (size_t i = 0; i < document->GetItemsCount(); i++)
 	{
@@ -68,7 +73,7 @@ void Core::SaveDocumentToHtml(const unique_ptr<IDocument>& document, ofstream& f
 		if (item->GetParagraph() != nullptr)
 		{
 			auto paragraph = item->GetParagraph();
-			file << "    <p>" << Core::SimpleTextToHtml(paragraph->GetText()) << "</p>" << endl;
+			file << "    <p>" << Core::EncodeHtml(paragraph->GetText()) << "</p>" << endl;
 		}
 		else if (item->GetImage() != nullptr)
 		{

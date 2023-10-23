@@ -63,7 +63,7 @@
     <ClCompile Include="..\Editor\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Editor\TrivialCommand.cpp">
+    <ClCompile Include="..\Editor\FunctionalCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InsertItemCommandTests.cpp">

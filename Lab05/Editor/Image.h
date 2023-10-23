@@ -1,11 +1,11 @@
 #pragma once
-#include "IHistoryController.h"
+#include "ICommonExecutor.h"
 #include "IImage.h"
 
 class CImage : public IImage
 {
 public:
-	CImage(std::string const& path, int width, int height, IHistoryController& historyController);
+	CImage(std::string const& path, int width, int height, ICommonExecutor& historyController);
 
 	std::string GetPath() const override;
 
@@ -20,5 +20,5 @@ private:
 	int m_width;
 	int m_height;
 
-	IHistoryController& m_historyController;
+	ICommonExecutor& m_historyController;
 };

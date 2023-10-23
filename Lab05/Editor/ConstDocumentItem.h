@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include <string>
 #include "IParagraph.h"
 #include "IImage.h"
 

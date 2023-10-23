@@ -1,9 +1,9 @@
 #include "Image.h"
-#include "TrivialCommand.h"
+#include "FunctionalCommand.h"
 
 using namespace std;
 
-CImage::CImage(string const& path, int width, int height, IHistoryController& historyController)
+CImage::CImage(string const& path, int width, int height, ICommonExecutor& historyController)
 	: m_path(path), m_width(width), m_height(height), m_historyController(historyController)
 {
 }
@@ -28,7 +28,7 @@ void CImage::Resize(int width, int height)
 	auto oldWidth = m_width;
 	auto oldHeight = m_height;
 
-	m_historyController.AddAndExecuteCommand(make_unique<TrivialCommand>(
+	m_historyController.AddAndExecuteCommand(make_unique<FunctionalCommand>(
 		[this, width, height]() {
 			this->m_width = width;
 			this->m_height = height;

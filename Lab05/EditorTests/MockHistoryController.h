@@ -2,9 +2,9 @@
 
 
 #include "History.h"
-#include "IHistoryController.h"
+#include "ICommonExecutor.h"
 
-class CMockHistoryController : public IHistoryController
+class CMockHistoryController : public ICommonExecutor
 {
 public:
 	void AddAndExecuteCommand(ICommandPtr&& command) override

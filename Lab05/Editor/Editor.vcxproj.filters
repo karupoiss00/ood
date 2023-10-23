@@ -99,14 +99,14 @@
     <ClCompile Include="DeleteItemCommand.cpp">
       <Filter>Source Files\commands</Filter>
     </ClCompile>
-    <ClCompile Include="TrivialCommand.cpp">
+    <ClCompile Include="FunctionalCommand.cpp">
       <Filter>Source Files\commands\common</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="Editor.cpp">
-      <Filter>Header Files\commands\common</Filter>
+      <Filter>Source Files\app</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,10 +161,10 @@
     <ClInclude Include="DeleteItemCommand.h">
       <Filter>Header Files\commands</Filter>
     </ClInclude>
-    <ClInclude Include="TrivialCommand.h">
+    <ClInclude Include="FunctionalCommand.h">
       <Filter>Header Files\commands\common</Filter>
     </ClInclude>
-    <ClInclude Include="IHistoryController.h">
+    <ClInclude Include="ICommonExecutor.h">
       <Filter>Header Files\document\history</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">

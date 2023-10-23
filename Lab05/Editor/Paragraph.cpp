@@ -1,7 +1,7 @@
 #include "Paragraph.h"
-#include "TrivialCommand.h"
+#include "FunctionalCommand.h"
 
-CParagraph::CParagraph(std::string text, IHistoryController& historyController)
+CParagraph::CParagraph(std::string text, ICommonExecutor& historyController)
 	: m_content(std::move(text))
 	, m_historyController(historyController)
 {}
@@ -15,7 +15,7 @@ void CParagraph::SetText(const std::string& text)
 {
 	auto oldContent = m_content;
 
-	m_historyController.AddAndExecuteCommand(std::make_unique<TrivialCommand>(
+	m_historyController.AddAndExecuteCommand(std::make_unique<FunctionalCommand>(
 		[this, text]() {
 			this->m_content = text;
 		},

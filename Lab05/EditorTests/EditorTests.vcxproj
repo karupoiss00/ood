@@ -176,7 +176,7 @@
     <ClCompile Include="..\Editor\InsertItemCommand.cpp" />
     <ClCompile Include="..\Editor\Menu.cpp" />
     <ClCompile Include="..\Editor\Paragraph.cpp" />
-    <ClCompile Include="..\Editor\TrivialCommand.cpp" />
+    <ClCompile Include="..\Editor\FunctionalCommand.cpp" />
     <ClCompile Include="AbstractCommandTests.cpp" />
     <ClCompile Include="DocumentItemTests.cpp" />
     <ClCompile Include="DocumentTests.cpp" />

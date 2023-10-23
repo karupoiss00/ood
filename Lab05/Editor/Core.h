@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <filesystem>
 #include "IDocument.h"
 
 namespace Core
@@ -9,9 +10,9 @@ namespace Core
 	const size_t TEMP_FILE_NAME_LENGTH = 12;
 
 	std::string GenerateRandomFileName(size_t fileNameLength);
-	std::string SimpleTextToHtml(const std::string& str);
+	std::string EncodeHtml(const std::string& str);
 
-	void SaveDocumentToHtml(const std::unique_ptr<IDocument>& document, std::ofstream& file, const boost::filesystem::path& imageFolder);
+	void SaveToHtml(const std::unique_ptr<IDocument>& document, std::ofstream& file, const std::filesystem::path& imageFolder);
 
 	void AssertImageSize(int width, int height);
 

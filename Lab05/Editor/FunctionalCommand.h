@@ -1,15 +1,12 @@
 #pragma once
-
-#pragma once
-
 #include <functional>
-
 #include "AbstractCommand.h"
 
-class TrivialCommand : public CAbstractCommand
+// переименовать в FunctionalCommand
+class FunctionalCommand : public CAbstractCommand
 {
 public:
-	TrivialCommand(const std::function<void()>& doExecute, const std::function<void()>& doUnexecute);
+	FunctionalCommand(const std::function<void()>& doExecute, const std::function<void()>& doUnexecute);
 
 protected:
 	void DoExecute() override;

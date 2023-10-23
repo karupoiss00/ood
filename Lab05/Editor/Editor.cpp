@@ -1,13 +1,12 @@
 #include <fstream>
 #include "Editor.h"
-
 #include "Core.h"
 
 using namespace std;
 using namespace std::placeholders;
 
 namespace fs = boost::filesystem;
-
+// использовать прямой слэш, а не обратный
 CEditor::CEditor()
 {
 	auto help = [this](istream&) { m_menu.ShowInstructions(); };
@@ -91,6 +90,12 @@ void CEditor::List(istream&) const
 		{
 			cout << "Paragraph:" << paragraph->GetText() << endl;
 		}
+
+		const auto image = item->GetImage();
+		if (image)
+		{
+			cout << "Image: " << image->GetPath() << " " << image->GetWidth() << "x" << image->GetHeight() << endl;
+		}
 	}
 }
 
@@ -133,6 +138,8 @@ void CEditor::InsertParagraph(istream& in) const
 	getline(in, valueArgument);
 
 	size_t pos;
+	// кидать исключение вместо буля
+	// сделать нормально считывание позции
 	if (Core::ParseNumber(positionArgument, pos))
 	{
 		m_document->InsertParagraph(valueArgument, pos);
@@ -192,7 +199,7 @@ void CEditor::InsertImage(istream& in) const
 
 	size_t pos, width, height;
 	const bool posParsed = Core::ParseNumber(posStr, pos);
-	cout << widthStr << heightStr << endl;
+
 	if ((!posParsed && posStr != "end")
 		|| !Core::ParseNumber(widthStr, width)
 		|| !Core::ParseNumber(heightStr, height))
@@ -268,7 +275,7 @@ void CEditor::Save(istream& in) const
 
 	if (outputFile.is_open())
 	{
-		Core::SaveDocumentToHtml(m_document, outputFile, imageFolderName);
+		Core::SaveToHtml(m_document, outputFile, imageFolderName);
 	}
 	else
 	{

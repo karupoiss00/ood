@@ -4,6 +4,8 @@
 
 using namespace std;
 
+constexpr int MAX_HISTORY_SIZE = 2;
+
 CHistory::CHistory()
 {
 }
@@ -62,6 +64,11 @@ void CHistory::AddAndExecuteCommand(ICommandPtr && command)
 
 			m_commands.back() = move(command);
 			++m_nextCommandIndex;
+			if (m_nextCommandIndex > MAX_HISTORY_SIZE)
+			{
+				m_commands.erase(m_commands.begin());
+				--m_nextCommandIndex;
+			}
 		}
 		catch (...)
 		{

@@ -3,9 +3,8 @@
 #include <boost/filesystem.hpp>
 #include "IDocument.h"
 #include "History.h"
-#include "IHistoryController.h"
 
-class CDocument: public IDocument, public IHistoryController
+class CDocument: public IDocument
 {
 public:
 	CDocument(std::string const& tempFolder);
@@ -27,8 +26,6 @@ public:
 	void DeleteItem(size_t index) override;
 
 	void Save(const std::string& path) const override {};
-
-	void AddAndExecuteCommand(ICommandPtr&& command) override;
 
 private:
 	void AssertDocumentPosition(std::optional<size_t> position) const;

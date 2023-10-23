@@ -12,7 +12,7 @@ struct DocumentItemFixture
 {
 	DocumentItemFixture()
 		: f_paragraph(make_shared<CParagraph>("text", historyController))
-		, f_image(make_shared<CImage>("C:\\image\\image.jpg", 800, 600, historyController))
+		, f_image(make_shared<CImage>("C:/image/image.jpg", 800, 600, historyController))
 	{
 	}
 
