@@ -7,6 +7,7 @@ class CDeleteItemCommand : public CAbstractCommand
 {
 public:
 	CDeleteItemCommand(std::vector<std::shared_ptr<CDocumentItem>>& items, size_t position);
+	~CDeleteItemCommand();
 
 protected:
 	void DoExecute() override;
@@ -14,6 +15,6 @@ protected:
 
 private:
 	std::vector<std::shared_ptr<CDocumentItem>>& m_items;
-	std::shared_ptr<CDocumentItem> const& m_itemToRemove;
+	std::shared_ptr<CDocumentItem> m_itemToRemove;
 	size_t m_deletePos;
 };

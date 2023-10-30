@@ -78,8 +78,8 @@ TEST_CASE("check object adapter interface implementation")
 	stringstream strm;
 	mgl::CModernGraphicsRenderer renderer(strm);
 	ModernGraphicsAdapter adapter(renderer);
-
-	REQUIRE(static_cast<graphics_lib::ICanvas*>(&adapter));
+	
+	static_cast<graphics_lib::ICanvas*>(&adapter);
 }
 
 TEST_CASE("draw triangle with object adapter")
@@ -101,8 +101,8 @@ TEST_CASE("check class adapter interface implementation")
 	stringstream strm;
 	ModernGraphicsClassAdapter adapter(strm);
 
-	REQUIRE(static_cast<graphics_lib::ICanvas*>(&adapter));
-	REQUIRE(static_cast<mgl::CModernGraphicsRenderer*>(&adapter));
+	static_cast<graphics_lib::ICanvas*>(&adapter);
+	static_cast<mgl::CModernGraphicsRenderer*>(&adapter);
 }
 
 TEST_CASE("draw triangle with class adapter")

@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <iomanip>
 #include <cstdint>
 
 namespace graphics_lib_pro
@@ -17,15 +19,15 @@ namespace graphics_lib_pro
 	public:
 		void SetColor(uint32_t rgbColor) override
 		{
-			cout << "TODO: вывести в output цвет в виде строки SetColor (#RRGGBB)" << endl;
+			std::cout << '#' << std::setfill('0') << std::setw(6) << std::hex << rgbColor << std::dec << std::endl;
 		}
 		void MoveTo(int x, int y) override
 		{
-			// Реализация остается без изменения
+			std::cout << "MoveTo (" << x << ", " << y << ")" << std::endl;
 		}
 		void LineTo(int x, int y) override
 		{
-			// Реализация остается без изменения
+			std::cout << "LineTo (" << x << ", " << y << ")" << std::endl;
 		}
 	};
 } // namespace graphics_lib_pro

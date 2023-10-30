@@ -1,10 +1,9 @@
 #include <filesystem>
-#include <boost/lexical_cast.hpp>
 #include <random>
 #include <algorithm>
 #include <fstream>
 #include <sstream>
-
+#include <array>
 #include "Core.h"
 
 using namespace std;
@@ -85,11 +84,11 @@ void Core::SaveToHtml(const unique_ptr<IDocument>& document, ofstream& file, con
 			auto image = item->GetImage();
 
 			fs::path itemImagePath = image->GetPath();
-			fs::path docImagePath = imageFolder.string() + "\\" + itemImagePath.filename().string();
+			fs::path docImagePath = imageFolder.string() + "/" + itemImagePath.filename().string();
 
 			fs::copy_file(itemImagePath, docImagePath);
 
-			file << "    <img src=\"" + imageFolder.filename().string() + "\\" + docImagePath.filename().string() + "\"";
+			file << "    <img src=\"" + imageFolder.filename().string() + "/" + docImagePath.filename().string() + "\"";
 			file << " width=\"" << image->GetWidth() << "px\"";
 			file << " height=\"" << image->GetHeight() << "px\"";
 			file << ">" << endl;

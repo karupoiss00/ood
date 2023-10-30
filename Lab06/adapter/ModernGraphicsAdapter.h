@@ -6,7 +6,6 @@
 class ModernGraphicsAdapter : public graphics_lib::ICanvas
 {
 public:
-	ModernGraphicsAdapter() = delete;
 	ModernGraphicsAdapter(modern_graphics_lib::CModernGraphicsRenderer& modernRenderer)
 		: m_renderer(modernRenderer)
 		, m_startPoint(0, 0)

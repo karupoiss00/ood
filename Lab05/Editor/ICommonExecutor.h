@@ -1,7 +1,7 @@
 #pragma once
 #include "ICommand.h"
 
-// это не HistoryController, CommonExecutor
+// это не HistoryController, CommonExecutor, upd CommandExecutor
 class ICommonExecutor
 {
 public:

@@ -27,8 +27,9 @@ void CInsertItemCommand::DoUnexecute()
 
 CInsertItemCommand::~CInsertItemCommand()
 {
-	if (m_value->GetImage() != nullptr && !IsExecuted())
+	auto image = m_value->GetImage();
+	if (image != nullptr && !IsExecuted())
 	{
-		fs::remove(m_value->GetImage()->GetPath());
+		fs::remove(image->GetPath());
 	}
 }

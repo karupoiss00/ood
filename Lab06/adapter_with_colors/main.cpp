@@ -1,11 +1,12 @@
 ﻿#include <iostream>
 #include <string>
+#include <format>
 
 #include "graphics_lib.h"
 #include "modern_graphics_lib.h"
 #include "shape_drawing_lib.h"
 
-#include "ModernGraphicsClassAdapter.h"
+#include "ModernGraphicsAdapter.h"
 
 using namespace std;
 
@@ -15,8 +16,8 @@ namespace app
 	{
 		using namespace shape_drawing_lib;
 
-		const CTriangle triangle({ 10, 15 }, { 100, 200 }, { 150, 250 });
-		const CRectangle rectangle({ 30, 40 }, 18, 24);
+		const CTriangle triangle({ 10, 15 }, { 100, 200 }, { 150, 250 }, 4013373);
+		const CRectangle rectangle({ 30, 40 }, 18, 24, 12345);
 
 		painter.Draw(triangle);
 		painter.Draw(rectangle);
@@ -24,17 +25,16 @@ namespace app
 
 	void PaintPictureOnCanvas()
 	{
-		graphics_lib::CCanvas simpleCanvas;
+		graphics_lib_pro::CCanvas simpleCanvas;
 		shape_drawing_lib::CCanvasPainter painter(simpleCanvas);
 		PaintPicture(painter);
 	}
 
 	void PaintPictureOnModernGraphicsRenderer()
 	{
-		ModernGraphicsClassAdapter renderer(cout);
-		shape_drawing_lib::CCanvasPainter painter(renderer);
-
-		// переместить в конструктор/деструктор, приватно унаследоваться
+		modern_graphics_lib_pro::CModernGraphicsRenderer renderer(cout);
+		ModernGraphicsAdapter adaptedModernRenderer(renderer);
+		shape_drawing_lib::CCanvasPainter painter(adaptedModernRenderer);
 		renderer.BeginDraw();
 		PaintPicture(painter);
 		renderer.EndDraw();
