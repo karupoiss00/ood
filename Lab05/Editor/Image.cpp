@@ -3,7 +3,7 @@
 
 using namespace std;
 
-CImage::CImage(string const& path, int width, int height, ICommonExecutor& historyController)
+CImage::CImage(string const& path, int width, int height, ICommandExecutor& historyController)
 	: m_path(path), m_width(width), m_height(height), m_historyController(historyController)
 {
 }

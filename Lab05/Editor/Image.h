@@ -5,7 +5,7 @@
 class CImage : public IImage
 {
 public:
-	CImage(std::string const& path, int width, int height, ICommonExecutor& historyController);
+	CImage(std::string const& path, int width, int height, ICommandExecutor& historyController);
 
 	std::string GetPath() const override;
 
@@ -20,5 +20,5 @@ private:
 	int m_width;
 	int m_height;
 
-	ICommonExecutor& m_historyController;
+	ICommandExecutor& m_historyController;
 };

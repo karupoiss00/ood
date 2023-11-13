@@ -3,7 +3,7 @@
 #include "ICommand_fwd.h"
 #include "ICommonExecutor.h"
 
-class CHistory : public ICommonExecutor
+class CHistory : public ICommandExecutor
 {
 public:
 	CHistory();

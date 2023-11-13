@@ -1,7 +1,7 @@
 #include "Paragraph.h"
 #include "FunctionalCommand.h"
 
-CParagraph::CParagraph(std::string text, ICommonExecutor& historyController)
+CParagraph::CParagraph(std::string text, ICommandExecutor& historyController)
 	: m_content(std::move(text))
 	, m_historyController(historyController)
 {}

@@ -4,7 +4,7 @@
 #include "History.h"
 #include "ICommonExecutor.h"
 
-class CMockHistoryController : public ICommonExecutor
+class CMockHistoryController : public ICommandExecutor
 {
 public:
 	void AddAndExecuteCommand(ICommandPtr&& command) override

@@ -1,11 +1,10 @@
 #pragma once
 #include "ICommand.h"
-
-// это не HistoryController, CommonExecutor, upd CommandExecutor
-class ICommonExecutor
+	
+class ICommandExecutor
 {
 public:
-	virtual ~ICommonExecutor() = default;
+	virtual ~ICommandExecutor() = default;
 
 	virtual void AddAndExecuteCommand(ICommandPtr&& command) = 0;
 };
