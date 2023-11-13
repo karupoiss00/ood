@@ -15,19 +15,3 @@ void CCompositeColorStyle::SetColor(RGBAColor color)
 		style.SetColor(color);
 	});
 }
-
-template <typename T>
-T CCompositeColorStyle::GetStyleValue(std::function<T(CColorStyle& style)> getValueFn) const
-{
-	vector<T> values;
-
-	m_enumerator([&](CColorStyle& style) {
-		values.push_back(getValueFn(style));
-	});
-
-	auto valuesIsNotEmptyAndEqual = [&values]() {
-		return !values.empty() && equal(values.begin() + 1, values.end(), values.begin());
-	};
-
-	return valuesIsNotEmptyAndEqual() ? values[0] : nullopt;
-}

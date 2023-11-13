@@ -143,5 +143,8 @@
     <ClInclude Include="CompositeLineStyle.h">
       <Filter>Header Files\style</Filter>
     </ClInclude>
+    <ClInclude Include="CompositeStyle.h">
+      <Filter>Header Files\style</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

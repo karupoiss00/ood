@@ -31,19 +31,3 @@ void CCompositeLineStyle::SetWidth(unsigned width)
 		style.SetWidth(width);
 	});
 }
-
-template <typename T>
-T CCompositeLineStyle::GetStyleValue(std::function<T(CLineStyle& style)> getValueFn) const
-{
-	vector<T> values;
-
-	m_enumerator([&](CLineStyle& style) {
-		values.push_back(getValueFn(style));
-	});
-
-	auto valuesIsNotEmptyAndEqual = [&values]() {
-		return !values.empty() && equal(values.begin() + 1, values.end(), values.begin());
-	};
-
-	return valuesIsNotEmptyAndEqual() ? values[0] : nullopt;
-}

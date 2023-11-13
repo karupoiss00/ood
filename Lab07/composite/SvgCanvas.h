@@ -28,6 +28,8 @@ private:
 	void FillFigure();
 	void FillVertexesArea();
 
+	std::string ColorToString(RGBAColor color);
+
 	PointD m_startPoint;
 
 	double m_width;

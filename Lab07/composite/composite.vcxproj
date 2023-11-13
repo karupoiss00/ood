@@ -169,6 +169,7 @@
     <ClInclude Include="ColorStyle.h" />
     <ClInclude Include="CompositeColorStyle.h" />
     <ClInclude Include="CompositeLineStyle.h" />
+    <ClInclude Include="CompositeStyle.h" />
     <ClInclude Include="Ellipse.h" />
     <ClInclude Include="IShapeGroup.h" />
     <ClInclude Include="IShape.h" />

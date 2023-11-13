@@ -23,10 +23,10 @@ void DrawSlideToFile(const shared_ptr<ISlide>& slide, const string& filename);
 int main()
 {
 	auto slide = CreateSlideExample();
-	DrawSlideToFile(slide, "slide1.html");
+	DrawSlideToFile(slide, "slide.html");
 
 	MoveAndResizeExample(slide);
-	DrawSlideToFile(slide, "slide2.html");
+	DrawSlideToFile(slide, "slide_modified.html");
 
 	return 0;
 }
@@ -73,6 +73,6 @@ void DrawSlideToFile(const shared_ptr<ISlide>& slide, const string& filename)
 	}
 	else
 	{
-		throw logic_error("An error occurred when writing file");
+		throw logic_error("File writing error");
 	}
 }

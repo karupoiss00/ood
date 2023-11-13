@@ -82,7 +82,7 @@ void CSvgCanvas::AddOutlineColor()
 	if (m_outlineColor)
 	{
 		auto color = m_outlineColor.value();
-		m_strm << format(R"( stroke="rgb{}{}, {}, {}{}" stroke-width="{}")", '(', (color >> 16 & 255), (color >> 8 & 255), (color & 255), ')', m_strokeWidth);
+		m_strm << format(R"( stroke={} stroke-width="{}")", ColorToString(color), m_strokeWidth);
 	}
 }
 
@@ -106,7 +106,7 @@ void CSvgCanvas::FillVertexesArea()
 	}
 
 	m_strm << " Z\"";
-	m_strm << format(R"( fill="rgb{}{}, {}, {}{}")", '(', (color >> 16 & 255), (color >> 8 & 255), (color & 255), ')');
+	m_strm << format(R"( fill={})", ColorToString(color));
 	m_strm << "/>" << endl;
 	m_strm << lines;
 }
@@ -117,11 +117,16 @@ void CSvgCanvas::FillFigure()
 	if (m_fillColor.has_value())
 	{
 		auto color = *m_fillColor;
-		m_strm << format(R"( fill="rgb{}{}, {}, {}{}")", '(', (color >> 16 & 255), (color >> 8 & 255), (color & 255), ')');
+		m_strm << format(R"( fill={})", ColorToString(color));
 	
 	}
 	else
 	{
 		m_strm << " fill=\"transparent\"";
 	}
+}
+
+std::string CSvgCanvas::ColorToString(RGBAColor color)
+{
+	return format(R"("rgb{}{}, {}, {}{}")", '(', (color >> 16 & 255), (color >> 8 & 255), (color & 255), ')');
 }
