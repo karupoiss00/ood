@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool CBaseStyle::IsEnabled() const
+std::optional<bool> CBaseStyle::IsEnabled() const
 {
 	return m_isEnabled;
 }

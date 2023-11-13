@@ -5,13 +5,123 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="modules">
+      <UniqueIdentifier>{ea268fe0-c761-45c3-986b-08f08ac470ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\composite\BaseStyle.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\ColorStyle.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\CompositeColorStyle.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\CompositeLineStyle.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\Ellipse.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\LineStyle.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\Rectangle.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\Shape.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\ShapeGroup.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\Shapes.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\Slide.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\SvgCanvas.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\composite\Triangle.cpp">
+      <Filter>modules</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CompositeTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\composite\BaseStyle.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\ColorStyle.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\CommonTypes.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\CompositeColorStyle.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\CompositeLineStyle.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\CompositeStyle.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\Ellipse.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\ICanvas.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\IDrawable.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\IShape.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\IShapeGroup.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\IShapes.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\ISlide.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\IStyle.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\LineStyle.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\Rectangle.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\Shape.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\ShapeGroup.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\Shapes.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\Slide.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\SvgCanvas.h">
+      <Filter>modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\composite\Triangle.h">
+      <Filter>modules</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

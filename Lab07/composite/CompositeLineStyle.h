@@ -24,5 +24,4 @@ public:
 
 	unsigned GetWidth() const;
 	void SetWidth(unsigned color);
-
 };

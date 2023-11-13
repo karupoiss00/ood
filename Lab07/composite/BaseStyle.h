@@ -6,15 +6,15 @@ class CBaseStyle : public IStyle
 {
 public:
 	CBaseStyle()
-		: m_isEnabled(true)
+		: m_isEnabled(std::nullopt)
 	{};
 	CBaseStyle(bool enabled)
 		: m_isEnabled(enabled)
 	{}
 
-	bool IsEnabled() const override;
+	std::optional<bool> IsEnabled() const override;
 	void Enable(bool enable) override;
 
 private:
-	bool m_isEnabled;
+	std::optional<bool> m_isEnabled;
 };

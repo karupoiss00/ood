@@ -14,6 +14,7 @@ class CCompositeColorStyle : public CColorStyle, public CCompositeStyle<CColorSt
 public:
 	CCompositeColorStyle(const ColorStyleEnumerator& enumerator)
 		: CCompositeStyle(enumerator)
+		, CColorStyle(false)
 	{
 	}
 
