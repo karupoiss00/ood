@@ -41,6 +41,12 @@ void CTriangle::SetFrameImpl(double offsetLeft, double offsetTop, double scaleWi
 	m_top += offsetTop;
 	m_width *= scaleWidth;
 	m_height *= scaleHeight;
+
+	for (auto& vertex : m_vertexes)
+	{
+		vertex.x += offsetLeft;
+		vertex.y += offsetTop;
+	}
 }
 
 void CTriangle::DrawImpl(ICanvas& canvas) const

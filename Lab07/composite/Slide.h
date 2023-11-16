@@ -21,8 +21,8 @@ public:
 private:
 	void DrawSelf(ICanvas& canvas) const;
 
-	double m_width = 1024;
-	double m_height = 768;
+	double m_width = 1920;
+	double m_height = 1080;
 
 	CShapes m_shapes;
 

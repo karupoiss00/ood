@@ -11,9 +11,8 @@ public:
 	void InsertShape(const std::shared_ptr<IShape>& shape, size_t position) override;
 	void RemoveShapeAtIndex(size_t index) override;
 
-protected:
-	std::vector<std::shared_ptr<IShape>>& GetShapes();
-	const std::vector<std::shared_ptr<IShape>>& GetShapes() const;
+	std::vector<std::shared_ptr<IShape>>& Get();
+	const std::vector<std::shared_ptr<IShape>>& Get() const;
 
 private:
 	std::vector<std::shared_ptr<IShape>> m_shapes;

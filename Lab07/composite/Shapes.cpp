@@ -15,6 +15,7 @@ shared_ptr<IShape> CShapes::GetShapeAtIndex(size_t index) const
 
 void CShapes::InsertShape(const shared_ptr<IShape>& shape, size_t position)
 {
+	// проверить, что группа не вставляется в саму себя
 	auto it = position > m_shapes.size() ? m_shapes.end() : m_shapes.begin() + position;
 	m_shapes.insert(it, shape);
 }
@@ -29,12 +30,12 @@ void CShapes::RemoveShapeAtIndex(size_t index)
 	m_shapes.erase(m_shapes.begin() + index);
 }
 
-vector<shared_ptr<IShape>>& CShapes::GetShapes()
+vector<shared_ptr<IShape>>& CShapes::Get()
 {
 	return m_shapes;
 }
 
-const std::vector<std::shared_ptr<IShape>>& CShapes::GetShapes() const
+const std::vector<std::shared_ptr<IShape>>& CShapes::Get() const
 {
 	return m_shapes;
 }

@@ -11,7 +11,7 @@ CShapeGroup::CShapeGroup()
 
 void CShapeGroup::Draw(ICanvas& canvas) const
 {
-	for (auto& shape : GetShapes())
+	for (auto& shape : m_shapes.Get())
 	{
 		shape->Draw(canvas);
 	}
@@ -19,8 +19,8 @@ void CShapeGroup::Draw(ICanvas& canvas) const
 
 RectD CShapeGroup::GetFrame()
 {
-	auto shapes = GetShapes();
-
+	auto shapes = m_shapes.Get();
+	
 	if (shapes.empty())
 	{
 		return { 0, 0, 0, 0 };
@@ -33,6 +33,13 @@ RectD CShapeGroup::GetFrame()
 
 	for (auto& shape : shapes)
 	{
+		auto group = shape->GetGroup();
+		if (group && group->GetShapesCount() == 0)
+		{
+			// [поправлено] пустые группы не вли€ют на позицию результурющего фрейма
+			continue;
+		}
+
 		auto shapeFrame = shape->GetFrame();
 
 		auto shapeLeftTopX = shapeFrame.left;
@@ -51,7 +58,7 @@ RectD CShapeGroup::GetFrame()
 
 void CShapeGroup::SetFrame(const RectD& rect)
 {
-	auto shapes = GetShapes();
+	auto shapes = m_shapes.Get();
 
 	if (shapes.empty())
 	{
@@ -104,46 +111,51 @@ std::shared_ptr<const CColorStyle> CShapeGroup::GetFillStyle() const
 
 std::shared_ptr<IShapeGroup> CShapeGroup::GetGroup()
 {
-	return make_shared<CShapeGroup>(*this);
+	return shared_from_this();
 }
 
+// [поправлено] наследоватьс€ от shared_pointer_from_this
 std::shared_ptr<const IShapeGroup> CShapeGroup::GetGroup() const
 {
-	return make_shared<const CShapeGroup>(*this);
+	return shared_from_this();
 }
 
 size_t CShapeGroup::GetShapesCount() const
 {
-	return CShapes::GetShapesCount();
+	return m_shapes.GetShapesCount();
 }
 
 shared_ptr<IShape> CShapeGroup::GetShapeAtIndex(size_t index) const
 {
-	return CShapes::GetShapeAtIndex(index);
+	return m_shapes.GetShapeAtIndex(index);
 }
 
 void CShapeGroup::InsertShape(const std::shared_ptr<IShape>& shape, size_t position)
 {
-	CShapes::InsertShape(shape, position);
+	m_shapes.InsertShape(shape, position);
 }
 
 void CShapeGroup::RemoveShapeAtIndex(size_t index)
 {
-	CShapes::RemoveShapeAtIndex(index);
+	m_shapes.RemoveShapeAtIndex(index);
 }
 
 void CShapeGroup::EnumerateOutlineStyles(const LineStyleCallback& callback)
 {
-	for (auto& shape : GetShapes())
+	unsigned index = 0;
+	for (auto& shape : m_shapes.Get())
 	{
-		callback(*shape->GetOutlineStyle());
+		callback(*shape->GetOutlineStyle(), index);
+		index++;
 	}
 }
 
 void CShapeGroup::EnumerateFillStyles(const ColorStyleCallback& callback)
 {
-	for (auto& shape : GetShapes())
+	unsigned index = 0;
+	for (auto& shape : m_shapes.Get())
 	{
-		callback(*shape->GetFillStyle());
+		callback(*shape->GetFillStyle(), index);
+		index++;
 	}
 }

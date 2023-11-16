@@ -11,7 +11,7 @@ optional<RGBAColor> CCompositeLineStyle::GetColor() const
 
 void CCompositeLineStyle::SetColor(RGBAColor color)
 {
-	m_enumerator([color](CLineStyle& style) {
+	m_enumerator([color](CLineStyle& style, unsigned index) {
 		style.SetColor(color);
 	});
 }
@@ -27,7 +27,7 @@ unsigned CCompositeLineStyle::GetWidth() const
 
 void CCompositeLineStyle::SetWidth(unsigned width)
 {
-	m_enumerator([width](CLineStyle& style) {
+	m_enumerator([width](CLineStyle& style, unsigned index) {
 		style.SetWidth(width);
 	});
 }

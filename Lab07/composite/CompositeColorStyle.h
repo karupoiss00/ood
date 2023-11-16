@@ -6,7 +6,7 @@
 #include "BaseStyle.h"
 #include "ColorStyle.h"
 
-using ColorStyleCallback = std::function<void(CColorStyle& style)>;
+using ColorStyleCallback = std::function<void(CColorStyle& style, unsigned index)>;
 using ColorStyleEnumerator = std::function<void(const ColorStyleCallback& callback)>;
 
 class CCompositeColorStyle : public CColorStyle, public CCompositeStyle<CColorStyle>

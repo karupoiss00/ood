@@ -6,7 +6,7 @@
 #include "IShapeGroup.h"
 #include "Shapes.h"
 
-class CShapeGroup : public IShapeGroup, public CShapes
+class CShapeGroup : public IShapeGroup, public std::enable_shared_from_this<CShapeGroup>
 {	
 public:
 	CShapeGroup();
@@ -37,4 +37,6 @@ private:
 
 	std::shared_ptr<CLineStyle> m_outlineStyle;
 	std::shared_ptr<CColorStyle> m_fillStyle;
+
+	CShapes m_shapes;
 };

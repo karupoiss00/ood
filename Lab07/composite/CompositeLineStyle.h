@@ -7,9 +7,10 @@
 #include "CompositeColorStyle.h"
 #include "LineStyle.h"
 
-using LineStyleCallback = std::function<void(CLineStyle& style)>;
+using LineStyleCallback = std::function<void(CLineStyle& style, unsigned index)>;
 using LineStyleEnumerator = std::function<void(const LineStyleCallback& callback)>;
 
+// заменить наследование композицией
 class CCompositeLineStyle : public CLineStyle, public CCompositeStyle<CLineStyle>
 {
 public:

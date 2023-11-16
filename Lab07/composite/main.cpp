@@ -6,11 +6,13 @@
 #include <stdexcept>
 #include <sstream>
 #include <fstream>
+#include <random>
 
 #include "Slide.h"
 #include "ShapeGroup.h"
 #include "Rectangle.h"
 #include "Ellipse.h"
+#include "Triangle.h"
 #include "SvgCanvas.h"
 #include "ColorStyle.h"
 
@@ -33,15 +35,41 @@ int main()
 
 shared_ptr<ISlide> CreateSlideExample()
 {
+	int startValue = 0;
+	int shapesCount = 10;
+
 	auto slide = make_shared<CSlide>();
 	auto& shapes = slide->GetShapes();
 
 	auto group = make_shared<CShapeGroup>();
 
-	group->InsertShape(make_shared<CRectangle>(RectD(100, 100, 200, 200), make_shared<CLineStyle>(2, 0XAF7632), make_shared<CColorStyle>(0X006EAA)));
-	group->InsertShape(make_shared<CRectangle>(RectD(150, 150, 200, 200), make_shared<CLineStyle>(3, 0XAF7632), make_shared<CColorStyle>(0X00A36A)));
-	group->InsertShape(make_shared<CRectangle>(RectD(200, 200, 200, 200), make_shared<CLineStyle>(4, 0X006EAA), make_shared<CColorStyle>(0XAF7632)));
-	group->InsertShape(make_shared<CEllipse>(RectD(200, 200, 200, 200), make_shared<CLineStyle>(5, 0X006EAA), make_shared<CColorStyle>(0XAD2432)));
+	for (int i = startValue; i < startValue + shapesCount; i++)
+	{
+		std::random_device dev;
+		std::mt19937 rng(dev());
+		std::uniform_int_distribution<std::mt19937::result_type> color(0, 0xFFFFFF); // distribution in range [1, 6]
+
+		auto rect = RectD(i * 10, i * i * 10, 10 * i, 10 * i);
+
+		if (i % 2 == 0)
+		{
+			group->InsertShape(make_shared<CRectangle>(rect, make_shared<CLineStyle>(abs(i), color(rng)), make_shared<CColorStyle>(color(rng))));	
+		}
+		else if (i % 3 != 0)
+		{
+			array<PointD, 3> points = {
+				PointD(i * 10, i * i * 10),
+				PointD(i * 10 + 20, i * i * 10 + 25),
+				PointD(i * 10 + 100, i * i * 10 + 25),
+			};
+	
+			group->InsertShape(make_shared<CTriangle>(points, make_shared<CLineStyle>(abs(i), color(rng)), make_shared<CColorStyle>(color(rng))));
+		}
+		else
+		{
+			group->InsertShape(make_shared<CEllipse>(rect, make_shared<CLineStyle>(abs(i), color(rng)), make_shared<CColorStyle>(color(rng))));
+		}
+	}
 
 	shapes.InsertShape(group);
 
@@ -53,7 +81,7 @@ void MoveAndResizeExample(const shared_ptr<ISlide>& slide)
 	auto& shapes = slide->GetShapes();
 	auto group = shapes.GetShapeAtIndex(0);
 
-	group->SetFrame({ 300, 300, 150, 150 });
+	group->SetFrame({ 100, 100, 720, 720 });
 }
 
 void DrawSlideToFile(const shared_ptr<ISlide>& slide, const string& filename)

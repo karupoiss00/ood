@@ -11,7 +11,7 @@ optional<RGBAColor> CCompositeColorStyle::GetColor() const
 
 void CCompositeColorStyle::SetColor(RGBAColor color)
 {
-	m_enumerator([color](CColorStyle& style) {
+	m_enumerator([color](CColorStyle& style, unsigned index) {
 		style.SetColor(color);
 	});
 }
