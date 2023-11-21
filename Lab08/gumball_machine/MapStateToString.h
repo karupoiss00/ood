@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-enum class State : size_t
+enum class State
 {
 	SOLD_OUT,
 	NO_QUARTER,

@@ -30,6 +30,7 @@ public:
 	void Dispense() override
 	{
 		m_gumballMachine.ReleaseBall();
+
 		if (m_gumballMachine.GetBallCount() == 0)
 		{
 			std::cout << "Oops, out of gumballs" << std::endl;
