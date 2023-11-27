@@ -18,6 +18,7 @@ public:
 		, m_hasQuarterState(*this)
 		, m_state(&m_soldOutState)
 		, m_gumballsCount(numBalls)
+		, m_quartersCount(0)
 		, m_out(out)
 	{
 		if (m_gumballsCount > 0)
@@ -97,13 +98,48 @@ private:
 		m_state = &m_hasQuarterState;
 	}
 
+	void AddQuarter()
+	{
+		if (m_quartersCount < MAX_QUARTER_COUNT)
+		{
+			++m_quartersCount;
+		}
+		else
+		{
+			m_out << "Max quarters count reached" << std::endl;
+		}
+	}
+
+	void ReleaseAllQuarters()
+	{
+		m_quartersCount = 0;
+	}
+
+	void TakeQuarter()
+	{
+		if (m_quartersCount > 0)
+		{
+			m_out << "A quarter was taked from machine" << std::endl;
+			--m_quartersCount;
+		}
+	}
+
+	unsigned GetQuarterCount() const
+	{
+		return m_quartersCount;
+	}
+
 private:
-	unsigned m_gumballsCount = 0;
+	static const unsigned MAX_QUARTER_COUNT = 5;
+
 	CSoldState m_soldState;
 	CSoldOutState m_soldOutState;
 	CNoQuarterState m_noQuarterState;
 	CHasQuarterState m_hasQuarterState;
+
 	IState* m_state;
 
 	std::ostream& m_out;
+	unsigned m_quartersCount = 0;
+	unsigned m_gumballsCount = 0;
 };
