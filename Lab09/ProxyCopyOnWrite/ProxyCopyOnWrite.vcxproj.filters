@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="image">
+      <UniqueIdentifier>{18da7f69-60ce-4b3d-ba54-8a0091ce7224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tile">
+      <UniqueIdentifier>{680553c3-49fa-4dd1-82d3-2ee4f02d7f33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="drawer">
+      <UniqueIdentifier>{589a6213-9b1e-4a4f-a115-afa6e934a3b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Image.cpp">
+      <Filter>image</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawer.cpp">
+      <Filter>drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CoW.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixel.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>image</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawer.h">
+      <Filter>drawer</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
