@@ -1,29 +1,50 @@
+#include "Drawer.h"
 #include <iostream>
 #include <sstream>
-#include "Drawer.h"
 
 using namespace std;
+
+constexpr Color FIELD_LINE_COLOR = 'x';
+constexpr Color CROSS_COLOR = 'o';
+constexpr Color CIRCLE_COLOR = 'o';
+constexpr Color WIN_LINE_COLOR = 'X';
+
+constexpr int CIRCLE_PADDING = 1;
 
 Image LoadImage(const std::string& pixels);
 void Print(const Image& img, std::ostream& out);
 
+void DrawGameCross(Image& image, Point center, int size, char color);
+void DrawGameCircle(Image& image, Point center, int radius, char color);
+
 int main()
 {
-	Image image({ 30, 30 }, '.');
+	Image image({ 29, 29 }, '.');
 
 	Print(image, cout);
 	cout << Tile::GetInstanceCount() << endl;
-	
-	DrawLine(image, { 9, 0 }, { 9, 29 }, 'x');
-	DrawLine(image, { 19, 0 }, { 19, 29 }, 'x');
-	DrawLine(image, { 0, 9 }, { 29, 9 }, 'x');
-	DrawLine(image, { 0, 19 }, { 29, 19 }, 'x');
 
-	DrawCircle(image, { 14, 14 }, 4, 'o');
+	DrawLine(image, { 9, 0 }, { 9, 28 }, FIELD_LINE_COLOR);
+	DrawLine(image, { 19, 0 }, { 19, 28 }, FIELD_LINE_COLOR);
+	DrawLine(image, { 0, 9 }, { 29, 9 }, FIELD_LINE_COLOR);
+	DrawLine(image, { 0, 19 }, { 29, 19 }, FIELD_LINE_COLOR);
 
-	FillCircle(image, { 25, 4 }, 4, 'o');
+	DrawGameCircle(image, { 14, 14 }, 4, CIRCLE_COLOR);
+
+	DrawGameCircle(image, { 24, 4 }, 4, CIRCLE_COLOR);
+
+	DrawGameCross(image, { 4, 4 }, 8, CROSS_COLOR);
+
+	DrawGameCross(image, { 4, 14 }, 8, CROSS_COLOR);
+
+	DrawGameCross(image, { 4, 14 }, 8, CROSS_COLOR);
+
+	DrawGameCross(image, { 4, 24 }, 8, CROSS_COLOR);
+
+	DrawLine(image, { 4, 0 }, { 4, 28 }, WIN_LINE_COLOR);
 
 	Print(image, cout);
+
 	cout << Tile::GetInstanceCount() << endl;
 
 	return 0;
@@ -77,4 +98,16 @@ Image LoadImage(const std::string& pixels)
 	}
 
 	return img;
+}
+
+void DrawGameCross(Image& image, Point center, int size, char color)
+{
+	DrawLine(image, { center.x - size / 2, center.y - size / 2 }, { center.x + size / 2, center.y + size / 2 }, color);
+	DrawLine(image, { center.x + size / 2, center.y - size / 2 }, { center.x - size / 2, center.y + size / 2 }, color);
+}
+
+void DrawGameCircle(Image& image, Point center, int radius, char color)
+{
+	DrawCircle(image, center, radius, CIRCLE_COLOR);
+	FillCircle(image, center, radius - CIRCLE_PADDING * 2, CIRCLE_COLOR);
 }

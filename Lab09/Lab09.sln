@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProxyCopyOnWrite", "ProxyCo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProxyCopyOnWriteTests", "ProxyCopyOnWriteTests\ProxyCopyOnWriteTests.vcxproj", "{A04E4D51-611B-4DBD-84D4-E522E0F773E8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageDrawingWithCoW", "ImageDrawingWithCoW\ImageDrawingWithCoW.vcxproj", "{4BDC6AAF-373E-4EEB-845A-430B0E0EF257}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{A04E4D51-611B-4DBD-84D4-E522E0F773E8}.Release|x64.Build.0 = Release|x64
 		{A04E4D51-611B-4DBD-84D4-E522E0F773E8}.Release|x86.ActiveCfg = Release|Win32
 		{A04E4D51-611B-4DBD-84D4-E522E0F773E8}.Release|x86.Build.0 = Release|Win32
+		{4BDC6AAF-373E-4EEB-845A-430B0E0EF257}.Debug|x64.ActiveCfg = Debug|x64
+		{4BDC6AAF-373E-4EEB-845A-430B0E0EF257}.Debug|x64.Build.0 = Debug|x64
+		{4BDC6AAF-373E-4EEB-845A-430B0E0EF257}.Debug|x86.ActiveCfg = Debug|Win32
+		{4BDC6AAF-373E-4EEB-845A-430B0E0EF257}.Debug|x86.Build.0 = Debug|Win32
+		{4BDC6AAF-373E-4EEB-845A-430B0E0EF257}.Release|x64.ActiveCfg = Release|x64
+		{4BDC6AAF-373E-4EEB-845A-430B0E0EF257}.Release|x64.Build.0 = Release|x64
+		{4BDC6AAF-373E-4EEB-845A-430B0E0EF257}.Release|x86.ActiveCfg = Release|Win32
+		{4BDC6AAF-373E-4EEB-845A-430B0E0EF257}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
