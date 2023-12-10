@@ -163,11 +163,11 @@
     <ClCompile Include="MultiGumballMachineTests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\multi_gumball_machine\GumballMachine.h" />
     <ClInclude Include="..\multi_gumball_machine\HasQuarterState.h" />
     <ClInclude Include="..\multi_gumball_machine\IGumballMachine.h" />
     <ClInclude Include="..\multi_gumball_machine\IState.h" />
     <ClInclude Include="..\multi_gumball_machine\MapStateToString.h" />
+    <ClInclude Include="..\multi_gumball_machine\MultiGumballMachine.h" />
     <ClInclude Include="..\multi_gumball_machine\NoQuarterState.h" />
     <ClInclude Include="..\multi_gumball_machine\SoldOutState.h" />
     <ClInclude Include="..\multi_gumball_machine\SoldState.h" />

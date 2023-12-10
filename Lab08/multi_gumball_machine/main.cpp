@@ -1,4 +1,5 @@
-#include "GumballMachine.h"
+#include "MultiGumballMachine.h"
+#include "NaiveMultiGumballMachine.h"
 
 using namespace std;
 
@@ -39,8 +40,11 @@ void TestGumballMachine(GumballMachineType& m)
 
 int main()
 {
-	CGumballMachine m(5, cout);
+	CMultiGumballMachine m(5, cout);
 	TestGumballMachine(m);
+
+	CNaiveMultipleGumballMachine mn(5);
+	TestGumballMachine(mn);
 
 	return 0;
 }

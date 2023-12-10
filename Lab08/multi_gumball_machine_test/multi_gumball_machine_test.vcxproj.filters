@@ -23,9 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\multi_gumball_machine\GumballMachine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\multi_gumball_machine\HasQuarterState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\multi_gumball_machine\SoldState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\multi_gumball_machine\MultiGumballMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

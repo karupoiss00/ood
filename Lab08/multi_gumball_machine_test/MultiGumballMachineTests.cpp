@@ -1,4 +1,5 @@
-#include "GumballMachine.h"
+#include "MultiGumballMachine.h"
+#include "NaiveMultiGumballMachine.h"
 #include "IGumballMachine.h"
 #include "MapStateToString.h"
 #include <catch2/catch.hpp>
@@ -13,12 +14,12 @@ std::string GetStateString(State state)
 struct GumballMachineFixtureBase
 {
 	GumballMachineFixtureBase(unsigned numBalls)
-		: machine(CGumballMachine(numBalls, strm))
+		: machine(CNaiveMultipleGumballMachine(numBalls))
 	{
 	}
 
 	std::stringstream strm;
-	CGumballMachine machine;
+	CNaiveMultipleGumballMachine machine;
 
 	IGumballMachine* operator--(int)
 	{

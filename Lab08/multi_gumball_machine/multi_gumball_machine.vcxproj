@@ -146,11 +146,12 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GumballMachine.h" />
+    <ClInclude Include="MultiGumballMachine.h" />
     <ClInclude Include="HasQuarterState.h" />
     <ClInclude Include="IGumballMachine.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="MapStateToString.h" />
+    <ClInclude Include="NaiveMultiGumballMachine.h" />
     <ClInclude Include="NoQuarterState.h" />
     <ClInclude Include="SoldOutState.h" />
     <ClInclude Include="SoldState.h" />
