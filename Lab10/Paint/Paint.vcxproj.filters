@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="Model Files">
+      <UniqueIdentifier>{66365046-8d8b-4164-bf16-212cfecc6536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model Files\image">
+      <UniqueIdentifier>{8853e067-5768-4cc2-8ffb-c9a5691c107f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model Files\drawing">
+      <UniqueIdentifier>{8ba98e52-50fa-41ab-aa58-ea406d88589b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model Files\color">
+      <UniqueIdentifier>{0d94bf21-e372-47b6-a6fe-37240cc5b730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model Files\core">
+      <UniqueIdentifier>{ac6c4ffb-7200-4047-adc6-87eb349a7f78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model Files\common">
+      <UniqueIdentifier>{4cd9559a-a9de-4a97-988d-0ad21400f01d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model Files\tile">
+      <UniqueIdentifier>{df71860b-1ed9-4683-a86a-2a9586868884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model Files\pixel">
+      <UniqueIdentifier>{ba4ac429-3089-41d8-82aa-742c983e9612}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Paint.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtUic Include="Paint.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtMoc Include="Paint.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClCompile Include="Paint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Model Files\image</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Model Files\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawer.cpp">
+      <Filter>Model Files\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="ScribbleArea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Image.h">
+      <Filter>Model Files\image</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Model Files\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawer.h">
+      <Filter>Model Files\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Model Files\color</Filter>
+    </ClInclude>
+    <ClInclude Include="CoW.h">
+      <Filter>Model Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Model Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixel.h">
+      <Filter>Model Files\pixel</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="ScribbleArea.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+</Project>
