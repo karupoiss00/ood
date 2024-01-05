@@ -40,11 +40,13 @@
     <QtInstall>H:\Qt\6.6.1\msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
+    <QtQMLDebugEnable>true</QtQMLDebugEnable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>H:\Qt\6.6.1\msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
+    <QtQMLDebugEnable>true</QtQMLDebugEnable>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -99,24 +101,42 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Document.cpp" />
     <ClCompile Include="Drawer.cpp" />
-    <ClCompile Include="ScribbleArea.cpp" />
+    <ClCompile Include="EditorState.cpp" />
+    <ClCompile Include="LoadImageFromFile.cpp" />
+    <ClCompile Include="QImageToImage.cpp" />
+    <ClCompile Include="EditorView.cpp" />
+    <ClCompile Include="EditorController.cpp" />
     <ClCompile Include="Tile.cpp" />
     <QtRcc Include="Paint.qrc" />
     <QtUic Include="Paint.ui" />
     <QtMoc Include="Paint.h" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Paint.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Color.h" />
     <ClInclude Include="CoW.h" />
+    <ClInclude Include="Document.h" />
+    <ClInclude Include="EditorState.h" />
+    <ClInclude Include="LoadImageFromFile.h" />
+    <ClInclude Include="QImageToImage.h" />
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="IDrawingStrategy.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="PenStrategy.h" />
     <ClInclude Include="Pixel.h" />
-    <QtMoc Include="ScribbleArea.h" />
+    <ClInclude Include="WriteProxy.h" />
+    <QtMoc Include="EditorController.h" />
+    <QtMoc Include="EditorView.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

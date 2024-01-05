@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -30,20 +22,60 @@
     <Filter Include="Model Files\drawing">
       <UniqueIdentifier>{8ba98e52-50fa-41ab-aa58-ea406d88589b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Model Files\color">
-      <UniqueIdentifier>{0d94bf21-e372-47b6-a6fe-37240cc5b730}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Model Files\core">
-      <UniqueIdentifier>{ac6c4ffb-7200-4047-adc6-87eb349a7f78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Model Files\common">
-      <UniqueIdentifier>{4cd9559a-a9de-4a97-988d-0ad21400f01d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Model Files\tile">
       <UniqueIdentifier>{df71860b-1ed9-4683-a86a-2a9586868884}</UniqueIdentifier>
     </Filter>
     <Filter Include="Model Files\pixel">
       <UniqueIdentifier>{ba4ac429-3089-41d8-82aa-742c983e9612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core Files">
+      <UniqueIdentifier>{f992b935-9c14-4ef2-a056-2836e22e587d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core Files\image">
+      <UniqueIdentifier>{f1226cb4-2d51-4991-809d-60cfd9304fed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core Files\image\convertation">
+      <UniqueIdentifier>{6697635a-ca8d-4c15-a09f-7467ed813d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core Files\image\loading">
+      <UniqueIdentifier>{887cf478-5cd8-4e06-b31f-45886ab5ed45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Application Files\drawingStrategy">
+      <UniqueIdentifier>{dbe75610-914b-4801-b386-a5a5c4b0ecb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\history">
+      <UniqueIdentifier>{d1896998-da4c-4914-9991-d59236ba7749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\editor">
+      <UniqueIdentifier>{28ba4c74-a6db-4a8d-b746-b16166bac8ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\editor\controller">
+      <UniqueIdentifier>{cd18339e-d5e5-4794-aba1-2f55b3f481ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\editor\view">
+      <UniqueIdentifier>{b5787375-0db6-40c4-9994-c8d13d7e3ece}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core Files\color">
+      <UniqueIdentifier>{0d94bf21-e372-47b6-a6fe-37240cc5b730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core Files\cow">
+      <UniqueIdentifier>{1c9f610d-bf4d-4718-9b8f-d5a54121c687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core Files\geometry">
+      <UniqueIdentifier>{a48923d2-d6e2-4b6d-87a7-2a5fc1a1388f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\editor\model">
+      <UniqueIdentifier>{d501018d-6e29-492f-a7e6-222186a2fdcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\editor\model\document">
+      <UniqueIdentifier>{2d23a4ad-7d8d-4e65-9776-e3fe7881795c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\editor\model\state">
+      <UniqueIdentifier>{457bfe36-e2f4-41c8-951f-d1b6752ba3f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -53,17 +85,11 @@
     <QtUic Include="Paint.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="Paint.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <ClCompile Include="Paint.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Application Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Image.cpp">
       <Filter>Model Files\image</Filter>
     </ClCompile>
@@ -73,8 +99,26 @@
     <ClCompile Include="Drawer.cpp">
       <Filter>Model Files\drawing</Filter>
     </ClCompile>
-    <ClCompile Include="ScribbleArea.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="QImageToImage.cpp">
+      <Filter>Core Files\image\convertation</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorController.cpp">
+      <Filter>Application Files\editor\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Application Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadImageFromFile.cpp">
+      <Filter>Core Files\image\loading</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorView.cpp">
+      <Filter>Application Files\editor\view</Filter>
+    </ClCompile>
+    <ClCompile Include="Document.cpp">
+      <Filter>Application Files\editor\model\document</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorState.cpp">
+      <Filter>Application Files\editor\model\state</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,21 +132,48 @@
       <Filter>Model Files\drawing</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
-      <Filter>Model Files\color</Filter>
-    </ClInclude>
-    <ClInclude Include="CoW.h">
-      <Filter>Model Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="Geometry.h">
-      <Filter>Model Files\common</Filter>
+      <Filter>Core Files\color</Filter>
     </ClInclude>
     <ClInclude Include="Pixel.h">
       <Filter>Model Files\pixel</Filter>
     </ClInclude>
+    <ClInclude Include="IDrawingStrategy.h">
+      <Filter>Application Files\drawingStrategy</Filter>
+    </ClInclude>
+    <ClInclude Include="PenStrategy.h">
+      <Filter>Application Files\drawingStrategy</Filter>
+    </ClInclude>
+    <ClInclude Include="QImageToImage.h">
+      <Filter>Core Files\image\convertation</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadImageFromFile.h">
+      <Filter>Core Files\image\loading</Filter>
+    </ClInclude>
+    <ClInclude Include="Document.h">
+      <Filter>Application Files\editor\model\document</Filter>
+    </ClInclude>
+    <ClInclude Include="CoW.h">
+      <Filter>Core Files\cow</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Core Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="WriteProxy.h">
+      <Filter>Core Files\cow</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorState.h">
+      <Filter>Application Files\editor\model\state</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="ScribbleArea.h">
-      <Filter>Header Files</Filter>
+    <QtMoc Include="EditorController.h">
+      <Filter>Application Files\editor\controller</Filter>
+    </QtMoc>
+    <QtMoc Include="Paint.h">
+      <Filter>Application Files</Filter>
+    </QtMoc>
+    <QtMoc Include="EditorView.h">
+      <Filter>Application Files\editor\view</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

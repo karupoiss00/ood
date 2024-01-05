@@ -8,19 +8,41 @@
 
 using namespace std;
 
+constexpr Size DEFAULT_SIZE = { 800, 800 };
+
 Image::Image(Size size, Color color)
 	: m_size(move(size))
 {
-	size_t tilesHorizontalCount = size.width / Tile::SIZE + (size.width % Tile::SIZE != 0);
-	size_t tilesVerticalCount = size.height / Tile::SIZE + (size.height % Tile::SIZE != 0);
-	
-	CoW<Tile> filledTile(color);
-	
-	m_tiles = vector<vector<CoW<Tile>>>(
-		tilesVerticalCount,
-		vector<CoW<Tile>>(tilesHorizontalCount, filledTile)
-	);
+	Fill(color);
 }
+
+Image::Image(std::vector<std::vector<Color>> imageColors)
+	: Image(
+		Size(
+			imageColors.size() > 0 
+				? imageColors[0].size() 
+				: 0, 
+			imageColors.size()
+		)
+	)
+{
+	auto width = imageColors.size() > 0
+		? imageColors[0].size()
+		: 0;
+	auto height = imageColors.size();
+
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			SetPixel({ x, y }, imageColors[y][x]);
+		}
+	}
+}
+
+Image::Image()
+	: Image(DEFAULT_SIZE)
+{}
 
 Size Image::GetSize() const noexcept
 {
@@ -56,10 +78,21 @@ void Image::SetPixel(Point p, Color color)
 	catch (...) {}
 }
 
+void Image::Fill(Color color)
+{
+	size_t tilesHorizontalCount = m_size.width / Tile::SIZE + (m_size.width % Tile::SIZE != 0);
+	size_t tilesVerticalCount = m_size.height / Tile::SIZE + (m_size.height % Tile::SIZE != 0);
+
+	CoW<Tile> filledTile(color);
+
+	m_tiles = vector<vector<CoW<Tile>>>(
+		tilesVerticalCount,
+		vector<CoW<Tile>>(tilesHorizontalCount, filledTile));
+}
 
 CoW<Tile>& Image::GetTile(Point const& p)
 {
-	if (p.x >= m_size.width || p.y >= m_size.height)
+	if (p.x < 0 || p.x >= m_size.width || p.y < 0 || p.y >= m_size.height)
 	{
 		throw std::out_of_range("tile y out of range");
 	}
@@ -72,7 +105,7 @@ CoW<Tile>& Image::GetTile(Point const& p)
 
 CoW<Tile> const& Image::GetTile(Point const& p) const
 {
-	if (p.x >= m_size.width || p.y >= m_size.height)
+	if (p.x < 0 || p.x >= m_size.width || p.y < 0 || p.y >= m_size.height)
 	{
 		throw std::out_of_range("tile y out of range");
 	}

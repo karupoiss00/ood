@@ -5,7 +5,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-class ScribbleArea;
+class Document;
+class EditorState;
+class EditorView;
+class EditorController;
 
 class Paint : public QMainWindow
 {
@@ -13,9 +16,9 @@ class Paint : public QMainWindow
 
 public:
 	Paint();
+	~Paint();
 
 protected:
-
 	void closeEvent(QCloseEvent* event) override;
 
 private slots:
@@ -30,25 +33,27 @@ private:
 	void CreateUI();
 
 	void CreateOpenFileAction();
-	void CreateSaveFileAction();
 	void CreateExitAction();
 	void CreateClearScreenAction();
 	void CreateChangePenColorAction();
 	void CreateChangePenSizeAction();
 	void CreateOpenAboutAction();
 	void CreateOpenAboutFrameoworkAction();
+	void CreateSaveFileAction();
 
 	bool HasUnsavedChanges();
 
 	bool SaveFile(const QByteArray& fileFormat);
 
-	ScribbleArea* scribbleArea;
+	Document* m_document;
+	EditorState* m_editorState;
+	EditorView* m_editorView;
+	EditorController* m_editorController;
 
-	QMenu* saveAsMenu;
-	QMenu* fileMenu;
-	QMenu* optionMenu;
-	QMenu* helpMenu;
-
+	QMenu* m_saveAsMenu;
+	QMenu* m_fileMenu;
+	QMenu* m_optionMenu;
+	QMenu* m_helpMenu;
 
 	QAction* m_openFileAction;
 

@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 	QApplication app(argc, argv);
 	Paint window;
 
-	window.show();
+	window.showMaximized();
 
 	return app.exec();
 }

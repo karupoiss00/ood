@@ -11,13 +11,19 @@
 class Image
 {
 public:
-	explicit Image(Size size, Color color = 0x000000);
+	Image();
+
+	explicit Image(Size size, Color color = 0xFFFFFFF);
+
+	explicit Image(std::vector<std::vector<Color>> imageColors);
 
 	Size GetSize() const noexcept;
 
 	Color GetPixel(Point p) const noexcept;
 
 	void SetPixel(Point p, Color color);
+
+	void Fill(Color color);
 
 private:
 	CoW<Tile> const& GetTile(Point const& p) const;

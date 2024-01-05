@@ -1,6 +1,8 @@
-#include "drawer.h"
 #include <cassert>
 #include <cstdlib>
+#include <QDebug>
+
+#include "Drawer.h"
 
 namespace
 {
@@ -10,7 +12,7 @@ int Sign(int value)
 	return (0 < value) - (value < 0);
 }
 
-void DrawSteepLine(Image& image, Point from, Point to, Color color)
+void DrawSteepLine(Image& image, Point from, Point to, Color color, int width)
 {
 	const int deltaX = std::abs(to.x - from.x);
 	const int deltaY = std::abs(to.y - from.y);
@@ -30,7 +32,8 @@ void DrawSteepLine(Image& image, Point from, Point to, Color color)
 
 	for (Point p = from; p.y <= to.y; ++p.y)
 	{
-		image.SetPixel({ p.x, p.y }, color);
+		FillCircle(image, p, width / 2, color);
+
 		assert((p.y != to.y) || (p.x == to.x));
 
 		error += deltaErr;
@@ -43,7 +46,7 @@ void DrawSteepLine(Image& image, Point from, Point to, Color color)
 	}
 }
 
-void DrawSlopeLine(Image& image, Point from, Point to, Color color)
+void DrawSlopeLine(Image& image, Point from, Point to, Color color, int width)
 {
 	const int deltaX = std::abs(to.x - from.x);
 	const int deltaY = std::abs(to.y - from.y);
@@ -63,7 +66,7 @@ void DrawSlopeLine(Image& image, Point from, Point to, Color color)
 
 	for (Point p = from; p.x <= to.x; ++p.x)
 	{
-		image.SetPixel({ p.x, p.y }, color);
+		::FillCircle(image, p, width / 2, color);
 		assert((p.x != to.x) || (p.y == to.y));
 
 		error += deltaErr;
@@ -78,18 +81,18 @@ void DrawSlopeLine(Image& image, Point from, Point to, Color color)
 
 } // namespace
 
-void DrawLine(Image& image, Point from, Point to, Color color)
+void DrawLine(Image& image, Point from, Point to, Color color, int width)
 {
 	const int deltaX = std::abs(to.x - from.x);
 	const int deltaY = std::abs(to.y - from.y);
 
 	if (deltaY > deltaX)
 	{
-		DrawSteepLine(image, from, to, color);
+		DrawSteepLine(image, from, to, color, width);
 	}
 	else
 	{
-		DrawSlopeLine(image, from, to, color);
+		DrawSlopeLine(image, from, to, color, width);
 	}
 }
 

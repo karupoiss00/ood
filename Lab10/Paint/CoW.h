@@ -1,7 +1,8 @@
 #pragma once
-
 #include <cassert>
 #include <memory>
+
+#include "WriteProxy.h"
 
 template <typename T>
 class CoW
@@ -27,33 +28,6 @@ class CoW
 		!std::is_abstract<T>::value && std::is_copy_constructible<T>::value,
 		CopyConstr<T>,
 		CloneConstr<T>>::type;
-
-	class WriteProxy
-	{
-	public:
-		WriteProxy(T* p)
-			: m_p(p)
-		{
-		}
-
-		T& operator*() const& = delete;
-		[[nodiscard]] T& operator*() const&& noexcept
-		{
-			return *m_p;
-		}
-
-		// Operator -> must be invoked only once on temporary object
-		// Do not store reference to CWriteProxy
-		T* operator->() const& = delete;
-		T* operator->() const&&
-		{
-			return m_p;
-		}
-
-	private:
-		T* m_p;
-	};
-
 public:
 	template <typename... Args, typename = std::enable_if<!std::is_abstract<T>::value>::type>
 	CoW(Args&&... args)
@@ -118,14 +92,14 @@ public:
 		return m_shared.get();
 	}
 
-	[[nodiscard]] WriteProxy operator--(int) &
+	[[nodiscard]] WriteProxy<T> operator--(int) &
 	{
 		assert(m_shared);
 		EnsureUnique();
 		return WriteProxy(m_shared.get());
 	}
 
-	WriteProxy Write() &
+	WriteProxy<T> Write() &
 	{
 		assert(m_shared);
 		EnsureUnique();
