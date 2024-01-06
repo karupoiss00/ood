@@ -1,12 +1,16 @@
 #pragma once
+#include <memory>
+#include <optional>
 #include <QtWidgets/QMainWindow>
 #include <QList>
+
+#include "DrawingStrategyFactory.h"
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-class Document;
-class EditorState;
+class Image;
+class Editor;
 class EditorView;
 class EditorController;
 
@@ -41,14 +45,16 @@ private:
 	void CreateOpenAboutFrameoworkAction();
 	void CreateSaveFileAction();
 
-	bool HasUnsavedChanges();
+	std::optional<bool> HasUnsavedChanges();
 
 	bool SaveFile(const QByteArray& fileFormat);
 
-	Document* m_document;
-	EditorState* m_editorState;
-	EditorView* m_editorView;
+	std::shared_ptr<Image> m_image;
+
+	DrawingStrategyFactory m_drawingStrategyFactory;
+	Editor* m_editor;
 	EditorController* m_editorController;
+	EditorView* m_editorView;
 
 	QMenu* m_saveAsMenu;
 	QMenu* m_fileMenu;
@@ -61,7 +67,6 @@ private:
 	QAction* m_exitAction;
 	QAction* m_penColorChangeAction;
 	QAction* m_penSizeChangeAction;
-	QAction* printAct;
 	QAction* m_clearScreenAction;
 	QAction* m_openAboutAction;
 	QAction* m_openAboutFrameworkAction;

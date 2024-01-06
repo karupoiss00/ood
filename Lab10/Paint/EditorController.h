@@ -7,13 +7,13 @@
 #include "Image.h"
 
 class EditorView;
-class EditorState;
+class Editor;
 
 class EditorController : public QObject
 {
 	Q_OBJECT
 public:
-	EditorController(EditorView* view, EditorState* state);
+	EditorController(EditorView* view, Editor* state);
 
 public slots:
 	void ClearImageHandler();
@@ -26,8 +26,5 @@ private slots:
 
 private:
 	EditorView* m_view;
-	EditorState* m_state;
-
-	bool m_drawing;
-	QPoint m_lastPoint;
+	Editor* m_state;
 };

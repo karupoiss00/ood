@@ -4,30 +4,19 @@
 #include "EditorView.h"
 #include "QImageToImage.h"
 
-EditorView::EditorView(QWidget* parent, Document* document)
+EditorView::EditorView(QWidget* parent, std::shared_ptr<Image> image)
 	: QWidget(parent)
-	, m_document(document)
+	, m_image(image)
 {
 	setAttribute(Qt::WA_StaticContents);
-}
-
-void EditorView::SetDocument(Document* document)
-{
-	m_document = document;
 }
 
 void EditorView::paintEvent(QPaintEvent* event)
 {
 	QPainter painter(this);
 
-	if (m_document == nullptr)
-	{
-		return;
-	}
-
 	QRect dirtyRect = event->rect();
-	auto image = m_document->GetImage();
-	painter.drawImage(dirtyRect, createQImageFromImage(image), dirtyRect);
+	painter.drawImage(dirtyRect, createQImageFromImage(*m_image), dirtyRect);
 }
 
 void EditorView::mousePressEvent(QMouseEvent* event)

@@ -13,9 +13,8 @@ class EditorView : public QWidget
 	Q_OBJECT
 
 public:
-	EditorView(QWidget* parent, Document* document);
+	EditorView(QWidget* parent, std::shared_ptr<Image> image);
 
-	void SetDocument(Document* image);
 signals:
 	void MouseDownEvent(QMouseEvent* event);
 	void MouseMoveEvent(QMouseEvent* event);
@@ -29,7 +28,7 @@ protected:
 	void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
-	Document* m_document;
+	std::shared_ptr<Image> m_image;
 };
 
 #endif

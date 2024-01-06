@@ -47,9 +47,6 @@
     <Filter Include="Application Files\drawingStrategy">
       <UniqueIdentifier>{dbe75610-914b-4801-b386-a5a5c4b0ecb9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application Files\history">
-      <UniqueIdentifier>{d1896998-da4c-4914-9991-d59236ba7749}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application Files\editor">
       <UniqueIdentifier>{28ba4c74-a6db-4a8d-b746-b16166bac8ff}</UniqueIdentifier>
     </Filter>
@@ -71,11 +68,14 @@
     <Filter Include="Application Files\editor\model">
       <UniqueIdentifier>{d501018d-6e29-492f-a7e6-222186a2fdcf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application Files\editor\model\document">
-      <UniqueIdentifier>{2d23a4ad-7d8d-4e65-9776-e3fe7881795c}</UniqueIdentifier>
+    <Filter Include="Application Files\drawingStrategy\base">
+      <UniqueIdentifier>{8f93c982-2d55-4650-ab7f-d6e2e09e40e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application Files\editor\model\state">
-      <UniqueIdentifier>{457bfe36-e2f4-41c8-951f-d1b6752ba3f9}</UniqueIdentifier>
+    <Filter Include="Application Files\drawingStrategy\factory">
+      <UniqueIdentifier>{5809c41b-9a78-45e1-bd32-ee9304515c26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\history">
+      <UniqueIdentifier>{d1896998-da4c-4914-9991-d59236ba7749}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -114,11 +114,8 @@
     <ClCompile Include="EditorView.cpp">
       <Filter>Application Files\editor\view</Filter>
     </ClCompile>
-    <ClCompile Include="Document.cpp">
-      <Filter>Application Files\editor\model\document</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorState.cpp">
-      <Filter>Application Files\editor\model\state</Filter>
+    <ClCompile Include="Editor.cpp">
+      <Filter>Application Files\editor\model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +134,6 @@
     <ClInclude Include="Pixel.h">
       <Filter>Model Files\pixel</Filter>
     </ClInclude>
-    <ClInclude Include="IDrawingStrategy.h">
-      <Filter>Application Files\drawingStrategy</Filter>
-    </ClInclude>
     <ClInclude Include="PenStrategy.h">
       <Filter>Application Files\drawingStrategy</Filter>
     </ClInclude>
@@ -148,9 +142,6 @@
     </ClInclude>
     <ClInclude Include="LoadImageFromFile.h">
       <Filter>Core Files\image\loading</Filter>
-    </ClInclude>
-    <ClInclude Include="Document.h">
-      <Filter>Application Files\editor\model\document</Filter>
     </ClInclude>
     <ClInclude Include="CoW.h">
       <Filter>Core Files\cow</Filter>
@@ -161,8 +152,20 @@
     <ClInclude Include="WriteProxy.h">
       <Filter>Core Files\cow</Filter>
     </ClInclude>
-    <ClInclude Include="EditorState.h">
-      <Filter>Application Files\editor\model\state</Filter>
+    <ClInclude Include="DrawingStrategyBase.h">
+      <Filter>Application Files\drawingStrategy\base</Filter>
+    </ClInclude>
+    <ClInclude Include="IDrawingStrategy.h">
+      <Filter>Application Files\drawingStrategy\base</Filter>
+    </ClInclude>
+    <ClInclude Include="IDrawingStrategyFactory.h">
+      <Filter>Application Files\drawingStrategy\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawingStrategyFactory.h">
+      <Filter>Application Files\drawingStrategy\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>Application Files\editor\model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

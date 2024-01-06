@@ -2,8 +2,8 @@
 #include <string>
 
 #include "Paint.h"
-#include "Document.h"
-#include "EditorState.h"
+#include "Image.h"
+#include "Editor.h"
 #include "EditorView.h"
 #include "EditorController.h"
 #include "LoadImageFromFile.h"
@@ -13,10 +13,11 @@ const QByteArray DEFAULT_SAVE_FORMAT = "png";
 
 Paint::Paint()
 {
-	m_document = new Document();
-	m_editorState = new EditorState();
-	m_editorView = new EditorView(this, m_document);
-	m_editorController = new EditorController(m_editorView, m_editorState);
+	m_image = std::make_shared<Image>();
+	m_editorView = new EditorView(this, m_image);
+	m_drawingStrategyFactory = DrawingStrategyFactory(m_image, m_editorView);
+	m_editor = new Editor(m_image, m_drawingStrategyFactory);
+	m_editorController = new EditorController(m_editorView, m_editor);
 
 	setCentralWidget(m_editorView);
 
@@ -25,8 +26,7 @@ Paint::Paint()
 
 	setWindowTitle(tr("Paint"));
 
-	auto size = m_document->GetImage().GetSize();
-
+	auto size = m_image->GetSize();
 	resize(size.width, size.height);
 }
 
@@ -34,8 +34,8 @@ Paint::~Paint()
 {
 	delete m_editorController;
 	delete m_editorView;
-	delete m_editorState;
-	delete m_document;
+	delete m_editor;
+
 	delete m_saveAsMenu;
 	delete m_fileMenu;
 	delete m_optionMenu;
@@ -51,7 +51,6 @@ Paint::~Paint()
 	delete m_exitAction;
 	delete m_penColorChangeAction;
 	delete m_penSizeChangeAction;
-	delete printAct;
 	delete m_clearScreenAction;
 	delete m_openAboutAction;
 	delete m_openAboutFrameworkAction;
@@ -59,17 +58,18 @@ Paint::~Paint()
 
 void Paint::closeEvent(QCloseEvent* event)
 {
-	HasUnsavedChanges();
+	if (HasUnsavedChanges().has_value())
+	{
+		event->accept();
+		return;
+	}
 
-	event->accept();
+	event->ignore();
 }
 
 void Paint::OpenFileHandler()
 {
-	if (HasUnsavedChanges())
-	{
-		return;
-	}
+	HasUnsavedChanges();
 
 	QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::currentPath());
 
@@ -79,7 +79,9 @@ void Paint::OpenFileHandler()
 	}
 
 	auto loadedImage = LoadImageFromFile(fileName);
-	m_document->SetImage(loadedImage);
+	*m_image = loadedImage;
+	auto size = m_image->GetSize();
+	resize(size.width, size.height);
 	m_editorView->update();
 }
 
@@ -94,33 +96,38 @@ void Paint::SaveFileHandler()
 
 void Paint::SetPenColorHandler()
 {
-	QColor newColor = QColorDialog::getColor(m_editorState->GetPenColor());
+	auto drawingSettings = m_editor->GetDrawingSettings();
+	QColor newColor = QColorDialog::getColor(drawingSettings.color);
 
 	if (!newColor.isValid())
 	{
 		return;
 	}
 
-	m_editorState->SetPenColor(newColor);
+	drawingSettings.color = newColor;
+
+	m_editor->SetDrawingSettings(drawingSettings);
 }
 
 
 void Paint::SetPenWidthHandler()
 {
+	auto drawingSettings = m_editor->GetDrawingSettings();
 	bool ok;
 
 	int newWidth = QInputDialog::getInt(
 		this, 
 		tr("Scribble"),
 		tr("Select pen width:"),
-		m_editorState->GetPenSize(),
+		drawingSettings.size,
 		1, 50, 1, 
 		&ok
 	);
 
 	if (ok)
 	{
-		m_editorState->SetPenSize(newWidth);
+		drawingSettings.size = newWidth;
+		m_editor->SetDrawingSettings(drawingSettings);
 	}
 		
 }
@@ -237,9 +244,9 @@ void Paint::CreateUI()
 	menuBar()->addMenu(m_helpMenu);
 }
 
-bool Paint::HasUnsavedChanges()
+std::optional<bool> Paint::HasUnsavedChanges()
 {
-	if (!m_document->HasUnsavedChanges())
+	if (!m_editor->HasUnsavedChanges())
 	{
 		return false;
 	}
@@ -257,6 +264,11 @@ bool Paint::HasUnsavedChanges()
 		SaveFile(DEFAULT_SAVE_FORMAT);
 
 		return false;
+	}
+
+	if (ret == QMessageBox::Cancel)
+	{
+		return std::nullopt;
 	}
 
 	return true;
@@ -278,7 +290,7 @@ bool Paint::SaveFile(const QByteArray& fileFormat)
 		return false;
 	}
 
-	auto image = createQImageFromImage(m_document->GetImage());
+	auto image = createQImageFromImage(*m_image);
 
 	if (image.save(fileName, fileFormat))
 	{

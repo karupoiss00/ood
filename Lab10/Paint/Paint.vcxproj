@@ -19,8 +19,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{45D6DBF8-D94D-4E3E-A9AE-90B37D4803B6}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -37,13 +37,13 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>H:\Qt\6.6.1\msvc2019_64</QtInstall>
+    <QtInstall>6.6.1</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QtQMLDebugEnable>true</QtQMLDebugEnable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>H:\Qt\6.6.1\msvc2019_64</QtInstall>
+    <QtInstall>6.6.1</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtQMLDebugEnable>true</QtQMLDebugEnable>
@@ -101,9 +101,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Document.cpp" />
     <ClCompile Include="Drawer.cpp" />
-    <ClCompile Include="EditorState.cpp" />
+    <ClCompile Include="Editor.cpp" />
     <ClCompile Include="LoadImageFromFile.cpp" />
     <ClCompile Include="QImageToImage.cpp" />
     <ClCompile Include="EditorView.cpp" />
@@ -122,10 +121,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DrawingStrategyBase.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="CoW.h" />
-    <ClInclude Include="Document.h" />
-    <ClInclude Include="EditorState.h" />
+    <ClInclude Include="DrawingStrategyFactory.h" />
+    <ClInclude Include="Editor.h" />
+    <ClInclude Include="IDrawingStrategyFactory.h" />
     <ClInclude Include="LoadImageFromFile.h" />
     <ClInclude Include="QImageToImage.h" />
     <ClInclude Include="Drawer.h" />
