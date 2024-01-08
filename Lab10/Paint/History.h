@@ -88,5 +88,5 @@ private:
 	std::deque<MementoType*> m_mementos;
 	size_t m_nextMementoIndex = 0;
 
-	inline static const size_t MAX_HISTORY_SIZE = 5;
+	inline static const size_t MAX_HISTORY_SIZE = 32;
 };
