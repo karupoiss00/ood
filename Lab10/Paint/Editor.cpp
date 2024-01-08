@@ -7,13 +7,19 @@ Editor::Editor(std::shared_ptr<Image> image, IDrawingStrategyFactory& drawingStr
 	: m_drawingStrategyFactory(drawingStrategyFactory)
 	, m_hasUnsavedChanges(false)
 	, m_image(image)
+	, m_history(this)
 {
 	SetDrawingTool(DEFAULT_TOOL);
 }
 
 void Editor::StartPaint(QMouseEvent* event)
 {
-	m_hasUnsavedChanges = true;
+	if (event->button() == Qt::LeftButton)
+	{
+		m_history.Save();
+		m_hasUnsavedChanges = true;
+	}
+
 	m_drawingStrategy->StartPaint(event);
 }
 
@@ -27,23 +33,24 @@ void Editor::EndPaint(QMouseEvent* event)
 	m_drawingStrategy->EndPaint(event);
 }
 
-DrawingSettings Editor::GetDrawingSettings()
+DrawingSettings Editor::GetDrawingSettings() const
 {
 	return m_drawingStrategy->GetSettings();
 }
 
 void Editor::Undo()
 {
-
+	m_history.Undo();
 }
 
 void Editor::Redo()
 {
-
+	m_history.Redo();
 }
 
 void Editor::ClearImage()
 {
+	m_history.Save();
 	m_image->Fill(CLEAR_COLOR);
 	m_hasUnsavedChanges = true;
 }
@@ -51,6 +58,16 @@ void Editor::ClearImage()
 void Editor::SaveChanges()
 {
 	m_hasUnsavedChanges = false;
+}
+
+void Editor::SetImage(Image image)
+{
+	*m_image = image;
+}
+
+Image const& Editor::GetImage() const
+{
+	return *m_image;
 }
 
 void Editor::SetDrawingTool(std::string toolName)
@@ -63,7 +80,20 @@ void Editor::SetDrawingSettings(DrawingSettings settings)
 	m_drawingStrategy->SetSettings(settings);
 }
 
-bool Editor::HasUnsavedChanges()
+bool Editor::HasUnsavedChanges() const
 {
 	return m_hasUnsavedChanges;
+}
+
+EditorMemento* Editor::Save()
+{
+	return new EditorMemento({*m_image, m_hasUnsavedChanges});
+}
+
+void Editor::Restore(EditorMemento* memento)
+{
+	auto state = memento->State();
+
+	*m_image = state.image;
+	m_hasUnsavedChanges = state.hasUnsavedChanges;
 }

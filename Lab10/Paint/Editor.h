@@ -4,8 +4,11 @@
 #include "Image.h"
 #include "IDrawingStrategy.h"
 #include "IDrawingStrategyFactory.h"
+#include "IOriginator.h"
+#include "EditorMemento.h"
+#include "History.h"
 
-class Editor
+class Editor : public IOriginator<EditorMemento>
 {
 public:
 	Editor(std::shared_ptr<Image> image, IDrawingStrategyFactory& drawingStrategyFactory);
@@ -17,18 +20,24 @@ public:
 	void Undo();
 	void Redo();
 
+	void SetImage(Image image);
 	void SetDrawingTool(std::string toolName);
 	void SetDrawingSettings(DrawingSettings settings);
 
 	void ClearImage();
 	void SaveChanges();
 
-	bool HasUnsavedChanges();
-	DrawingSettings GetDrawingSettings();
+	bool HasUnsavedChanges() const;
+	DrawingSettings GetDrawingSettings() const;
+	Image const& GetImage() const;
+
+	EditorMemento* Save();
+	void Restore(EditorMemento* memento);
 
 private:
 	IDrawingStrategyFactory& m_drawingStrategyFactory;
 	std::shared_ptr<IDrawingStrategy> m_drawingStrategy;
 	std::shared_ptr<Image> m_image;
 	bool m_hasUnsavedChanges;
+	History<EditorMemento> m_history;
 };

@@ -77,6 +77,21 @@
     <Filter Include="Application Files\history">
       <UniqueIdentifier>{d1896998-da4c-4914-9991-d59236ba7749}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application Files\history\memento">
+      <UniqueIdentifier>{7a0ef82b-6c11-4b56-a8a3-42ddd8428cc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\panel">
+      <UniqueIdentifier>{337c0250-0a67-4ab1-af55-8361cf3759c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\panel\fileMenu">
+      <UniqueIdentifier>{6482ac81-83fe-42d8-b0a3-249cc73b09a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\panel\toolsMenu">
+      <UniqueIdentifier>{dc4ce729-1b34-4c8c-8ee8-1a8bcacb7897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\panel\historyMenu">
+      <UniqueIdentifier>{4a123364-c8f1-4ca8-8be5-7b0af069c79b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Paint.qrc">
@@ -105,9 +120,6 @@
     <ClCompile Include="EditorController.cpp">
       <Filter>Application Files\editor\controller</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Application Files</Filter>
-    </ClCompile>
     <ClCompile Include="LoadImageFromFile.cpp">
       <Filter>Core Files\image\loading</Filter>
     </ClCompile>
@@ -116,6 +128,18 @@
     </ClCompile>
     <ClCompile Include="Editor.cpp">
       <Filter>Application Files\editor\model</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Application Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileMenuController.cpp">
+      <Filter>Application Files\panel\fileMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolsMenuController.cpp">
+      <Filter>Application Files\panel\toolsMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="HistoryMenuController.cpp">
+      <Filter>Application Files\panel\historyMenu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +191,18 @@
     <ClInclude Include="Editor.h">
       <Filter>Application Files\editor\model</Filter>
     </ClInclude>
+    <ClInclude Include="IMemento.h">
+      <Filter>Application Files\history\memento</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorMemento.h">
+      <Filter>Application Files\history\memento</Filter>
+    </ClInclude>
+    <ClInclude Include="IOriginator.h">
+      <Filter>Application Files\history\memento</Filter>
+    </ClInclude>
+    <ClInclude Include="History.h">
+      <Filter>Application Files\history</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="EditorController.h">
@@ -177,6 +213,15 @@
     </QtMoc>
     <QtMoc Include="EditorView.h">
       <Filter>Application Files\editor\view</Filter>
+    </QtMoc>
+    <QtMoc Include="FileMenuController.h">
+      <Filter>Application Files\panel\fileMenu</Filter>
+    </QtMoc>
+    <QtMoc Include="ToolsMenuController.h">
+      <Filter>Application Files\panel\toolsMenu</Filter>
+    </QtMoc>
+    <QtMoc Include="HistoryMenuController.h">
+      <Filter>Application Files\panel\historyMenu</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

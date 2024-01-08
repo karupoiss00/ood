@@ -5,6 +5,7 @@
 #include <QColor>
 #include <QPoint>
 #include "Image.h"
+#include "IDrawingStrategy.h"
 
 class EditorView;
 class Editor;
@@ -15,9 +16,19 @@ class EditorController : public QObject
 public:
 	EditorController(EditorView* view, Editor* state);
 
-public slots:
-	void ClearImageHandler();
-	void SaveImageHandler();
+	void SetImage(Image image);
+
+	void SetDrawingColor(QColor color);
+	void SetDrawingSize(int size);
+
+	void Undo();
+	void Redo();
+
+	void ClearImage();
+	void SaveImage();
+
+	Image const& GetImage() const;
+	DrawingSettings GetDrawingSettings() const;
 
 private slots:
 	void MouseDownHandler(QMouseEvent* event);

@@ -12,12 +12,6 @@ EditorController::EditorController(EditorView* view, Editor* state)
 	connect(m_view, &EditorView::MouseUpEvent, this, &EditorController::MouseUpHandler);
 }
 
-void EditorController::ClearImageHandler()
-{
-	m_state->ClearImage();
-	m_view->update();
-}
-
 void EditorController::MouseDownHandler(QMouseEvent* event)
 {
 	m_state->StartPaint(event);
@@ -33,7 +27,61 @@ void EditorController::MouseUpHandler(QMouseEvent* event)
 	m_state->EndPaint(event);
 }
 
-void EditorController::SaveImageHandler()
+void EditorController::SaveImage()
 {
 	m_state->SaveChanges();
+}
+
+void EditorController::ClearImage()
+{
+	m_state->ClearImage();
+	m_view->update();
+}
+
+void EditorController::SetImage(Image image)
+{
+	m_state->SetImage(image);
+	auto size = image.GetSize();
+	m_view->resize(size.width, size.height);
+	m_view->update();
+}
+
+void EditorController::SetDrawingColor(QColor color)
+{
+	auto drawingSettings = m_state->GetDrawingSettings();
+
+	drawingSettings.color = color;
+
+	m_state->SetDrawingSettings(drawingSettings);
+}
+
+void EditorController::SetDrawingSize(int size)
+{
+	auto drawingSettings = m_state->GetDrawingSettings();
+
+	drawingSettings.size = size;
+
+	m_state->SetDrawingSettings(drawingSettings);
+}
+
+void EditorController::Undo()
+{
+	m_state->Undo();
+	m_view->update();
+}
+
+void EditorController::Redo()
+{
+	m_state->Redo();
+	m_view->update();
+}
+
+Image const& EditorController::GetImage() const
+{
+	return m_state->GetImage();
+}
+
+DrawingSettings EditorController::GetDrawingSettings() const
+{
+	return m_state->GetDrawingSettings();
 }

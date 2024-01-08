@@ -5,6 +5,9 @@
 #include <QList>
 
 #include "DrawingStrategyFactory.h"
+#include "FileMenuController.h"
+#include "ToolsMenuController.h"
+#include "HistoryMenuController.h"
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
@@ -27,49 +30,25 @@ protected:
 
 private slots:
 	void OpenFileHandler();
-	void SaveFileHandler();
-	void SetPenColorHandler();
-	void SetPenWidthHandler();
-	void AboutHandler();
+	void SaveFileHandler(const QByteArray& fileFormat);
 
 private:
-	void CreateActions();
 	void CreateUI();
 
-	void CreateOpenFileAction();
-	void CreateExitAction();
-	void CreateClearScreenAction();
-	void CreateChangePenColorAction();
-	void CreateChangePenSizeAction();
-	void CreateOpenAboutAction();
-	void CreateOpenAboutFrameoworkAction();
-	void CreateSaveFileAction();
-
 	std::optional<bool> HasUnsavedChanges();
-
 	bool SaveFile(const QByteArray& fileFormat);
 
 	std::shared_ptr<Image> m_image;
 
 	DrawingStrategyFactory m_drawingStrategyFactory;
+
 	Editor* m_editor;
 	EditorController* m_editorController;
 	EditorView* m_editorView;
 
-	QMenu* m_saveAsMenu;
-	QMenu* m_fileMenu;
-	QMenu* m_optionMenu;
-	QMenu* m_helpMenu;
-
-	QAction* m_openFileAction;
-
-	QList<QAction*> m_saveAsActions;
-	QAction* m_exitAction;
-	QAction* m_penColorChangeAction;
-	QAction* m_penSizeChangeAction;
-	QAction* m_clearScreenAction;
-	QAction* m_openAboutAction;
-	QAction* m_openAboutFrameworkAction;
+	FileMenuController* m_fileMenuController;
+	ToolsMenuController* m_toolsMenuController;
+	HistoryMenuController* m_historyMenuController;
 };
 
 #endif

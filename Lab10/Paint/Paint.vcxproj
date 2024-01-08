@@ -103,11 +103,24 @@
   <ItemGroup>
     <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="HistoryMenuController.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
     <ClCompile Include="LoadImageFromFile.cpp" />
     <ClCompile Include="QImageToImage.cpp" />
     <ClCompile Include="EditorView.cpp" />
     <ClCompile Include="EditorController.cpp" />
+    <ClCompile Include="FileMenuController.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="ToolsMenuController.cpp" />
     <QtRcc Include="Paint.qrc" />
     <QtUic Include="Paint.ui" />
     <QtMoc Include="Paint.h" />
@@ -126,7 +139,13 @@
     <ClInclude Include="CoW.h" />
     <ClInclude Include="DrawingStrategyFactory.h" />
     <ClInclude Include="Editor.h" />
+    <QtMoc Include="FileMenuController.h" />
+    <ClInclude Include="History.h" />
+    <QtMoc Include="HistoryMenuController.h" />
     <ClInclude Include="IDrawingStrategyFactory.h" />
+    <ClInclude Include="EditorMemento.h" />
+    <ClInclude Include="IMemento.h" />
+    <ClInclude Include="IOriginator.h" />
     <ClInclude Include="LoadImageFromFile.h" />
     <ClInclude Include="QImageToImage.h" />
     <ClInclude Include="Drawer.h" />
@@ -135,6 +154,7 @@
     <ClInclude Include="Image.h" />
     <ClInclude Include="PenStrategy.h" />
     <ClInclude Include="Pixel.h" />
+    <QtMoc Include="ToolsMenuController.h" />
     <ClInclude Include="WriteProxy.h" />
     <QtMoc Include="EditorController.h" />
     <QtMoc Include="EditorView.h" />

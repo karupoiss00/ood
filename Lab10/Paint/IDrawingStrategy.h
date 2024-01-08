@@ -17,4 +17,6 @@ public:
 
 	virtual DrawingSettings GetSettings() = 0;
 	virtual void SetSettings(DrawingSettings settings) = 0;
+
+	virtual ~IDrawingStrategy() {};
 };
