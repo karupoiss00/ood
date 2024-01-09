@@ -121,8 +121,6 @@
     </ClCompile>
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="ToolsMenuController.cpp" />
-    <QtRcc Include="Paint.qrc" />
-    <QtUic Include="Paint.ui" />
     <QtMoc Include="Paint.h" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Paint.cpp" />
@@ -144,8 +142,10 @@
     <QtMoc Include="HistoryMenuController.h" />
     <ClInclude Include="IDrawingStrategyFactory.h" />
     <ClInclude Include="EditorMemento.h" />
+    <ClInclude Include="IEditorView.h" />
     <ClInclude Include="IMemento.h" />
     <ClInclude Include="IOriginator.h" />
+    <ClInclude Include="LineStrategy.h" />
     <ClInclude Include="LoadImageFromFile.h" />
     <ClInclude Include="QImageToImage.h" />
     <ClInclude Include="Drawer.h" />

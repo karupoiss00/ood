@@ -20,6 +20,7 @@ public:
 
 	void SetDrawingColor(QColor color);
 	void SetDrawingSize(int size);
+	void SetDrawingTool(std::string tool);
 
 	void Undo();
 	void Redo();

@@ -5,7 +5,7 @@
 #include "QImageToImage.h"
 
 EditorView::EditorView(QWidget* parent, std::shared_ptr<Image> image)
-	: QWidget(parent)
+	: IEditorView(parent)
 	, m_image(image)
 {
 	setAttribute(Qt::WA_StaticContents);
@@ -32,4 +32,10 @@ void EditorView::mouseMoveEvent(QMouseEvent* event)
 void EditorView::mouseReleaseEvent(QMouseEvent* event)
 {
 	emit MouseUpEvent(event);
+}
+
+void EditorView::SetImage(std::shared_ptr<Image> image)
+{
+	m_image = image;
+	update();
 }

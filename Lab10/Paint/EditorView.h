@@ -7,13 +7,16 @@
 #include <QPoint>
 #include <QWidget>
 #include "Document.h"
+#include "IEditorView.h"
 
-class EditorView : public QWidget
+class EditorView : public IEditorView
 {
 	Q_OBJECT
 
 public:
 	EditorView(QWidget* parent, std::shared_ptr<Image> image);
+
+	void SetImage(std::shared_ptr<Image> image) override;
 
 signals:
 	void MouseDownEvent(QMouseEvent* event);

@@ -64,6 +64,11 @@ void EditorController::SetDrawingSize(int size)
 	m_state->SetDrawingSettings(drawingSettings);
 }
 
+void EditorController::SetDrawingTool(std::string tool)
+{
+	m_state->SetDrawingTool(tool);
+}
+
 void EditorController::Undo()
 {
 	m_state->Undo();

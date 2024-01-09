@@ -72,7 +72,7 @@ Image const& Editor::GetImage() const
 
 void Editor::SetDrawingTool(std::string toolName)
 {
-	m_drawingStrategy = m_drawingStrategyFactory.GetStrategy(DEFAULT_TOOL);
+	m_drawingStrategy = m_drawingStrategyFactory.GetStrategy(toolName);
 }
 
 void Editor::SetDrawingSettings(DrawingSettings settings)
