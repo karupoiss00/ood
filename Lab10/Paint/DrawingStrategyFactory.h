@@ -3,6 +3,7 @@
 #include "IDrawingStrategyFactory.h"
 #include "PenStrategy.h"
 #include "LineStrategy.h"
+#include "CircleStrategy.h"
 #include "Image.h"
 #include "IEditorView.h"
 
@@ -12,12 +13,14 @@ public:
 	DrawingStrategyFactory()
 		: m_penStrategy(nullptr)
 		, m_lineStrategy(nullptr)
+		, m_circleStrategy(nullptr)
 	{
 	}
 
 	DrawingStrategyFactory(std::shared_ptr<Image> image, IEditorView* view)
 		: m_penStrategy(std::make_shared<PenStrategy>(image, view))
 		, m_lineStrategy(std::make_shared<LineStrategy>(image, view))
+		, m_circleStrategy(std::make_shared<CircleStrategy>(image, view))
 	{
 
 	}
@@ -34,10 +37,17 @@ public:
 			return m_lineStrategy;
 		}
 
+		if (type == "circle")
+		{
+			return m_circleStrategy;
+		}
+
+
 		throw std::invalid_argument("unknown tool type");
 	}
 
 private:
 	std::shared_ptr<PenStrategy> m_penStrategy;
 	std::shared_ptr<LineStrategy> m_lineStrategy;
+	std::shared_ptr<CircleStrategy> m_circleStrategy;
 };

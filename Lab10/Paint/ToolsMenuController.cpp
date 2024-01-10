@@ -7,9 +7,10 @@ ToolsMenuController::ToolsMenuController(QWidget* parent, EditorController* cont
 {
 	InitSetDrawColorAction();
 	InitSetDrawSizeAction();
-	InitClearScreenAction();
 	InitSetPenToolAction();
 	InitSetLineToolAction();
+	InitSetEllipseToolAction();
+	InitClearScreenAction();
 
 	CreateView();
 }
@@ -18,10 +19,14 @@ ToolsMenuController::~ToolsMenuController()
 {
 	delete m_toolsActionGroup;
 	delete m_view;
-	delete m_setPenToolAction;
-	delete m_setLineToolAction;
+
 	delete m_drawColorChangeAction;
 	delete m_drawSizeChangeAction;
+
+	delete m_setPenToolAction;
+	delete m_setLineToolAction;
+	delete m_setEllipseToolAction;
+
 	delete m_clearScreenAction;
 }
 
@@ -33,6 +38,7 @@ void ToolsMenuController::CreateView()
 	m_toolsActionGroup->setExclusive(true);
 	m_toolsActionGroup->addAction(m_setPenToolAction);
 	m_toolsActionGroup->addAction(m_setLineToolAction);
+	m_toolsActionGroup->addAction(m_setEllipseToolAction);
 	m_setPenToolAction->setChecked(true);
 
 	m_view->addAction(m_drawColorChangeAction);
@@ -49,33 +55,6 @@ void ToolsMenuController::InitSetDrawColorAction()
 	connect(m_drawColorChangeAction, SIGNAL(triggered()), this, SLOT(DrawColorChangeHandler()));
 }
 
-void ToolsMenuController::InitSetDrawSizeAction()
-{
-	m_drawSizeChangeAction = new QAction(tr("Draw &Size..."), this);
-	connect(m_drawSizeChangeAction, SIGNAL(triggered()), this, SLOT(DrawSizeChangeHandler()));
-}
-
-void ToolsMenuController::InitSetPenToolAction()
-{
-	m_setPenToolAction = new QAction(tr("&Pen"), this);
-	m_setPenToolAction->setCheckable(true);
-	connect(m_setPenToolAction, SIGNAL(triggered()), this, SLOT(SetPenToolHandler()));
-}
-
-void ToolsMenuController::InitSetLineToolAction()
-{
-	m_setLineToolAction = new QAction(tr("&Line"), this);
-	m_setLineToolAction->setCheckable(true);
-	connect(m_setLineToolAction, SIGNAL(triggered()), this, SLOT(SetLineToolHandler()));
-}
-
-void ToolsMenuController::InitClearScreenAction()
-{
-	m_clearScreenAction = new QAction(tr("&Clear Screen"), this);
-	m_clearScreenAction->setShortcut(tr("Ctrl+L"));
-	connect(m_clearScreenAction, SIGNAL(triggered()), this, SLOT(ClearImageHandler()));
-}
-
 void ToolsMenuController::DrawColorChangeHandler()
 {
 	auto drawingSettings = m_editorController->GetDrawingSettings();
@@ -87,6 +66,13 @@ void ToolsMenuController::DrawColorChangeHandler()
 	}
 
 	m_editorController->SetDrawingColor(newColor);
+}
+
+
+void ToolsMenuController::InitSetDrawSizeAction()
+{
+	m_drawSizeChangeAction = new QAction(tr("Draw &Size..."), this);
+	connect(m_drawSizeChangeAction, SIGNAL(triggered()), this, SLOT(DrawSizeChangeHandler()));
 }
 
 void ToolsMenuController::DrawSizeChangeHandler()
@@ -108,14 +94,48 @@ void ToolsMenuController::DrawSizeChangeHandler()
 	}
 }
 
+
+void ToolsMenuController::InitSetPenToolAction()
+{
+	m_setPenToolAction = new QAction(tr("&Pen"), this);
+	m_setPenToolAction->setCheckable(true);
+	connect(m_setPenToolAction, SIGNAL(triggered()), this, SLOT(SetPenToolHandler()));
+}
+
 void ToolsMenuController::SetPenToolHandler()
 {
 	m_editorController->SetDrawingTool("pen");
 }
 
+void ToolsMenuController::InitSetLineToolAction()
+{
+	m_setLineToolAction = new QAction(tr("&Line"), this);
+	m_setLineToolAction->setCheckable(true);
+	connect(m_setLineToolAction, SIGNAL(triggered()), this, SLOT(SetLineToolHandler()));
+}
+
 void ToolsMenuController::SetLineToolHandler()
 {
 	m_editorController->SetDrawingTool("line");
+}
+
+void ToolsMenuController::InitSetEllipseToolAction()
+{
+	m_setEllipseToolAction = new QAction(tr("&Circle"), this);
+	m_setEllipseToolAction->setCheckable(true);
+	connect(m_setEllipseToolAction, SIGNAL(triggered()), this, SLOT(SetEllipseToolHandler()));
+}
+
+void ToolsMenuController::SetEllipseToolHandler()
+{
+	m_editorController->SetDrawingTool("circle");
+}
+
+void ToolsMenuController::InitClearScreenAction()
+{
+	m_clearScreenAction = new QAction(tr("&Clear Screen"), this);
+	m_clearScreenAction->setShortcut(tr("Ctrl+L"));
+	connect(m_clearScreenAction, SIGNAL(triggered()), this, SLOT(ClearImageHandler()));
 }
 
 void ToolsMenuController::ClearImageHandler()

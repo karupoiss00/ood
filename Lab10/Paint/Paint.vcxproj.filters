@@ -71,14 +71,14 @@
     <Filter Include="Application Files\panel">
       <UniqueIdentifier>{337c0250-0a67-4ab1-af55-8361cf3759c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application Files\panel\fileMenu">
-      <UniqueIdentifier>{6482ac81-83fe-42d8-b0a3-249cc73b09a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application Files\panel\toolsMenu">
       <UniqueIdentifier>{dc4ce729-1b34-4c8c-8ee8-1a8bcacb7897}</UniqueIdentifier>
     </Filter>
     <Filter Include="Application Files\panel\historyMenu">
       <UniqueIdentifier>{4a123364-c8f1-4ca8-8be5-7b0af069c79b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Files\history\fileMenu">
+      <UniqueIdentifier>{6482ac81-83fe-42d8-b0a3-249cc73b09a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +115,7 @@
       <Filter>Application Files</Filter>
     </ClCompile>
     <ClCompile Include="FileMenuController.cpp">
-      <Filter>Application Files\panel\fileMenu</Filter>
+      <Filter>Application Files\history\fileMenu</Filter>
     </ClCompile>
     <ClCompile Include="ToolsMenuController.cpp">
       <Filter>Application Files\panel\toolsMenu</Filter>
@@ -191,6 +191,12 @@
     <ClInclude Include="IEditorView.h">
       <Filter>Application Files\editor\view</Filter>
     </ClInclude>
+    <ClInclude Include="DraftDrawingStrategy.h">
+      <Filter>Application Files\drawingStrategy\base</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleStrategy.h">
+      <Filter>Application Files\drawingStrategy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="EditorController.h">
@@ -200,7 +206,7 @@
       <Filter>Application Files</Filter>
     </QtMoc>
     <QtMoc Include="FileMenuController.h">
-      <Filter>Application Files\panel\fileMenu</Filter>
+      <Filter>Application Files\history\fileMenu</Filter>
     </QtMoc>
     <QtMoc Include="ToolsMenuController.h">
       <Filter>Application Files\panel\toolsMenu</Filter>

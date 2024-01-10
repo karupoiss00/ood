@@ -19,6 +19,7 @@ private slots:
 	void DrawSizeChangeHandler();
 	void SetPenToolHandler();
 	void SetLineToolHandler();
+	void SetEllipseToolHandler();
 	void ClearImageHandler();
 
 private:
@@ -26,6 +27,8 @@ private:
 	void InitSetDrawColorAction();
 	void InitSetPenToolAction();
 	void InitSetLineToolAction();
+
+	void InitSetEllipseToolAction();
 	void InitClearScreenAction();
 
 	void CreateView();
@@ -39,6 +42,7 @@ private:
 	QActionGroup* m_toolsActionGroup;	
 	QAction* m_setPenToolAction;
 	QAction* m_setLineToolAction;
+	QAction* m_setEllipseToolAction;
 
 	EditorController* m_editorController;
 

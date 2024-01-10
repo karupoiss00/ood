@@ -12,6 +12,23 @@ int Sign(int value)
 	return (0 < value) - (value < 0);
 }
 
+void DrawPoint(Image& image, Point to, int radius, Color color)
+{
+	if (radius == 0)
+	{
+		image.SetPixel(to, color);
+		return;
+	}
+
+	for (int y = to.y - radius; y < to.y + radius; y++)
+	{
+		for (int x = to.x - radius; x < to.x + radius; x++)
+		{
+			image.SetPixel({ x, y }, color);
+		}
+	}
+}
+
 void DrawSteepLine(Image& image, Point from, Point to, Color color, int width)
 {
 	const int deltaX = std::abs(to.x - from.x);
@@ -66,7 +83,7 @@ void DrawSlopeLine(Image& image, Point from, Point to, Color color, int width)
 
 	for (Point p = from; p.x <= to.x; ++p.x)
 	{
-		::FillCircle(image, p, width / 2, color);
+		FillCircle(image, p, width / 2, color);
 		assert((p.x != to.x) || (p.y == to.y));
 
 		error += deltaErr;
@@ -96,7 +113,7 @@ void DrawLine(Image& image, Point from, Point to, Color color, int width)
 	}
 }
 
-void DrawCircle(Image& image, Point center, int radius, Color color)
+void DrawCircle(Image& image, Point center, int radius, Color color, int lineWidth)
 {
 	int x = radius;
 	int y = 0;
@@ -104,14 +121,15 @@ void DrawCircle(Image& image, Point center, int radius, Color color)
 
 	while (x >= y)
 	{
-		image.SetPixel({ center.x + x, center.y - y }, color);
-		image.SetPixel({ center.x + x, center.y + y }, color);
-		image.SetPixel({ center.x - x, center.y - y }, color);
-		image.SetPixel({ center.x - x, center.y + y }, color);
-		image.SetPixel({ center.x + y, center.y - x }, color);
-		image.SetPixel({ center.x + y, center.y + x }, color);
-		image.SetPixel({ center.x - y, center.y - x }, color);
-		image.SetPixel({ center.x - y, center.y + x		}, color);
+		int pointRadius = lineWidth / 2;
+		FillCircle(image, { center.x + x, center.y - y }, pointRadius, color);
+		FillCircle(image, { center.x + x, center.y + y }, pointRadius, color);
+		FillCircle(image, { center.x - x, center.y - y }, pointRadius, color);
+		FillCircle(image, { center.x - x, center.y + y }, pointRadius, color);
+		FillCircle(image, { center.x + y, center.y - x }, pointRadius, color);
+		FillCircle(image, { center.x + y, center.y + x }, pointRadius, color);
+		FillCircle(image, { center.x - y, center.y - x }, pointRadius, color);
+		FillCircle(image, { center.x - y, center.y + x }, pointRadius, color);
 
 		y++;
 

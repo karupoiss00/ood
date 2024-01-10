@@ -132,12 +132,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DraftDrawingStrategy.h" />
     <ClInclude Include="DrawingStrategyBase.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="CoW.h" />
     <ClInclude Include="DrawingStrategyFactory.h" />
     <ClInclude Include="Editor.h" />
     <QtMoc Include="FileMenuController.h" />
+    <ClInclude Include="CircleStrategy.h" />
     <ClInclude Include="History.h" />
     <QtMoc Include="HistoryMenuController.h" />
     <ClInclude Include="IDrawingStrategyFactory.h" />
